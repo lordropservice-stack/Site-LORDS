@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H8MCTVV1N5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-H8MCTVV1N5');
+</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>LORDS Creative — Produto</title>
+  <meta name="theme-color" content="#05070f" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <link rel="apple-touch-icon" href="icon-180.png" />
+  <meta name="description" content="Conheça em detalhes a solução da LORDS Creative — o que é, o que inclui, como funciona e o investimento." />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="home.css?v=20260923c" />
+</head>
+<body class="produto-page">
+
+  <!-- ===================== HEADER ===================== -->
+  <header class="site-header scrolled" id="topo">
+    <div class="container header-inner">
+      <a href="home.html" class="brand" aria-label="LORDS — início">
+        <span class="brand-mark">L</span>
+        <span class="brand-text">LORDS</span>
+      </a>
+      <nav class="main-nav" id="main-nav" aria-label="Navegação">
+        <a href="home.html#metodo">Método</a>
+        <a href="home.html#produtos">Produtos</a>
+        <a href="home.html#servicos">Serviços</a>
+        <a href="home.html#para-quem">Para quem é</a>
+      </nav>
+      <div class="header-cta">
+        <button class="btn btn-primary btn-sm" data-action="agendar">Falar com a LORDS</button>
+        <button class="nav-toggle" id="nav-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="main-nav">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="produto-root"><!-- injetado via produto.js --></main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <a href="home.html" class="brand">
+        <span class="brand-mark">L</span>
+        <span class="brand-text">LORDS</span>
+      </a>
+      <p class="footer-tag">Sua operação de marketing, finalmente organizada.</p>
+      <p class="footer-copy">Balneário Camboriú e região · © LORDS Creative</p>
+    </div>
+  </footer>
+
+  <!-- ===================== MODAL CALENDLY ===================== -->
+  <div class="modal-overlay" id="agendar-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Agendar diagnóstico gratuito">
+    <div class="modal">
+      <button class="modal-close" id="modal-close" aria-label="Fechar">&times;</button>
+      <div class="modal-head">
+        <h3>Agendar diagnóstico gratuito</h3>
+        <p>Escolha o melhor horário. É gratuito e sem compromisso.</p>
+      </div>
+      <div class="modal-embed" id="modal-embed"></div>
+    </div>
+  </div>
+
+  <script type="module" src="produto.js?v=20260927a"></script>
+</body>
+</html>

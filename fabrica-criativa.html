@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H8MCTVV1N5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-H8MCTVV1N5');
+</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Fábrica Criativa — LORDS Creative | Uma operação de marketing inteira</title>
+  <meta name="theme-color" content="#ffffff" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <link rel="apple-touch-icon" href="icon-180.png" />
+  <meta name="description" content="A Fábrica Criativa é sua operação de marketing inteira num lugar só: estratégia, captação com câmera profissional, vídeos editados, fotos, artes e relatório mensal. A partir de R$ 6.000/mês em Balneário Camboriú e região." />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Fábrica Criativa — LORDS Creative" />
+  <meta property="og:description" content="Uma operação de marketing inteira, por menos que um time interno. Estratégia, captação profissional e vídeos editados todo mês." />
+  <meta property="og:locale" content="pt_BR" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="home.css?v=20260927b" />
+  <link rel="stylesheet" href="fabrica.css?v=20260927a" />
+
+  <!-- Schema.org · Service -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Fábrica Criativa",
+    "provider": { "@type": "Organization", "name": "LORDS Creative" },
+    "serviceType": "Produção de conteúdo e estratégia de marketing",
+    "areaServed": ["Balneário Camboriú", "Camboriú", "Itajaí", "Navegantes", "Itapema", "Porto Belo", "Bombinhas", "Florianópolis", "São José", "Palhoça", "Biguaçu"],
+    "offers": [
+      { "@type": "Offer", "name": "Plano Capture", "price": "6000", "priceCurrency": "BRL" },
+      { "@type": "Offer", "name": "Plano Creator", "price": "12000", "priceCurrency": "BRL" },
+      { "@type": "Offer", "name": "Plano Completo", "price": "17900", "priceCurrency": "BRL" }
+    ]
+  }
+  </script>
+  <style>
+    .team-sec { padding: 64px 0; border-top: 1px solid var(--line); }
+    .team-sec .section-head { margin-bottom: 28px; }
+    .team-track { display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; padding-bottom: 8px; scrollbar-width: none; }
+    .team-track::-webkit-scrollbar { display: none; }
+    .team-card { flex: 0 0 180px; scroll-snap-align: start; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 18px 14px; text-align: center; }
+    .team-avatar { width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg,#1e3a5f,#2d5a8e); display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1.4rem; color: var(--gold, #e4c06e); margin: 0 auto 12px; overflow: hidden; }
+    .team-avatar img { width: 100%; height: 100%; object-fit: cover; object-position: top; border-radius: 50%; }
+    .team-name { font-size: .9rem; font-weight: 700; color: var(--ink); margin-bottom: 3px; }
+    .team-role { font-size: .75rem; font-weight: 700; color: var(--gold, #e4c06e); margin-bottom: 6px; }
+    .team-bio { font-size: .75rem; color: var(--body); line-height: 1.5; }
+    .team-city { font-size: .7rem; color: var(--body); opacity: .65; margin-top: 2px; }
+    @media (max-width: 600px) { .team-card { flex: 0 0 155px; } }
+  </style>
+</head>
+<body class="fabrica-page theme-light produto-page">
+
+  <!-- ===================== HEADER ===================== -->
+  <header class="site-header scrolled" id="topo">
+    <div class="container header-inner">
+      <a href="home.html" class="brand" aria-label="LORDS — início">
+        <span class="brand-mark">L</span>
+        <span class="brand-text">LORDS</span>
+      </a>
+      <nav class="main-nav" id="main-nav" aria-label="Navegação">
+        <a href="#vsl">Como funciona</a>
+        <a href="#portfolio">Portfólio</a>
+        <a href="#onde-atendemos">Onde atendemos</a>
+        <a href="#planos">Planos</a>
+        <a href="#faq">Dúvidas</a>
+        <a href="lords-global.html" class="nav-lang" hreflang="en">Global</a>
+      </nav>
+      <div class="header-cta">
+        <a class="btn btn-primary btn-sm" href="#personalizar">Quero um plano personalizado</a>
+        <button class="nav-toggle" id="nav-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="main-nav">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="fabrica-root"><!-- injetado via fabrica.js --></main>
+
+  <!-- ===================== NOSSO TIME ===================== -->
+  <section class="section team-sec" id="time" aria-label="Nosso time">
+    <div class="container">
+      <div class="section-head">
+        <p class="section-tag">Time</p>
+        <h2 class="section-title">Nosso time</h2>
+      </div>
+      <div class="team-track">
+        <div class="team-card">
+          <div class="team-avatar"><img src="assets/team/tomaz.jpg" alt="Tomaz"></div>
+          <div class="team-name">Tomaz</div>
+          <div class="team-role">Videomaker</div>
+          <div class="team-city">BC e região</div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar"><img src="assets/team/leo-fernando.jpg" alt="Leo Fernando"></div>
+          <div class="team-name">Leo Fernando</div>
+          <div class="team-role">Videomaker & Fotógrafo</div>
+          <div class="team-city">BC e região</div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar"><img src="assets/team/isabela.jpg" alt="Isabela"></div>
+          <div class="team-name">Isabela</div>
+          <div class="team-role">Comunicadora & Modelo</div>
+          <div class="team-city">BC e região</div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar"><img src="assets/team/jenifer.jpg" alt="Jenifer"></div>
+          <div class="team-name">Jenifer</div>
+          <div class="team-role">Comunicadora & Modelo</div>
+          <div class="team-city">BC e região</div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar"><img src="assets/team/eduarda.jpg" alt="Eduarda"></div>
+          <div class="team-name">Eduarda</div>
+          <div class="team-role">Comunicadora & Modelo</div>
+          <div class="team-city">Florianópolis</div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar"><img src="assets/team/maria-luiza.jpg" alt="Maria Luiza"></div>
+          <div class="team-name">Maria Luiza</div>
+          <div class="team-role">Comunicadora & Modelo</div>
+          <div class="team-city">São Paulo</div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar"><img src="assets/team/amanda.jpg" alt="Amanda Giovani"></div>
+          <div class="team-name">Amanda Giovani</div>
+          <div class="team-role">Comunicadora & Modelo</div>
+          <div class="team-city">São Paulo</div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar"><img src="assets/team/lucas.jpg" alt="Lucas"></div>
+          <div class="team-name">Lucas</div>
+          <div class="team-role">Estrategista</div>
+        </div>
+        <div class="team-card">
+          <div class="team-avatar"><img src="assets/team/matheus.jpg" alt="Matheus"></div>
+          <div class="team-name">Matheus</div>
+          <div class="team-role">Gestor de Tráfego</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <a href="home.html" class="brand">
+        <span class="brand-mark">L</span>
+        <span class="brand-text">LORDS</span>
+      </a>
+      <p class="footer-tag">Análise. Criação. Execução. Otimização.</p>
+      <p class="footer-copy">Balneário Camboriú e região · © LORDS Creative</p>
+    </div>
+  </footer>
+
+  <!-- ===================== MODAL (fallback do diagnóstico) ===================== -->
+  <div class="modal-overlay" id="agendar-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Diagnóstico gratuito">
+    <div class="modal">
+      <button class="modal-close" id="modal-close" aria-label="Fechar">&times;</button>
+      <div class="modal-head">
+        <h3>Diagnóstico gratuito</h3>
+        <p>Escolha o melhor horário. É gratuito e sem compromisso.</p>
+      </div>
+      <div class="modal-embed" id="modal-embed"></div>
+    </div>
+  </div>
+
+  <!-- GSAP + ScrollTrigger (animação dos números e das seções) -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
+  <script type="module" src="fabrica.js?v=20260927d"></script>
+</body>
+</html>

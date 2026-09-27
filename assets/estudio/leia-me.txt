@@ -1,0 +1,29 @@
+PASTA: assets/estudio/
+REGRA: tudo aqui aparece na seção "Gravamos no estúdio ou no seu local" (Home + Fábrica Criativa)
+FORMATOS: fotos .jpg .jpeg .png .webp · vídeos .mp4 .mov .m4v .webm
+Nome sem espaço/acento. Ex: estudio-01.jpg, estudio-sala-1.mp4
+NÃO colocar: .HEIC (converter para .jpg antes com sips ou Preview)
+Após adicionar/remover: atualizar MEDIA["estudio"] em products-data.js e bumpar a versão (v=AAAAMMDD+letra)
+
+ÚLTIMA SINCRONIZAÇÃO: 2026-09-26 · 17 arquivos
+
+── Fotos ──────────────────────────────────────────────────
+estudio-1.jpg
+estudio-2.jpg
+estudio-4.jpg
+estudio-5.jpg
+estudio-6.jpg
+estudio-7.jpg
+estudio-8.jpg
+estudio-12.jpg
+estudio-13.jpg
+estudio-14.jpg
+
+── Vídeos ─────────────────────────────────────────────────
+toninho-tornado.mov
+estudio-9.mov
+estudio-10.mov
+estudio-11.mov
+estudio-15.mp4
+estudio-16.mp4
+estudio-17.mp4

@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H8MCTVV1N5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-H8MCTVV1N5');
+</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Proposta Comercial — LORDS Creative</title>
+  <meta name="robots" content="noindex" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="home.css?v=20260923c" />
+  <style>
+    :root { --gold: #e4c06e; --gold-dim: rgba(228,192,110,.18); --navy: #0f172a; }
+    body { background: var(--bg); color: var(--ink); font-family: var(--font-body, 'Montserrat', sans-serif); }
+
+    .pr-wrap { max-width: 780px; margin: 0 auto; padding: 48px 24px 80px; }
+
+    /* Header da proposta */
+    .pr-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding-bottom: 28px; border-bottom: 1px solid var(--line); margin-bottom: 32px; flex-wrap: wrap; }
+    .pr-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .pr-brand .brand-mark { width: 38px; height: 38px; background: var(--gold); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1.1rem; color: #0f172a; }
+    .pr-brand .brand-text { font-weight: 900; font-size: 1.2rem; letter-spacing: .05em; color: var(--ink); }
+    .pr-meta { text-align: right; font-size: .83rem; color: var(--body); line-height: 1.6; }
+    .pr-meta strong { color: var(--ink); font-weight: 700; }
+
+    /* Cliente + plano */
+    .pr-title { font-size: clamp(1.5rem, 4vw, 2.2rem); font-weight: 800; color: var(--ink); line-height: 1.2; margin-bottom: 6px; }
+    .pr-subtitle { font-size: 1rem; color: var(--body); margin-bottom: 32px; }
+    .pr-kicker { display: inline-block; background: var(--gold-dim); color: var(--gold); border-radius: 6px; font-size: .78rem; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; padding: 4px 10px; margin-bottom: 12px; }
+
+    /* Card do plano */
+    .pr-plan-card { background: var(--panel); border: 1.5px solid var(--gold); border-radius: 14px; padding: 28px 28px 22px; margin-bottom: 28px; }
+    .pr-plan-name { font-size: 1.3rem; font-weight: 800; color: var(--ink); margin-bottom: 4px; }
+    .pr-plan-price { font-size: 2rem; font-weight: 900; color: var(--gold); line-height: 1; }
+    .pr-plan-price span { font-size: 1rem; font-weight: 500; color: var(--body); }
+    .pr-plan-includes { margin-top: 18px; list-style: none; padding: 0; display: grid; gap: 9px; }
+    .pr-plan-includes li { display: flex; gap: 10px; font-size: .93rem; color: var(--body); align-items: flex-start; }
+    .pr-plan-includes li::before { content: "✓"; color: var(--gold); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+
+    /* Extras */
+    .pr-section-title { font-size: 1rem; font-weight: 700; color: var(--ink); margin: 28px 0 12px; border-top: 1px solid var(--line); padding-top: 24px; }
+    .pr-extras-list { display: flex; flex-direction: column; gap: 10px; }
+    .pr-extra-item { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 14px 16px; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; }
+    .pr-extra-name { font-weight: 600; font-size: .93rem; color: var(--ink); }
+    .pr-extra-desc { font-size: .82rem; color: var(--body); margin-top: 2px; }
+    .pr-extra-price { font-size: .93rem; font-weight: 700; color: var(--gold); white-space: nowrap; flex-shrink: 0; }
+
+    /* Totais */
+    .pr-totals { margin-top: 24px; padding: 20px 20px 16px; background: linear-gradient(135deg, #0f172a, #1a2340); border-radius: 12px; border: 1px solid rgba(228,192,110,.3); }
+    .pr-total-row { display: flex; justify-content: space-between; gap: 12px; font-size: .93rem; padding: 5px 0; color: rgba(255,255,255,.7); }
+    .pr-total-row.main { font-size: 1.15rem; font-weight: 800; color: #fff; border-top: 1px solid rgba(255,255,255,.1); margin-top: 10px; padding-top: 12px; }
+    .pr-total-row.main .val { color: var(--gold); }
+
+    /* Prazo */
+    .pr-prazo { display: flex; gap: 10px; align-items: center; margin: 24px 0 0; font-size: .9rem; color: var(--body); }
+    .pr-prazo strong { color: var(--ink); }
+    .pr-prazo-badge { background: var(--gold-dim); color: var(--gold); border-radius: 6px; font-weight: 700; font-size: .78rem; padding: 4px 10px; }
+
+    /* CTA */
+    .pr-cta-block { margin-top: 36px; display: flex; flex-direction: column; align-items: center; gap: 14px; text-align: center; }
+    .pr-cta-block p { font-size: .88rem; color: var(--body); }
+    .btn-whatsapp { display: inline-flex; align-items: center; gap: 10px; background: #25d366; color: #fff; font-weight: 700; font-size: 1rem; padding: 14px 28px; border-radius: 10px; text-decoration: none; border: none; cursor: pointer; transition: background .2s; }
+    .btn-whatsapp:hover { background: #1fb855; }
+    .btn-whatsapp svg { width: 22px; height: 22px; }
+
+    /* Footer */
+    .pr-footer { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--line); text-align: center; font-size: .82rem; color: var(--body); opacity: .6; }
+
+    /* Aviso sem params */
+    .pr-no-params { text-align: center; padding: 80px 24px; }
+    .pr-no-params h2 { font-size: 1.4rem; font-weight: 700; color: var(--ink); margin-bottom: 10px; }
+    .pr-no-params code { font-size: .85rem; background: var(--panel); padding: 6px 12px; border-radius: 6px; display: block; margin: 16px auto; max-width: 600px; word-break: break-all; }
+
+    /* Seção sobre o cliente */
+    .pr-sobre { background: linear-gradient(135deg, #0f172a, #1a2340); border: 1px solid rgba(228,192,110,.35); border-radius: 14px; padding: 22px 24px; margin-bottom: 24px; }
+    .pr-sobre-label { font-size: .75rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--gold); opacity: .8; margin-bottom: 6px; }
+    .pr-sobre-title { font-size: 1.05rem; font-weight: 800; color: #fff; margin-bottom: 8px; }
+    .pr-sobre-text { font-size: .9rem; color: rgba(255,255,255,.7); line-height: 1.6; }
+
+    /* Portfólio de credibilidade */
+    .pr-portfolio { margin-top: 32px; padding-top: 28px; border-top: 1px solid var(--line); }
+    .pr-portfolio-title { font-size: .82rem; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--body); margin-bottom: 16px; }
+    .pr-portfolio-grid { display: flex; flex-wrap: wrap; gap: 10px; }
+    .pr-chip { display: inline-flex; flex-direction: column; gap: 2px; background: var(--panel); border: 1px solid rgba(228,192,110,.25); border-radius: 8px; padding: 8px 14px; }
+    .pr-chip-name { font-size: .88rem; font-weight: 700; color: var(--ink); }
+    .pr-chip-cat { font-size: .72rem; color: var(--gold); opacity: .85; }
+
+    /* ── Esteira de vídeos ── */
+    .pr-section-block { margin-top: 40px; padding-top: 32px; border-top: 1px solid var(--line); }
+    .pr-section-label { font-size: .78rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+    .pr-section-heading { font-size: 1.15rem; font-weight: 800; color: var(--ink); margin-bottom: 18px; }
+    .pr-videos-track { display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; padding-bottom: 8px; scrollbar-width: none; }
+    .pr-videos-track::-webkit-scrollbar { display: none; }
+    .pr-video-card { flex: 0 0 240px; scroll-snap-align: start; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+    .pr-video-thumb { width: 100%; aspect-ratio: 16/9; background: linear-gradient(135deg, #1e293b, #334155); display: flex; align-items: center; justify-content: center; position: relative; }
+    .pr-video-play { width: 40px; height: 40px; background: rgba(228,192,110,.9); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+    .pr-video-play::after { content: ""; border-left: 14px solid #0f172a; border-top: 8px solid transparent; border-bottom: 8px solid transparent; margin-left: 3px; }
+    .pr-video-info { padding: 12px 14px; }
+    .pr-video-title { font-size: .9rem; font-weight: 700; color: var(--ink); margin-bottom: 3px; }
+    .pr-video-prof { font-size: .78rem; color: var(--gold); }
+    .pr-video-link { display: block; text-decoration: none; position: relative; }
+    .pr-video-badge { position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,.65); color: #fff; font-size: .7rem; font-weight: 700; padding: 3px 10px; border-radius: 20px; white-space: nowrap; letter-spacing: .04em; }
+    /* VSL */
+    .pr-vsl-wrap { text-align: center; }
+    .pr-vsl-player { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; background: linear-gradient(135deg,#0f172a,#1a2340); border: 1.5px solid rgba(228,192,110,.35); border-radius: 14px; aspect-ratio: 16/9; max-width: 560px; margin: 0 auto 14px; text-decoration: none; cursor: pointer; transition: border-color .2s; }
+    .pr-vsl-player:hover { border-color: var(--gold); }
+    .pr-vsl-play-btn { width: 64px; height: 64px; background: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; color: #0f172a; }
+    .pr-vsl-label { font-size: .9rem; font-weight: 700; color: rgba(255,255,255,.8); }
+    .pr-vsl-caption { font-size: .82rem; color: var(--body); }
+    .pr-section-sub { font-size: .88rem; color: var(--body); margin: -10px 0 16px; line-height: 1.6; }
+
+    /* ── Depoimentos ── */
+    .pr-depo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; }
+    .pr-depo-card { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 18px 16px; }
+    .pr-depo-avatar { width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, #334155, #475569); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.1rem; color: var(--gold); margin-bottom: 12px; }
+    .pr-depo-text { font-size: .85rem; color: var(--body); line-height: 1.6; margin-bottom: 12px; font-style: italic; }
+    .pr-depo-name { font-size: .88rem; font-weight: 700; color: var(--ink); }
+    .pr-depo-company { font-size: .75rem; color: var(--gold); }
+
+    /* ── Logos marquee ── */
+    .pr-logos-wrap { overflow: hidden; position: relative; }
+    .pr-logos-wrap::before, .pr-logos-wrap::after { content: ""; position: absolute; top: 0; bottom: 0; width: 48px; z-index: 2; }
+    .pr-logos-wrap::before { left: 0; background: linear-gradient(to right, var(--bg), transparent); }
+    .pr-logos-wrap::after { right: 0; background: linear-gradient(to left, var(--bg), transparent); }
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    .pr-logos-track { display: flex; gap: 16px; width: max-content; animation: marquee 18s linear infinite; }
+    .pr-logos-track:hover { animation-play-state: paused; }
+    .pr-logo-item { flex: 0 0 140px; height: 52px; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: .78rem; font-weight: 700; color: var(--body); text-align: center; padding: 0 10px; }
+
+    /* ── Time ── */
+    .pr-time-track { display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; padding-bottom: 8px; scrollbar-width: none; }
+    .pr-time-track::-webkit-scrollbar { display: none; }
+    .pr-time-card { flex: 0 0 180px; scroll-snap-align: start; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 18px 14px; text-align: center; }
+    .pr-time-avatar { width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg, #1e3a5f, #2d5a8e); display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1.4rem; color: var(--gold); margin: 0 auto 12px; }
+    .pr-time-name { font-size: .9rem; font-weight: 700; color: var(--ink); margin-bottom: 3px; }
+    .pr-time-role { font-size: .75rem; font-weight: 700; color: var(--gold); margin-bottom: 6px; }
+    .pr-time-bio { font-size: .75rem; color: var(--body); line-height: 1.5; }
+
+    /* ── Email no header ── */
+    .pr-email-link { display: inline-flex; align-items: center; gap: 6px; font-size: .8rem; color: var(--gold); text-decoration: none; margin-top: 4px; }
+    .pr-email-link:hover { text-decoration: underline; }
+
+    @media (max-width: 600px) {
+      .pr-video-card { flex: 0 0 200px; }
+      .pr-time-card { flex: 0 0 155px; }
+      .pr-depo-grid { grid-template-columns: 1fr; }
+    }
+
+    @media print {
+      .btn-whatsapp, .pr-cta-block p { display: none; }
+      body { background: #fff; color: #000; }
+      .pr-totals { background: #f0f0f0; color: #000; border-color: #ccc; }
+    }
+
+    /* ── Prova social iGaming — dark island ── */
+    #parceiros-mount-pr { margin: 40px -24px 0; }
+    #parceiros-mount-pr .parceiros-sec {
+      background: #07101f;
+      border-radius: 16px;
+      padding: 40px 24px;
+      margin: 0;
+    }
+    #parceiros-mount-pr .parceiros-headline { color: #eef2f8; }
+    #parceiros-mount-pr .parceiros-headline .word-item { color: #7fb0ff; }
+    #parceiros-mount-pr .parceiro-card {
+      background: rgba(255,255,255,.055);
+      border-color: rgba(255,255,255,.11);
+    }
+    #parceiros-mount-pr .parceiro-handle { color: #eef2f8; }
+    #parceiros-mount-pr .parceiro-followers { color: #9aa7bd; border-top-color: rgba(255,255,255,.09); }
+    #parceiros-mount-pr .parceiro-followers strong { color: #eef2f8; }
+    #parceiros-mount-pr .parceiro-tag { background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.1); color: #9aa7bd; }
+    #parceiros-mount-pr small { color: #6b7a93; }
+    #parceiros-mount-pr .parceiros-sec .section { padding: 0; }
+    @media (max-width: 600px) {
+      #parceiros-mount-pr { margin: 40px -24px 0; }
+    }
+
+    /* ── Logos com categoria ── */
+    .pr-logo-item { flex: 0 0 auto; min-width: 120px; padding: 0 14px; height: 52px; background: var(--panel, rgba(0,0,0,.04)); border: 1.5px solid var(--line, rgba(0,0,0,.1)); border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; }
+    .pr-logo-name { font-size: .78rem; font-weight: 700; color: var(--navy, #0f172a); white-space: nowrap; }
+    .pr-logo-cat { font-size: .62rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; white-space: nowrap; }
+    .pr-logo-item--igaming { border-color: rgba(245,204,0,.5); }
+    .pr-logo-item--igaming .pr-logo-cat { color: #b8960e; }
+    .pr-logo-item--esporte { border-color: rgba(59,130,246,.4); }
+    .pr-logo-item--esporte .pr-logo-cat { color: #2563eb; }
+    .pr-logo-item--creator { border-color: rgba(139,92,246,.4); }
+    .pr-logo-item--creator .pr-logo-cat { color: #7c3aed; }
+    .pr-logo-item--agencia { border-color: rgba(34,197,94,.35); }
+    .pr-logo-item--agencia .pr-logo-cat { color: #16a34a; }
+  </style>
+</head>
+<body class="theme-light">
+  <div class="pr-wrap" id="pr-root">
+    <div class="pr-no-params">
+      <h2>Carregando proposta…</h2>
+    </div>
+  </div>
+
+<script type="module">
+import { PRODUCTS } from "./products-data.js?v=20260927a";
+/* ---- Prova Social iGaming (inlined) ---- */
+
+
+
+const p = new URLSearchParams(location.search);
+const clienteRaw = p.get("cliente") || "";
+const planoId    = (p.get("plano") || "creator").toLowerCase();
+const prazo      = parseInt(p.get("prazo") || "3", 10);
+const desconto   = parseFloat(p.get("desconto") || "0");
+const extrasIds  = (p.get("extras") || "").split(",").map(s => s.trim()).filter(Boolean);
+const sobreTexto = p.get("sobre") || "";
+
+const root = document.getElementById("pr-root");
+
+const fc = PRODUCTS["fabrica-criativa"];
+if (!fc) { root.innerHTML = "<p>Dados não encontrados.</p>"; throw new Error("PRODUCTS not loaded"); }
+
+// Localiza o plano no array fc.plans
+const plano = (fc.plans || []).find(pl => pl.id === planoId);
+
+if (!plano) {
+  root.innerHTML = `<div class="pr-no-params"><h2>Plano "${planoId}" não encontrado.</h2><p>Use: capture, creator ou completo</p></div>`;
+  throw new Error("Plano not found");
+}
+
+const bumpsDisponiveis = fc.bumps?.[planoId] || [];
+const extrasEscolhidos = bumpsDisponiveis.filter(b => extrasIds.includes(b.id));
+
+// Preços
+const precoBase = plano.price || 0;
+let totalMensal = precoBase + extrasEscolhidos.filter(b => b.recurring !== false).reduce((s, b) => s + b.price, 0);
+const totalUnico = extrasEscolhidos.filter(b => b.recurring === false).reduce((s, b) => s + b.price, 0);
+if (desconto > 0) totalMensal = Math.round(totalMensal * (1 - desconto / 100));
+
+const fmt = (n) => "R$ " + n.toLocaleString("pt-BR");
+const hoje = new Date().toLocaleDateString("pt-BR", { day: "2-digit", month: "long", year: "numeric" });
+
+const cliente = clienteRaw || "Cliente";
+const planoNome = plano.name || "Plano";
+
+// Extrai todos os bullets de groups[].items e groups[].extras
+const includesArr = (plano.groups || []).flatMap(g => [
+  ...(g.items || []),
+  ...(g.extras || []),
+]);
+
+const includesHtml = includesArr.length
+  ? includesArr.map(item => `<li>${item}</li>`).join("")
+  : `<li>${plano.hook || "Operação completa de marketing"}</li>`;
+
+// Extras
+const extrasHtml = extrasEscolhidos.length ? `
+  <p class="pr-section-title">Add-ons incluídos nesta proposta</p>
+  <div class="pr-extras-list">
+    ${extrasEscolhidos.map(b => `
+      <div class="pr-extra-item">
+        <div>
+          <div class="pr-extra-name">${b.name}</div>
+          <div class="pr-extra-desc">${b.desc || ""} ${b.recurring === false ? "<em>· Valor único</em>" : "· Recorrente"}</div>
+        </div>
+        <div class="pr-extra-price">${fmt(b.price)}</div>
+      </div>
+    `).join("")}
+  </div>
+` : "";
+
+// Totais
+const descontoHtml = desconto > 0 ? `<div class="pr-total-row"><span>Desconto (${desconto}%)</span><span class="val">−${fmt(Math.round(precoBase * desconto / 100))}</span></div>` : "";
+const unicoHtml = totalUnico > 0 ? `<div class="pr-total-row"><span>Add-ons únicos (1× entrada)</span><span>${fmt(totalUnico)}</span></div>` : "";
+
+// WhatsApp CTA
+const waMsg = encodeURIComponent(`Olá! Recebi a proposta LORDS para o plano ${planoNome} (${prazo} meses) e tenho interesse em fechar. Podemos conversar?`);
+/* Sem número oficial de WhatsApp ainda (27/09/2026): o fechamento vai pela agenda. */
+const waUrl = `https://calendly.com/lordropservice/30min`;
+
+// Render
+document.title = `Proposta ${planoNome} — ${cliente} · LORDS Creative`;
+
+root.innerHTML = `
+  <div class="pr-header">
+    <a href="home.html" class="pr-brand" aria-label="LORDS">
+      <span class="brand-mark">L</span>
+      <span class="brand-text">LORDS</span>
+    </a>
+    <div class="pr-meta">
+      <div>Proposta gerada em <strong>${hoje}</strong></div>
+      <div>Contrato de <strong>${prazo} ${prazo === 1 ? "mês" : "meses"}</strong></div>
+      ${desconto > 0 ? `<div style="color:var(--gold);font-weight:700;">${desconto}% de desconto aplicado</div>` : ""}
+      <a class="pr-email-link" href="mailto:contato@lordsoficial.com">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+        contato@lordsoficial.com
+      </a>
+    </div>
+  </div>
+
+  <span class="pr-kicker">Fábrica Criativa</span>
+  <h1 class="pr-title">Proposta para <em>${cliente}</em></h1>
+  <p class="pr-subtitle">Estratégia, câmera e edição — vídeos que geram autoridade e vendem todo mês.</p>
+
+  ${sobreTexto ? `
+  <div class="pr-sobre">
+    <div class="pr-sobre-label">Contexto</div>
+    <div class="pr-sobre-title">Preparada para ${cliente}</div>
+    <p class="pr-sobre-text">${sobreTexto}</p>
+  </div>` : ""}
+
+  <div class="pr-plan-card">
+    <div class="pr-plan-name">${planoNome}</div>
+    <div class="pr-plan-price">${fmt(precoBase)}<span>/mês</span></div>
+    <ul class="pr-plan-includes">
+      ${includesHtml}
+    </ul>
+  </div>
+
+  ${extrasHtml}
+
+  <div class="pr-totals">
+    <div class="pr-total-row"><span>${planoNome}</span><span>${fmt(precoBase)}/mês</span></div>
+    ${descontoHtml}
+    ${unicoHtml}
+    <div class="pr-total-row main"><span>Total mensal</span><span class="val">${fmt(totalMensal)}/mês</span></div>
+  </div>
+
+  <div class="pr-prazo">
+    <span class="pr-prazo-badge">${prazo} ${prazo === 1 ? "mês" : "meses"}</span>
+    <span>Fidelidade mínima. Após esse período, renovação mensal automática ou cancelamento com 30 dias de aviso.</span>
+  </div>
+
+
+
+  <div id="parceiros-mount-pr"></div>
+
+  <!-- ── Portfólio de vídeos ── -->
+  <div class="pr-section-block">
+    <div class="pr-section-label">Resultados</div>
+    <div class="pr-section-heading">Vídeos que constroem autoridade e fazem o cliente comprar.</div>
+    <p class="pr-section-sub">Cada vídeo é pensado para performar — não só parecer bonito.</p>
+    <div class="pr-videos-track">
+      <!-- TODO: trocar pelo link quando o vídeo de lançamento for postado -->
+      <div class="pr-video-card">
+        <a class="pr-video-thumb pr-video-link" href="https://www.instagram.com/p/DYCnluNuDrD/" target="_blank" rel="noopener">
+          <div class="pr-video-play"></div>
+          <span class="pr-video-badge">Ver no Instagram</span>
+        </a>
+        <div class="pr-video-info">
+          <div class="pr-video-title">Campanha de Lançamento</div>
+          <div class="pr-video-prof">Artista · Shows e eventos</div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+
+  <!-- ── VSL ── -->
+  <div class="pr-section-block">
+    <div class="pr-section-label">Para você</div>
+    <div class="pr-section-heading">Um vídeo que explica tudo antes de qualquer reunião.</div>
+    <div class="pr-vsl-wrap">
+      <!-- TODO: substituir href pelo link do VSL quando estiver gravado -->
+      <a class="pr-vsl-player" href="#" id="pr-vsl-link" target="_blank" rel="noopener">
+        <div class="pr-vsl-play-btn">▶</div>
+        <p class="pr-vsl-label">Ver apresentação da LORDS</p>
+      </a>
+      <p class="pr-vsl-caption">Criamos conteúdo que educa, gera desejo e fecha — assista e entenda como fazemos isso.</p>
+    </div>
+  </div>
+
+  <!-- ── Logos ── -->
+  
+
+  <!-- ── Time ── -->
+  <div class="pr-section-block">
+    <div class="pr-section-label">Especialistas</div>
+    <div class="pr-section-heading">Um time completo dedicado à sua marca — sem contratar ninguém.</div>
+    <p class="pr-section-sub">Estrategista, videomaker, gestor de tráfego e copywriter — tudo incluso no plano.</p>
+    <div class="pr-time-track">
+      <div class="pr-time-card">
+        <div class="pr-time-avatar">D</div>
+        <div class="pr-time-name">Diego</div>
+        <div class="pr-time-role">Direção Criativa</div>
+        <div class="pr-time-bio">Estratégia visual e identidade de marca</div>
+      </div>
+      <div class="pr-time-card">
+        <div class="pr-time-avatar">M</div>
+        <div class="pr-time-name">Marina</div>
+        <div class="pr-time-role">Gestora de Tráfego</div>
+        <div class="pr-time-bio">Meta Ads, Google e performance digital</div>
+      </div>
+      <div class="pr-time-card">
+        <div class="pr-time-avatar">R</div>
+        <div class="pr-time-name">Rafael</div>
+        <div class="pr-time-role">Videomaker</div>
+        <div class="pr-time-bio">Captação, edição e motion para social</div>
+      </div>
+      <div class="pr-time-card">
+        <div class="pr-time-avatar">A</div>
+        <div class="pr-time-name">Ana</div>
+        <div class="pr-time-role">Copywriter</div>
+        <div class="pr-time-bio">Roteiros, legendas e copy de conversão</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pr-cta-block">
+    <p>Essa proposta tem prazo. Quando você fechar, a gente começa na semana seguinte.</p>
+    <p style="font-size:.85rem;color:var(--gold);">
+      <a href="mailto:contato@lordsoficial.com" style="color:var(--gold);text-decoration:none;">✉ contato@lordsoficial.com</a>
+    </p>
+    <a class="btn-whatsapp" href="${waUrl}" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.115 1.524 5.845L.057 23.945l6.247-1.637A11.94 11.94 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.794 9.794 0 0 1-4.988-1.364l-.358-.213-3.708.972.988-3.613-.233-.371A9.794 9.794 0 0 1 2.182 12C2.182 6.574 6.574 2.182 12 2.182S21.818 6.574 21.818 12 17.426 21.818 12 21.818z"/></svg>
+      Quero fechar este plano
+    </a>
+  </div>
+
+  <div class="pr-footer">
+    LORDS Creative · Balneário Camboriú e região · © ${new Date().getFullYear()} · lordsoficial.com · <a href="mailto:contato@lordsoficial.com" style="color:inherit;text-decoration:none;">contato@lordsoficial.com</a>
+  </div>
+`;
+
+
+</script>
+</body>
+</html>

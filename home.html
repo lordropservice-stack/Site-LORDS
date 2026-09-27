@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H8MCTVV1N5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-H8MCTVV1N5');
+</script> 
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>LORDS Creative — Marketing que escala, sem operação no escuro</title>
+  <meta name="theme-color" content="#ffffff" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="LORDS" />
+  <link rel="apple-touch-icon" href="icon-180.png" />
+  <meta name="description" content="Estratégia, execução e IA aplicada — sem enrolação. A LORDS Creative é uma casa criativa que tira o marketing do caos: a Fábrica Criativa assume a operação inteira do seu negócio, com um painel onde você acompanha e aprova tudo. Agende um diagnóstico gratuito." />
+  <meta property="og:title" content="LORDS Creative — Marketing que escala, sem operação no escuro" />
+  <meta property="og:description" content="Método + IA + operação real para tirar seu marketing do caos. Agende um diagnóstico gratuito." />
+  <meta property="og:type" content="website" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="home.css?v=20260927b" />
+  <style>
+    /* ── URGENCY BAR ── */
+    .urgency-bar { display: flex; align-items: center; justify-content: center; gap: 1.25rem; flex-wrap: wrap; background: #0d0d0d; border-top: 1px solid #e4c06e44; border-bottom: 1px solid #e4c06e44; padding: .9rem 1.5rem; text-align: center; }
+    .urgency-txt { font-size: .88rem; font-weight: 600; color: #e4c06e; }
+    .urgency-cta { font-size: .85rem; font-weight: 700; color: #000; background: #e4c06e; border-radius: 8px; padding: .4rem 1rem; text-decoration: none; white-space: nowrap; transition: background .15s; }
+    .urgency-cta:hover { background: #f5d88a; }
+
+    /* ── WA FLOAT ── */
+    .wa-float { position: fixed; bottom: 24px; right: 24px; z-index: 9999; width: 56px; height: 56px; background: #25d366; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(37,211,102,.45); transition: transform .15s, box-shadow .15s; }
+    .wa-float:hover { transform: scale(1.1); box-shadow: 0 6px 28px rgba(37,211,102,.6); }
+    .wa-float svg { width: 28px; height: 28px; fill: #fff; }
+    @media (max-width: 600px) { .wa-float { bottom: 16px; right: 16px; width: 50px; height: 50px; } .wa-float svg { width: 24px; height: 24px; } }
+
+    /* ── EXIT POPUP ── */
+    #exit-backdrop { position: fixed; bottom: 24px; right: 24px; z-index: 10000; display: none; }
+    #exit-backdrop.open { display: block; }
+    #exit-popup { background: #141414; border: 1.5px solid #e4c06e55; border-radius: 14px; padding: 1.25rem 1.25rem 1rem; width: 300px; position: relative; box-shadow: 0 8px 32px rgba(0,0,0,.55); animation: popIn .3s cubic-bezier(.34,1.56,.64,1); }
+    @keyframes popIn { from { opacity: 0; transform: translateY(12px) scale(.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
+    #exit-popup .ep-close { position: absolute; top: 10px; right: 12px; background: none; border: none; color: rgba(255,255,255,.4); font-size: 1.2rem; cursor: pointer; line-height: 1; }
+    #exit-popup .ep-close:hover { color: #fff; }
+    #exit-popup .ep-kicker { font-size: .7rem; font-weight: 700; color: #e4c06e; text-transform: uppercase; letter-spacing: .1em; margin-bottom: .4rem; }
+    #exit-popup h3 { font-size: .95rem; font-weight: 900; color: #fff; line-height: 1.3; margin-bottom: .35rem; padding-right: 1.2rem; }
+    #exit-popup p { font-size: .78rem; color: rgba(255,255,255,.55); margin-bottom: .75rem; line-height: 1.45; }
+    #exit-popup .ep-input { width: 100%; background: #1a1a1a; border: 1.5px solid rgba(228,192,110,.25); border-radius: 8px; padding: .55rem .75rem; font-size: .85rem; color: #fff; font-family: inherit; margin-bottom: .6rem; outline: none; transition: border-color .15s; box-sizing: border-box; }
+    #exit-popup .ep-input:focus { border-color: #e4c06e; }
+    #exit-popup .ep-input::placeholder { color: rgba(255,255,255,.3); }
+    #exit-popup .ep-btn { width: 100%; background: #1f5fe0; color: #fff; font-weight: 800; font-size: .85rem; border: none; border-radius: 8px; padding: .6rem 1rem; cursor: pointer; font-family: inherit; transition: background .15s; display: flex; align-items: center; justify-content: center; gap: .4rem; }
+    #exit-popup .ep-btn:hover { background: #3b82ff; }
+    #exit-popup .ep-skip { display: block; text-align: center; margin-top: .5rem; font-size: .72rem; color: rgba(255,255,255,.3); cursor: pointer; background: none; border: none; font-family: inherit; }
+    #exit-popup .ep-skip:hover { color: rgba(255,255,255,.6); }
+
+    .team-sec { padding: 64px 0; border-top: 1px solid var(--line); }
+    .team-sec .section-head { margin-bottom: 28px; }
+    .team-track { display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; padding-bottom: 8px; scrollbar-width: none; }
+    .team-track::-webkit-scrollbar { display: none; }
+    .team-card { flex: 0 0 180px; scroll-snap-align: start; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 18px 14px; text-align: center; }
+    .team-avatar { width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg,#1e3a5f,#2d5a8e); display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1.4rem; color: var(--gold, #e4c06e); margin: 0 auto 12px; overflow: hidden; }
+    .team-avatar img { width: 100%; height: 100%; object-fit: cover; object-position: top; border-radius: 50%; }
+    .team-name { font-size: .9rem; font-weight: 700; color: var(--ink); margin-bottom: 3px; }
+    .team-role { font-size: .75rem; font-weight: 700; color: var(--gold, #e4c06e); margin-bottom: 6px; }
+    .team-bio { font-size: .75rem; color: var(--body); line-height: 1.5; }
+    @media (max-width: 600px) { .team-card { flex: 0 0 155px; } }
+  </style>
+</head>
+<body class="theme-light">
+
+  <!-- ===================== HEADER ===================== -->
+  <header class="site-header" id="topo">
+    <div class="container header-inner">
+      <a href="#topo" class="brand" aria-label="LORDS — página inicial">
+        <span class="brand-mark">L</span>
+        <span class="brand-text">LORDS</span>
+      </a>
+
+      <nav class="main-nav" id="main-nav" aria-label="Navegação principal">
+        <a href="#metodo">Como funciona</a>
+        <a href="#nichos">Nichos</a>
+        <a href="#onde-atendemos">Onde atendemos</a>
+        <a href="#servicos-home">Serviços avulsos</a>
+        <a href="#servicos">Dúvidas</a>
+        <a href="fabrica-criativa.html">Fábrica Criativa</a>
+
+      </nav>
+
+      <div class="header-cta">
+        <button class="btn btn-primary btn-sm" data-action="agendar">Falar com a LORDS</button>
+        <button class="nav-toggle" id="nav-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="main-nav">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ===================== HERO ===================== -->
+    <section class="hero hm-hero" id="hero" aria-label="Apresentação">
+      <video class="hm-hero-vid" id="hm-hero-vid" muted loop playsinline></video>
+      <div class="hm-hero-photo" id="hm-hero-photo" aria-hidden="true"></div>
+      <div class="hm-hero-overlay" aria-hidden="true"></div>
+      <div class="hm-hero-content container">
+        <h1 class="hm-hero-h1">Sua empresa<br>vira referência.</h1>
+        <p class="hm-hero-sub">Equipe especializada, exclusividade no seu nicho e conteúdo que realmente vende.</p>
+        <div class="hm-hero-ctas">
+          <a class="btn btn-primary btn-cta hm-hero-cta" href="fabrica-criativa.html">Quero conhecer a Fábrica Criativa →</a>
+          <a class="btn btn-ghost hm-hero-cta2" href="diagnostico.html">Agendar conversa estratégica →</a>
+        </div>
+      </div>
+      <div class="hm-hero-tabs" id="hm-hero-tabs" aria-label="Mídias do hero"></div>
+      <div class="scroll-hint" aria-hidden="true"><span></span></div>
+    </section>
+
+    <!-- ===================== MÉTODO LORDS (substitui o vídeo explicativo até existir assets/lords-video.mp4) ===================== -->
+    <section class="section metodo-sec" id="metodo" aria-label="Método LORDS">
+      <video class="closing-bg-vid" id="video-bg-vid" muted loop playsinline autoplay></video>
+      <div class="closing-bg-overlay" aria-hidden="true"></div>
+      <div class="container" style="position:relative;z-index:2;">
+        <div class="section-head reveal">
+          <span class="kicker" id="metodo-kicker">Como funciona</span>
+          <h2 id="metodo-title">Método LORDS</h2>
+          <p class="lede" id="metodo-lede"></p>
+        </div>
+        <ol class="metodo-steps" id="metodo-steps"><!-- injetado via home.js --></ol>
+        <p class="metodo-note" id="metodo-note"></p>
+        <div class="metodo-cta"><a class="btn btn-primary btn-cta" href="diagnostico.html">Agendar conversa estratégica →</a></div>
+      </div>
+    </section>
+
+    <!-- ===================== NICHOS ===================== -->
+    <section class="section nichos-sec" id="nichos" aria-label="Nichos atendidos">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="kicker">Nichos</span>
+          <h2>A LORDS já fala a língua do seu mercado.</h2>
+          <p class="lede">Ache o seu — e veja o tipo de conteúdo que a gente já entrega pra quem vive do mesmo que você.</p>
+        </div>
+      </div>
+      <div class="nichos-rail" id="nichos-rail"><!-- injetado via home.js --></div>
+      <div class="container nichos-cta-wrap">
+        <button class="btn btn-ghost" data-action="agendar">Não achou o seu? Fala com a gente →</button>
+      </div>
+    </section>
+
+    <!-- ===================== ESTÚDIO · PRODUÇÃO PROFISSIONAL ===================== -->
+    <section id="estudio-mount" aria-label="Produção profissional"></section>
+
+    <!-- ===================== ONDE ATENDEMOS ===================== -->
+    <section class="section reel-real-sec" id="onde-atendemos" aria-label="Onde atendemos">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="kicker">Onde atendemos</span>
+          <h2>Gravamos no seu local ou no nosso estúdio — você escolhe.</h2>
+          <p class="lede">Estúdio em Itajaí ou captação no seu local — Balneário Camboriú e região e Grande Florianópolis, sem taxa de deslocamento.</p>
+        </div>
+      </div>
+      <div id="cobertura-mount"><!-- injetado via home.js --></div>
+    </section>
+
+    <!-- ===================== PORTFÓLIO ===================== -->
+    <section class="ps-section portfolio-section" id="portfolio" aria-label="Portfólio">
+      <div class="container ps-head">
+        <h2 class="prod-h2">Conteúdo que encanta,<br>conecta e converte.</h2>
+      </div>
+      <div id="reel-real-mount"></div>
+      <div class="container ps-cta-row">
+        <a class="btn btn-primary btn-cta" href="fabrica-criativa.html#portfolio">Ver portfólio completo</a>
+      </div>
+    </section>
+
+    <!-- ===================== LORDS HUB ===================== -->
+    <section class="section hub-sec" id="hub" aria-label="LORDS Hub">
+      <div class="container hub-inner">
+        <div class="hub-copy reveal">
+          <span class="kicker kicker-gold">LORDS Hub · nos planos Creator e Completo</span>
+          <h2 class="hub-h2 hub-h2--desk">Sua operação LORDS. Sua comunidade. Seus próximos benefícios. Tudo em um só lugar.</h2>
+          <h2 class="hub-h2 hub-h2--mob">Tudo da sua operação LORDS na palma da sua mão.</h2>
+          <p class="hub-sub">Um ambiente exclusivo para acompanhar entregas, aprovar conteúdos, conectar-se com outros clientes e desbloquear benefícios enquanto sua marca evolui.</p>
+          <ul class="hub-benes">
+            <li>Dashboard do seu mês, entregas e prazos</li>
+            <li>Aprovação de roteiros, vídeos e artes — com registro</li>
+            <li>Comunidade exclusiva de clientes LORDS</li>
+            <li>Coins e recompensas por participar</li>
+          </ul>
+          <div class="hub-cta-row">
+            <a class="btn btn-primary btn-cta" href="fabrica-criativa.html#vsl">Ver como funciona o Hub</a>
+            <span class="hub-avail">Nos planos <strong>Creator</strong> e <strong>Completo</strong> · no Capture, liberado ao renovar por mais 3 meses</span>
+          </div>
+        </div>
+
+        <div class="hub-showcase reveal" aria-hidden="true">
+          <div class="hub-reel" id="hub-reel">
+            <div class="hub-track" id="hub-track"><!-- injetado via home.js --></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== AGENTES DE IA ===================== -->
+    <section class="section agentes-sec" id="agentes" aria-label="Agentes de IA trabalhando">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="kicker">Operação com IA</span>
+          <h2>Temos agentes trabalhando dia e noite para entregar o melhor resultado.</h2>
+          <p class="lede">Estrategista, roteirista, WhatsApp e mais — rodando todo dia pela sua marca.</p>
+        </div>
+        <div id="agentes-mount-home"><!-- injetado via agents.js --></div>
+      </div>
+    </section>
+
+    <!-- ===================== NOSSOS SERVIÇOS ===================== -->
+    <section class="section servicos-home-sec" id="servicos-home" aria-label="Nossos Serviços"></section>
+
+    <!-- ===================== EXPLORE (ABAS) ===================== -->
+    <section class="section explore" id="servicos">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="kicker">Explore a LORDS</span>
+          <h2>Dúvidas e quem somos — num lugar só.</h2>
+        </div>
+        <div class="tabs reveal">
+          <div class="tabs-bar" role="tablist" aria-label="Explore a LORDS">
+            <button class="tab-btn active" role="tab" aria-selected="true" aria-controls="tab-faq" id="tabbtn-faq" data-tab="faq">Perguntas (FAQ)</button>
+            <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-sobre" id="tabbtn-sobre" data-tab="sobre">Sobre a LORDS</button>
+          </div>
+
+          <div class="tab-panel active" id="tab-faq" role="tabpanel" aria-labelledby="tabbtn-faq">
+            <div class="faq" id="faq-list"><!-- injetado via home.js --></div>
+          </div>
+
+          <div class="tab-panel" id="tab-sobre" role="tabpanel" aria-labelledby="tabbtn-sobre" hidden>
+            <div class="sobre">
+              <h3>A LORDS Creative existe para tirar o marketing do improviso.</h3>
+              <p>Somos uma casa criativa que une <strong>estratégia, conteúdo e tecnologia</strong> para construir o posicionamento digital do seu negócio — e gerar resultado de verdade, não de sorte.</p>
+              <p>Trabalhamos com marcas que já são boas no que fazem mas ainda dependem de indicação, post aleatório ou agência genérica para aparecer.</p>
+              <p>Aqui, cada entrega tem intenção. Cada conteúdo tem função. E cada cliente tem um sistema rodando por trás.</p>
+              <div class="sobre-pills"><span>Estratégia</span><span>Conteúdo</span><span>Tecnologia</span><span>Sistema</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section final-cta">
+      <div class="container">
+        <div class="final-card glass reveal">
+          <div class="final-glow" aria-hidden="true"></div>
+          <h2>Descubra onde seu marketing está travando — de graça.</h2>
+          <a class="btn btn-primary btn-cta" href="diagnostico.html">Fazer o diagnóstico gratuito →</a>
+          <p class="final-excl">Atendemos uma empresa por nicho em cada cidade.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== TIME ===================== -->
+    <section class="section team-sec" id="time" aria-label="Nosso time">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="section-tag">Time</p>
+          <h2 class="section-title">Nosso time</h2>
+        </div>
+        <div class="team-track">
+          <div class="team-card">
+            <div class="team-avatar"><img src="assets/team/tomaz.jpg" alt="Tomaz"></div>
+            <div class="team-name">Tomaz</div>
+            <div class="team-role">Videomaker & Fotógrafo</div>
+          </div>
+          <div class="team-card">
+            <div class="team-avatar"><img src="assets/team/leo-fernando.jpg" alt="Leo Fernando"></div>
+            <div class="team-name">Leo Fernando</div>
+            <div class="team-role">Videomaker & Fotógrafo</div>
+          </div>
+          <div class="team-card">
+            <div class="team-avatar"><img src="assets/team/isabela.jpg" alt="Isabela"></div>
+            <div class="team-name">Isabela</div>
+            <div class="team-role">Comunicadora & Modelo</div>
+          </div>
+          <div class="team-card">
+            <div class="team-avatar"><img src="assets/team/jenifer.jpg" alt="Jenifer"></div>
+            <div class="team-name">Jenifer</div>
+            <div class="team-role">Comunicadora & Modelo</div>
+          </div>
+          <div class="team-card">
+            <div class="team-avatar"><img src="assets/team/eduarda.jpg" alt="Eduarda"></div>
+            <div class="team-name">Eduarda</div>
+            <div class="team-role">Comunicadora & Modelo</div>
+          </div>
+          <div class="team-card">
+            <div class="team-avatar"><img src="assets/team/maria-luiza.jpg" alt="Maria Luiza"></div>
+            <div class="team-name">Maria Luiza</div>
+            <div class="team-role">Comunicadora & Modelo</div>
+          </div>
+          <div class="team-card">
+            <div class="team-avatar"><img src="assets/team/amanda.jpg" alt="Amanda"></div>
+            <div class="team-name">Amanda</div>
+            <div class="team-role">Comunicadora & Modelo</div>
+          </div>
+          <div class="team-card">
+            <div class="team-avatar"><img src="assets/team/lucas.jpg" alt="Lucas"></div>
+            <div class="team-name">Lucas</div>
+            <div class="team-role">Estrategista</div>
+          </div>
+          <div class="team-card">
+            <div class="team-avatar"><img src="assets/team/matheus.jpg" alt="Matheus"></div>
+            <div class="team-name">Matheus</div>
+            <div class="team-role">Gestor de Tráfego</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <a href="#topo" class="brand">
+        <span class="brand-mark">L</span>
+        <span class="brand-text">LORDS</span>
+      </a>
+      <p class="footer-tag">Sua operação de marketing, finalmente organizada.</p>
+      <div class="footer-contacts">
+        <a href="mailto:contato@lordsoficial.com" class="footer-link">contato@lordsoficial.com</a>
+        <a href="diagnostico.html" class="footer-link">Diagnóstico gratuito</a>
+      </div>
+      <a class="footer-diag-cta" href="diagnostico.html">Agendar diagnóstico gratuito →</a>
+      <p class="footer-copy">Balneário Camboriú e região · © LORDS Creative</p>
+    </div>
+  </footer>
+
+  <!-- ===================== WA FLOAT ===================== -->
+  <a class="wa-float" href="diagnostico.html" aria-label="Agendar conversa estratégica com a LORDS" title="Agendar conversa estratégica">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path d="M12 3C6.48 3 2 6.94 2 11.8c0 2.43 1.12 4.62 2.93 6.2L4 22l4.53-2.27c1.08.3 2.25.47 3.47.47 5.52 0 10-3.94 10-8.8S17.52 3 12 3zm-4 9.9a1.3 1.3 0 110-2.6 1.3 1.3 0 010 2.6zm4 0a1.3 1.3 0 110-2.6 1.3 1.3 0 010 2.6zm4 0a1.3 1.3 0 110-2.6 1.3 1.3 0 010 2.6z"/></svg>
+  </a>
+
+  <!-- ===================== EXIT POPUP ===================== -->
+  <div id="exit-backdrop" role="dialog" aria-modal="true" aria-label="Diagnóstico gratuito">
+    <div id="exit-popup">
+      <button class="ep-close" id="ep-close" aria-label="Fechar">×</button>
+      <p class="ep-kicker">Antes de ir</p>
+      <h3>Receba um diagnóstico gratuito da sua marca.</h3>
+      <p>Quatro perguntas rápidas e você ganha um presente no primeiro mês — sem compromisso.</p>
+      <a class="ep-btn" id="ep-submit" href="diagnostico.html">Quero o diagnóstico</a>
+      <button class="ep-skip" id="ep-skip">Não, obrigado</button>
+    </div>
+  </div>
+  <style>
+    .footer-contacts { display: flex; gap: 1.5rem; flex-wrap: wrap; justify-content: center; margin: .5rem 0; }
+    .footer-link { font-size: .85rem; color: rgba(255,255,255,.5); text-decoration: none; transition: color .15s; }
+    .footer-link:hover { color: #e4c06e; }
+    .footer-diag-cta { display: inline-block; margin: .75rem 0; font-size: .88rem; font-weight: 700; color: #e4c06e; text-decoration: none; border: 1px solid #e4c06e55; border-radius: 8px; padding: .45rem 1rem; transition: background .15s, color .15s; }
+    .footer-diag-cta:hover { background: #e4c06e; color: #000; }
+  </style>
+  <script>
+  (function(){
+    const KEY = 'lords_exit_shown';
+    const backdrop = document.getElementById('exit-backdrop');
+    function openPopup() {
+      if (sessionStorage.getItem(KEY)) return;
+      sessionStorage.setItem(KEY,'1');
+      backdrop.classList.add('open');
+    }
+    function closePopup() { backdrop.classList.remove('open'); }
+    document.addEventListener('mouseleave', function(e){ if (e.clientY < 10) openPopup(); });
+    document.getElementById('ep-close').addEventListener('click', closePopup);
+    document.getElementById('ep-skip').addEventListener('click', closePopup);
+    /* backdrop agora é só o popup — clique fora não fecha */
+    document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closePopup(); });
+  })();
+  </script>
+
+
+
+  <script type="module" src="home.js?v=20260927c"></script>
+</body>
+</html>

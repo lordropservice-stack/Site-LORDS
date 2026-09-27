@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H8MCTVV1N5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-H8MCTVV1N5');
+</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Recebemos — LORDS Creative</title>
+  <meta name="robots" content="noindex" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="home.css?v=20260923c" />
+  <!-- Meta Pixel (ativar quando tiver ID) -->
+  <!--
+  <script>
+    !function(f,b,e,v,n,t,s){...}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', 'SEU_PIXEL_ID');
+    fbq('track', 'Lead');
+  </script>
+  -->
+  <style>
+    body { min-height: 100dvh; display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--bg); }
+    .obg-wrap { max-width: 520px; width: 100%; margin: 0 auto; padding: 48px 24px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 24px; }
+    .obg-check { width: 72px; height: 72px; border-radius: 50%; background: linear-gradient(135deg, #1a2340, #0f172a); border: 2px solid rgba(228,192,110,.4); display: flex; align-items: center; justify-content: center; }
+    .obg-check svg { width: 34px; height: 34px; }
+    .obg-brand { display: flex; align-items: center; gap: 8px; text-decoration: none; margin-bottom: 8px; }
+    .obg-brand .brand-mark { width: 32px; height: 32px; background: #e4c06e; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1rem; color: #0f172a; }
+    .obg-brand .brand-text { font-weight: 800; font-size: 1.1rem; color: var(--ink); letter-spacing: .04em; }
+    .obg-title { font-size: clamp(1.6rem, 5vw, 2.2rem); font-weight: 800; color: var(--ink); line-height: 1.2; }
+    .obg-lede { color: var(--body); font-size: 1.05rem; line-height: 1.6; }
+    .obg-detalhe { font-size: .9rem; color: var(--body); opacity: .7; }
+    .obg-back { margin-top: 8px; }
+    .obg-plano { background: linear-gradient(135deg, #0f172a, #1a2340); border: 1px solid rgba(228,192,110,.35); border-radius: 14px; padding: 20px 24px; text-align: left; width: 100%; }
+    .obg-plano-label { font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--gold); opacity: .8; margin-bottom: 6px; }
+    .obg-plano-nome { font-size: 1.1rem; font-weight: 800; color: #fff; }
+    .obg-plano-preco { font-size: .95rem; color: rgba(255,255,255,.6); margin-top: 4px; margin-bottom: 12px; }
+    .obg-plano-link { display: inline-block; font-size: .85rem; font-weight: 700; color: var(--gold); border: 1px solid rgba(228,192,110,.4); border-radius: 8px; padding: 8px 16px; text-decoration: none; }
+    .obg-plano-link:hover { background: rgba(228,192,110,.1); }
+  </style>
+</head>
+<body class="theme-light">
+  <div class="obg-wrap">
+    <a href="home.html" class="obg-brand" aria-label="LORDS">
+      <span class="brand-mark">L</span>
+      <span class="brand-text">LORDS</span>
+    </a>
+
+    <div class="obg-check" aria-hidden="true">
+      <svg viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="17" cy="17" r="16" stroke="#e4c06e" stroke-width="1.5" opacity=".4"/>
+        <polyline points="9,17 15,23 25,11" stroke="#e4c06e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+
+    <h1 class="obg-title">Recebemos sua mensagem.</h1>
+    <p class="obg-lede">Entraremos em contato em até <strong>24 horas</strong>.</p>
+    <p class="obg-detalhe">Se quiser adiantar, pode <a href="https://calendly.com/lordropservice/30min" target="_blank" rel="noopener" style="color:var(--gold)">agendar uma conversa estratégica</a> — respondemos rápido.</p>
+
+    <a class="btn btn-primary btn-cta obg-back" href="home.html">← Voltar ao início</a>
+  </div>
+<script>
+(function() {
+  const planos = {
+    capture: { nome: "Plano Capture", preco: "R$ 6.000/mês" },
+    creator: { nome: "Plano Creator", preco: "R$ 12.000/mês" },
+    completo: { nome: "Plano Completo", preco: "R$ 17.900/mês" }
+  };
+  const planoId = new URLSearchParams(location.search).get("plano") || "";
+  const plano = planos[planoId];
+  if (!plano) return;
+  const wrap = document.querySelector(".obg-wrap");
+  const back = wrap.querySelector(".obg-back");
+  const div = document.createElement("div");
+  div.className = "obg-plano";
+  div.innerHTML = `<div class="obg-plano-label">Com base nas suas respostas, o plano ideal é</div>
+    <div class="obg-plano-nome">${plano.nome}</div>
+    <div class="obg-plano-preco">${plano.preco}</div>
+    <a class="obg-plano-link" href="fabrica-criativa.html#planos">Ver detalhes do plano →</a>`;
+  wrap.insertBefore(div, back);
+})();
+</script>
+</body>
+</html>

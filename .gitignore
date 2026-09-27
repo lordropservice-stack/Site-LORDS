@@ -1,0 +1,30 @@
+.vercel/
+.DS_Store
+**/.DS_Store
+
+# Páginas internas (não publicar)
+portal.html
+portal-auth.js
+admin.html
+admin.js
+prospeccao.html
+painel.html
+
+# Binários grandes — vídeos e fotos ficam fora do git
+assets/videos/
+assets/fotos/
+assets/jenifer/
+assets/Eduarda */
+assets/_NAO-USADOS-conferir/
+*.mp4
+*.mov
+*.MOV
+*.HEIC
+*.heic
+*.zip
+
+# Infraestrutura
+n8n-workflows/
+sync-midia.mjs
+scratchpad-bak/
+vercel.json

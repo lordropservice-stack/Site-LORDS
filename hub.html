@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H8MCTVV1N5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-H8MCTVV1N5');
+</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>LORDS Hub — Área do cliente</title>
+  <meta name="robots" content="noindex" />
+  <meta name="description" content="LORDS Hub — o ambiente exclusivo de clientes LORDS: projetos, conteúdos, aprovações, comunidade e benefícios em um só lugar." />
+  <meta name="theme-color" content="#0D1B2E" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="LORDS Hub" />
+  <link rel="apple-touch-icon" href="icon-180.png" />
+  <link rel="manifest" href="manifest.webmanifest?v=20260927a" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="hub.css?v=20260923c" />
+</head>
+<body>
+
+  <!-- ===================== LOGIN (fachada — demo) ===================== -->
+  <section class="hb-login" id="hb-login">
+    <div class="hb-login-card">
+      <div class="hb-login-brand"><span class="hb-logo">L</span><span>LORDS&nbsp;Hub</span></div>
+      <h1>Bem-vindo ao seu Hub</h1>
+      <p class="hb-login-sub">Sua operação LORDS, sua comunidade e seus próximos benefícios — tudo em um só lugar.</p>
+      <form id="hb-form" class="hb-login-form" autocomplete="off">
+        <label>E-mail
+          <input type="email" id="hb-email" placeholder="voce@suaempresa.com.br" required />
+        </label>
+        <label>Senha
+          <input type="password" id="hb-senha" placeholder="••••••••" required />
+        </label>
+        <p class="hb-muted" style="margin:2px 0 8px">Ver como cada plano enxerga o Hub:</p>
+        <div class="hb-plan-pick" id="hb-plan-pick" role="group" aria-label="Plano de demonstração">
+          <button type="button" data-plan="capture">Capture</button>
+          <button type="button" data-plan="creator" class="on">Creator</button>
+          <button type="button" data-plan="completo">Completo</button>
+        </div>
+        <button type="submit" class="hb-btn">Entrar no Hub</button>
+      </form>
+      <p class="hb-demo-note">Ambiente de <strong>demonstração</strong> — ainda não é um login real. Qualquer e-mail e senha entram, só pra você ver como o cliente vive o LORDS Hub. Coins e recompensas são pré-visualização.</p>
+    </div>
+    <p class="hb-login-foot">© LORDS Creative · Balneário Camboriú e região</p>
+  </section>
+
+  <!-- ===================== APP ===================== -->
+  <div class="hb-app" id="hb-app" hidden>
+    <aside class="hb-side">
+      <div class="hb-brand">
+        <span class="hb-logo">L</span>
+        <span>LORDS Hub</span>
+      </div>
+      <button class="hb-sidebar-perfil" id="hb-sidebar-perfil" data-act="go" data-mod="perfil">
+        <span id="hb-sidebar-company">Sua Empresa</span>
+        <small>Editar perfil →</small>
+      </button>
+      <nav class="hb-nav" id="hb-nav" aria-label="Módulos do Hub"></nav>
+      <div class="hb-side-foot">
+        <span class="hb-plan-badge" id="hb-plan-badge"><i></i>Plano Creator</span>
+        <div class="hb-equipe-links">
+          <a href="portal.html" class="hb-equipe-link">Portal Admin</a>
+        </div>
+        <button class="hb-sair" id="hb-sair">Sair</button>
+        <span class="hb-demo-badge">demo</span>
+      </div>
+    </aside>
+
+    <main class="hb-main">
+      <header class="hb-top">
+        <div>
+          <h2 id="hb-hello">Bem-vindo de volta.</h2>
+          <p id="hb-subtitle">Acompanhe e aprove tudo que a LORDS produz para a sua marca.</p>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-end">
+          <div class="hb-counters" id="hb-counters"><!-- Pontos/Missões via hub.js --></div>
+          <span class="hb-preview">prévia · dados de exemplo</span>
+        </div>
+      </header>
+
+      <div class="hb-view" id="hb-view"><!-- módulo renderizado via hub.js --></div>
+    </main>
+  </div>
+
+  <div class="hb-toast" id="hb-toast" role="status" aria-live="polite"></div>
+
+  <script type="module" src="hub.js?v=20260927a"></script>
+</body>
+</html>

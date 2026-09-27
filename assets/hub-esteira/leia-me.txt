@@ -1,0 +1,13 @@
+PASTA: assets/hub-esteira/
+REGRA: arquivos aqui aparecem nos blocos 2, 3 e 4 da esteira LORDS Hub na Fábrica Criativa.
+O bloco 1 já é o mockup animado do Hub (gerado automaticamente).
+
+FORMATOS: fotos .jpg .jpeg .png .webp · vídeos .mp4 .mov
+Nome sem espaço/acento/maiúscula.
+
+Nomeie os arquivos assim (Claude vai referenciar por estes nomes):
+  bloco-2.mp4  (ou .jpg / .mov / .png)
+  bloco-3.mp4
+  bloco-4.mp4
+
+Após adicionar: avisar o Claude para atualizar os slides em sCarrossel4() dentro de fabrica.js.

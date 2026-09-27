@@ -1,0 +1,12 @@
+Adicione aqui as fotos dos serviços avulsos.
+Formatos: .jpg .jpeg .png .webp
+Nomes sugeridos (sem espaço/acento):
+  comunicadora-eduarda.jpg
+  comunicadora-amanda.jpg
+  modelo-eduarda.jpg
+  modelo-amanda.jpg
+  modelo-maria-luiza.jpg
+  (e outros à vontade)
+
+Estas fotos aparecem no reel da seção de Serviços Avulsos.
+Após adicionar, rode: node sync-midia.mjs

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H8MCTVV1N5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-H8MCTVV1N5');
+</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>LORDS Global — Brazilian Content, Produced Locally</title>
+  <meta name="theme-color" content="#ffffff" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <link rel="apple-touch-icon" href="icon-180.png" />
+  <meta name="description" content="LORDS produces professional videos, photos and social content in Brazil. Our trilingual communicator (EN · ES · PT) represents your brand on camera. From $1,500/mo in Balneário Camboriú." />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="LORDS Global — Brazilian Content, Produced Locally" />
+  <meta property="og:description" content="Your brand in Brazil — strategy, production and publishing in one team. Trilingual communicator (EN · ES · PT). From $1,500/mo." />
+  <meta property="og:locale" content="en_US" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="home.css?v=20260923c" />
+  <link rel="stylesheet" href="fabrica.css?v=20260923c" />
+
+  <!-- Schema.org · Service (International) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "LORDS Global — Brazilian Content Production",
+    "provider": { "@type": "Organization", "name": "LORDS Creative", "address": { "@type": "PostalAddress", "addressLocality": "Balneário Camboriú", "addressCountry": "BR" } },
+    "serviceType": "Video production and social media content management",
+    "areaServed": "Worldwide",
+    "offers": [
+      { "@type": "Offer", "name": "Capture", "price": "1500", "priceCurrency": "USD" },
+      { "@type": "Offer", "name": "Creator", "price": "2500", "priceCurrency": "USD" },
+      { "@type": "Offer", "name": "Full", "price": "4500", "priceCurrency": "USD" }
+    ]
+  }
+  </script>
+</head>
+<body class="fabrica-page theme-light produto-page">
+
+  <!-- ===================== HEADER ===================== -->
+  <header class="site-header scrolled" id="topo">
+    <div class="container header-inner">
+      <a href="home.html" class="brand" aria-label="LORDS — home">
+        <span class="brand-mark">L</span>
+        <span class="brand-text">LORDS</span>
+      </a>
+      <nav class="main-nav" id="main-nav" aria-label="Navigation">
+        <a href="#vsl">How it works</a>
+        <a href="#plans">Plans</a>
+        <a href="#coverage">Where we film</a>
+        <a href="#faq">Questions</a>
+        <a href="lords-global-es.html" class="nav-lang" hreflang="es">🇪🇸 Español</a>
+        <a href="fabrica-criativa.html" class="nav-lang">🇧🇷 Português</a>
+      </nav>
+      <div class="header-cta">
+        <a class="btn btn-primary btn-sm" href="#plans">See plans</a>
+        <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="main-nav">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="global-root"><!-- rendered by global.js --></main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <a href="home.html" class="brand">
+        <span class="brand-mark">L</span>
+        <span class="brand-text">LORDS</span>
+      </a>
+      <p class="footer-tag">Strategy · Production · Publishing · Growth.</p>
+      <p class="footer-copy">Balneário Camboriú, Brazil · © LORDS Creative</p>
+    </div>
+  </footer>
+
+  <!-- Nav toggle -->
+  <script>
+    document.getElementById("nav-toggle").addEventListener("click", function () {
+      const nav = document.getElementById("main-nav");
+      const open = nav.classList.toggle("open");
+      this.setAttribute("aria-expanded", open);
+    });
+    // Close on scroll
+    window.addEventListener("scroll", () => {
+      const h = document.getElementById("topo");
+      if (h) h.classList.toggle("scrolled", window.scrollY > 10);
+    }, { passive: true });
+  </script>
+
+  <script type="module" src="global.js?v=20260927b"></script>
+</body>
+</html>

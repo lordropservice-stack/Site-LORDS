@@ -1,0 +1,14 @@
+PASTA: assets/servicos-avulsos/
+REGRA: cada subpasta abaixo corresponde a um serviço avulso da LORDS.
+Solte as fotos/vídeos dentro da subpasta certa.
+Após adicionar: avisar o Claude para atualizar os cards nas duas páginas.
+
+FORMATOS: fotos .jpg .jpeg .png .webp · vídeos .mp4 .mov
+Nome sem espaço/acento/maiúscula. Ex: comunicadora-01.jpg, modelo-1.mp4
+
+── comunicadora/  → fotos e vídeos da comunicadora em ação (gravações, sets)
+── modelo/        → ensaios de modelo (moda, beleza, produto)
+── cobertura/     → registros de coberturas de eventos
+── fotografo/     → trabalhos do fotógrafo (ensaios, eventos, estúdio)
+── real-time/     → vídeos de captação e edição no mesmo dia / ao vivo
+── site/          → prints ou screenshots de sites criados pela LORDS

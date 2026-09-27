@@ -1,0 +1,11 @@
+scratchpad-bak/
+n8n-workflows/
+*.md
+!manifest.webmanifest
+sync-midia.mjs
+portal.html
+portal-auth.js
+admin.html
+admin.js
+prospeccao.html
+painel.html
