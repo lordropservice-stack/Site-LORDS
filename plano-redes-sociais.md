@@ -42,7 +42,7 @@ Instagram é o canal de aquisição. WhatsApp é o canal de fechamento e retenç
 
 ### CTA padrão por canal
 
-- **Conteúdo orgânico:** "Link na bio → diagnóstico gratuito" → fabrica-criativa.html
+- **Conteúdo orgânico:** "Link na bio → diagnóstico gratuito" → home (lordsoficial.vercel.app)
 - **Anúncio tráfego (Meta):** site → enquete → WhatsApp
 - **Anúncio mensagens (Meta):** WhatsApp direto → Lucas qualifica ao vivo
 
@@ -77,10 +77,10 @@ Instagram é o canal de aquisição. WhatsApp é o canal de fechamento e retenç
 
 ```
 Conteúdo orgânico (Reels / Stories / Carrossel)
-→ "Link na bio" → fabrica-criativa.html → enquete (5 perguntas) → WhatsApp → Lucas
+→ "Link na bio" → home (lordsoficial.vercel.app) → enquete (5 perguntas) → WhatsApp → Lucas
 
 Anúncio Meta — objetivo Tráfego
-→ fabrica-criativa.html → enquete → WhatsApp
+→ home (lordsoficial.vercel.app) → enquete → WhatsApp
 
 Anúncio Meta — objetivo Mensagens
 → WhatsApp direto → Lucas qualifica ao vivo
@@ -108,7 +108,7 @@ Anúncio Meta — objetivo Mensagens
 - [ ] Ativar número WhatsApp Business → preencher `WHATSAPP_NUM` em `enquete.js`
 - [ ] Gravar primeiros Reels com Isa (roteiros prontos em [[Criativos — Reels (Fábrica Criativa)]])
 - [ ] Preencher [[Instagram/Grade Semanal]] com as primeiras 4 semanas
-- [ ] Configurar link da bio → fabrica-criativa.html
+- [ ] Configurar link da bio → home (lordsoficial.vercel.app)
 - [ ] Subir primeiro anúncio: teste objetivo Mensagens vs Tráfego
 - [ ] Configurar Meta Business Suite para agendamento de posts
 

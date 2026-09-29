@@ -40,7 +40,7 @@ const ROSTER = [
   { name: "Maria Luiza",  role: "Comunicadora & Modelo" },
   { name: "Amanda",       role: "Comunicadora & Modelo" },
   { name: "Lucas Rodrigues", role: "Head de Marketing" },
-  { name: "Matheus",      role: "Gestão de Mídia Paga" },
+  { name: "Matheus Macedo", role: "Gestão de Mídia Paga" },
 ];
 
 // FAQ — copy do site atual

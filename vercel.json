@@ -1,6 +1,6 @@
 {
-  "redirects": [
-    { "source": "/", "destination": "/fabrica-criativa.html", "permanent": false }
+  "rewrites": [
+    { "source": "/", "destination": "/home.html" }
   ],
   "headers": [
     {
