@@ -1,0 +1,68 @@
+/* Abertura compartilhada (home + Fábrica): hero · VSL · trajetória */
+.ab-hero, .ab-vsl, .ab-traj {
+  --ab-navy: #0b1220; --ab-ink: #fff; --ab-muted: rgba(255,255,255,.72); --ab-gold: #e4c06e;
+  font-family: Montserrat, system-ui, sans-serif; color: var(--ab-ink);
+}
+.ab-wrap { width: min(1180px, 100% - 32px); margin: 0 auto; }
+.ab-kicker { display: inline-block; font-size: .78rem; font-weight: 800; letter-spacing: .22em; text-transform: uppercase; color: var(--ab-gold); margin-bottom: 14px; }
+.ab-h2 { font-size: clamp(1.8rem, 3.4vw, 2.8rem); font-weight: 900; line-height: 1.1; margin: 0 0 28px; color: var(--ab-ink); }
+.ab-h1 { font-size: clamp(2.4rem, 5.6vw, 4.6rem); font-weight: 900; line-height: 1.02; letter-spacing: -.02em; margin: 0 0 14px; color: var(--ab-ink); }
+
+.ab-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 18px 30px; border-radius: 999px; font-weight: 800; font-size: 1.02rem; text-decoration: none; transition: transform .2s, box-shadow .2s, background .2s; }
+.ab-btn:hover { transform: translateY(-2px); }
+.ab-btn--light { background: #fff; color: #0b1220; box-shadow: 0 10px 30px rgba(0,0,0,.35); }
+.ab-btn--ghost { background: rgba(11,18,32,.55); color: #fff; border: 1.5px solid rgba(255,255,255,.55); backdrop-filter: blur(6px); }
+.ab-btn--gold { background: var(--ab-gold); color: #0b1220; }
+.ab-btn--dark { background: #0b1220; color: #fff; box-shadow: 0 10px 30px rgba(11,18,32,.25); }
+.ab-btn--outline { background: transparent; color: #0b1220; border: 1.5px solid #0b1220; }
+.ab-ctas { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; margin-top: 36px; }
+.ab-ctas--left { justify-content: flex-start; }
+
+/* 1 · HERO: vídeos passando */
+.ab-hero { position: relative; min-height: 100svh; background: var(--ab-navy); overflow: hidden; display: flex; align-items: flex-end; justify-content: center; }
+.ab-hero-vid { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .35s ease; }
+.ab-hero-vid.is-on { opacity: 1; }
+.ab-hero-shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(11,18,32,.25) 0%, rgba(11,18,32,.1) 45%, rgba(11,18,32,.85) 100%); }
+.ab-scroll { position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%); z-index: 2; width: 24px; height: 38px; border: 2px solid rgba(255,255,255,.55); border-radius: 14px; }
+.ab-scroll span { position: absolute; left: 50%; top: 7px; width: 4px; height: 8px; margin-left: -2px; border-radius: 2px; background: #fff; animation: abScroll 1.8s infinite; }
+@keyframes abScroll { 0% { opacity: 0; transform: translateY(0); } 40% { opacity: 1; } 100% { opacity: 0; transform: translateY(12px); } }
+
+/* 2 · VSL */
+.ab-vsl { background: #fff; padding: 96px 0; text-align: center; }
+.ab-vsl .ab-h2 { color: #0b1220; }
+.ab-vsl .ab-kicker { color: #b8923a; }
+.ab-player { position: relative; max-width: 1000px; margin: 0 auto; aspect-ratio: 16 / 9; border-radius: 20px; overflow: hidden; background: #0b1220; box-shadow: 0 30px 70px rgba(11,18,32,.22); }
+.ab-player video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.ab-sound { position: absolute; right: 18px; bottom: 18px; padding: 12px 22px; border-radius: 999px; border: 0; background: #fff; box-shadow: 0 4px 14px rgba(0,0,0,.3); color: #0b1220; font: 800 .95rem Montserrat, sans-serif; cursor: pointer; }
+
+/* 3 · COMO FUNCIONA — quadros com borda dourada animada */
+.ab-traj { background: linear-gradient(180deg, #0b1220 0%, #111c33 100%); padding: 100px 0; }
+.ab-big { font-size: clamp(2.2rem, 5.4vw, 4.4rem); font-weight: 900; line-height: 1.04; letter-spacing: -.02em; margin: 0 0 14px; color: #fff; max-width: 960px; }
+.ab-big span { display: block; font-size: 1.55em; line-height: .95; background: linear-gradient(135deg, #fff3cf, #e4c06e 55%, #b8923a); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.ab-lede { font-size: 1.15rem; color: var(--ab-muted); margin: 0 0 44px; max-width: 640px; }
+@property --ab-ang { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
+.ab-frames { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: 18px; }
+.ab-frame { position: relative; padding: 26px 20px 24px; border-radius: 18px; background: #0e1729; isolation: isolate; box-shadow: 0 0 22px rgba(228,192,110,.12); animation: abGlow 3s ease-in-out infinite; animation-delay: var(--d); }
+.ab-frame::before { content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1.5px; z-index: -1;
+  background: conic-gradient(from var(--ab-ang), rgba(228,192,110,.25), #e4c06e, #fff3cf, #e4c06e, rgba(228,192,110,.25) 60%, rgba(228,192,110,.25));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude;
+  animation: abSpin 4s linear infinite; animation-delay: var(--d); }
+.ab-frame-n { display: block; font-size: 2rem; font-weight: 900; line-height: 1; margin-bottom: 14px; background: linear-gradient(135deg, #fff3cf, #e4c06e 55%, #b8923a); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.ab-frame h3 { margin: 0 0 8px; font-size: 1.1rem; font-weight: 800; color: #fff; }
+.ab-frame p { margin: 0; font-size: .9rem; line-height: 1.5; color: var(--ab-muted); }
+@keyframes abSpin { to { --ab-ang: 360deg; } }
+@keyframes abGlow { 0%, 100% { box-shadow: 0 0 18px rgba(228,192,110,.10); } 50% { box-shadow: 0 0 34px rgba(228,192,110,.32); } }
+@media (prefers-reduced-motion: reduce) { .ab-frame, .ab-frame::before { animation: none; } }
+
+@media (max-width: 860px) {
+  .ab-frames { grid-template-columns: repeat(2, 1fr); }
+  .ab-frame:last-child { grid-column: 1 / -1; }
+  .ab-vsl, .ab-traj { padding: 72px 0; }
+}
+@media (max-width: 560px) {
+  .ab-ctas { flex-direction: column; }
+  .ab-frames { grid-template-columns: 1fr; }
+  .ab-btn { width: 100%; padding: 16px 20px; font-size: .95rem; }
+  .ab-sound { right: 10px; bottom: 10px; padding: 9px 16px; font-size: .82rem; }
+  .ab-player { border-radius: 14px; }
+}

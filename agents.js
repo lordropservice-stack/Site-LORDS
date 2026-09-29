@@ -9,14 +9,14 @@ const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 const AGENTS = [
   { id: "estrategista", name: "Estrategista", ini: "Es", c: "#6C5CE7", msgs: [
-    "Revisou o calendário do mês — 12 pautas priorizadas.",
+    "Revisou o calendário do mês, 12 pautas priorizadas.",
     "Ajustou a linha editorial pro seu nicho.",
     "Mapeou 3 tendências pra semana.",
     "Definiu o foco dos próximos 15 dias.",
   ]},
   { id: "roteirista", name: "Roteirista", ini: "Ro", c: "#3b82ff", msgs: [
     "Escreveu 4 roteiros novos no seu tom de voz.",
-    "Reescreveu o gancho — retenção estimada +14%.",
+    "Reescreveu o gancho, retenção estimada +14%.",
     "Adaptou 2 roteiros pra Reels e Shorts.",
     "Gerou legendas pros 6 vídeos do mês.",
   ]},
@@ -33,21 +33,21 @@ const AGENTS = [
     "Encontrou 9 decisores no seu ICP.",
   ]},
   { id: "analista", name: "Analista de Concorrência", ini: "An", c: "#e0574a", msgs: [
-    "Concorrente subiu preço 8% — recalculando posição.",
+    "Concorrente subiu preço 8%, recalculando posição.",
     "Analisou 24 concorrentes · relatório pronto.",
     "Detectou oportunidade em 5 palavras-chave.",
-    "Monitorou 52 SKUs — 47 com Buy Box mantido.",
+    "Monitorou 52 SKUs, 47 com Buy Box mantido.",
   ]},
-  { id: "anuncios", name: "Anúncios & Tráfego", ini: "Ad", c: "#f59e0b", msgs: [
-    "ROAS subiu pra 8,4 — realoquei a verba.",
+  { id: "anuncios", name: "Anúncios & Mídia paga", ini: "Ad", c: "#f59e0b", msgs: [
+    "ROAS subiu pra 8,4, realoquei a verba.",
     "Título novo: score 7,8 → 9,1 (CTR estimado +18%).",
     "Pausei 2 criativos de baixa performance.",
-    "Testou 3 variações de copy — 1 vencedora.",
+    "Testou 3 variações de copy, 1 vencedora.",
   ]},
   { id: "gestor", name: "Gestor & Relatórios", ini: "Ge", c: "#8b7bff", msgs: [
     "Relatório do dia enviado ao cliente.",
-    "Consolidou métricas de Instagram + tráfego + WhatsApp.",
-    "Fechou a daily — operação no verde.",
+    "Consolidou métricas de Instagram + mídia paga + WhatsApp.",
+    "Fechou a daily, operação no verde.",
     "Traduziu os números em recomendação de negócio.",
   ]},
 ];

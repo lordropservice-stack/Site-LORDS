@@ -207,7 +207,7 @@
   </div>
 
 <script type="module">
-import { PRODUCTS } from "./products-data.js?v=20260927a";
+import { PRODUCTS } from "./products-data.js?v=20260929d";
 /* ---- Prova Social iGaming (inlined) ---- */
 
 
@@ -219,6 +219,8 @@ const prazo      = parseInt(p.get("prazo") || "3", 10);
 const desconto   = parseFloat(p.get("desconto") || "0");
 const extrasIds  = (p.get("extras") || "").split(",").map(s => s.trim()).filter(Boolean);
 const sobreTexto = p.get("sobre") || "";
+const avulsosNomes = (p.get("avulsos") || "").split("|").map(s => s.trim()).filter(Boolean);
+const esc = (v) => String(v).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
 const root = document.getElementById("pr-root");
 
@@ -233,19 +235,23 @@ if (!plano) {
   throw new Error("Plano not found");
 }
 
-const bumpsDisponiveis = fc.bumps?.[planoId] || [];
-const extrasEscolhidos = bumpsDisponiveis.filter(b => extrasIds.includes(b.id));
+// Add-ons de qualquer plano (site e ensaio, por exemplo, só estão listados no Completo)
+const todosBumps = new Map();
+Object.values(fc.bumps || {}).flat().forEach(b => { if (!todosBumps.has(b.id)) todosBumps.set(b.id, b); });
+(fc.bumps?.[planoId] || []).forEach(b => todosBumps.set(b.id, b));
+const extrasEscolhidos = extrasIds.map(id => todosBumps.get(id)).filter(Boolean);
 
 // Preços
 const precoBase = plano.price || 0;
-let totalMensal = precoBase + extrasEscolhidos.filter(b => b.recurring !== false).reduce((s, b) => s + b.price, 0);
+let totalMensal = precoBase + extrasEscolhidos.filter(b => b.recurring !== false).reduce((s, b) => s + b.price, 0) + extrasEscolhidos.reduce((s, b) => s + (b.monthly || 0), 0);
 const totalUnico = extrasEscolhidos.filter(b => b.recurring === false).reduce((s, b) => s + b.price, 0);
-if (desconto > 0) totalMensal = Math.round(totalMensal * (1 - desconto / 100));
+const descontoValor = desconto > 0 ? Math.round(precoBase * desconto / 100) : 0;
+const primeiroMes = totalMensal - descontoValor;
 
 const fmt = (n) => "R$ " + n.toLocaleString("pt-BR");
 const hoje = new Date().toLocaleDateString("pt-BR", { day: "2-digit", month: "long", year: "numeric" });
 
-const cliente = clienteRaw || "Cliente";
+const cliente = esc(clienteRaw || "Cliente");
 const planoNome = plano.name || "Plano";
 
 // Extrai todos os bullets de groups[].items e groups[].extras
@@ -266,7 +272,7 @@ const extrasHtml = extrasEscolhidos.length ? `
       <div class="pr-extra-item">
         <div>
           <div class="pr-extra-name">${b.name}</div>
-          <div class="pr-extra-desc">${b.desc || ""} ${b.recurring === false ? "<em>· Valor único</em>" : "· Recorrente"}</div>
+          <div class="pr-extra-desc">${b.desc || ""} ${b.recurring === false ? `<em>· Valor único${b.monthly ? ` + ${fmt(b.monthly)}/mês` : ""}</em>` : "· Recorrente"}</div>
         </div>
         <div class="pr-extra-price">${fmt(b.price)}</div>
       </div>
@@ -274,8 +280,19 @@ const extrasHtml = extrasEscolhidos.length ? `
   </div>
 ` : "";
 
+const avulsosHtml = avulsosNomes.length ? `
+  <p class="pr-section-title">Serviços avulsos que você pediu</p>
+  <div class="pr-extras-list">
+    ${avulsosNomes.map(n => `
+      <div class="pr-extra-item">
+        <div><div class="pr-extra-name">${esc(n)}</div><div class="pr-extra-desc">Orçamento conforme data, local e duração.</div></div>
+        <div class="pr-extra-price">Na conversa</div>
+      </div>`).join("")}
+  </div>
+` : "";
+
 // Totais
-const descontoHtml = desconto > 0 ? `<div class="pr-total-row"><span>Desconto (${desconto}%)</span><span class="val">−${fmt(Math.round(precoBase * desconto / 100))}</span></div>` : "";
+const descontoHtml = descontoValor ? `<div class="pr-total-row"><span>Desconto de ${desconto}% no plano (1º mês)</span><span class="val">−${fmt(descontoValor)}</span></div>` : "";
 const unicoHtml = totalUnico > 0 ? `<div class="pr-total-row"><span>Add-ons únicos (1× entrada)</span><span>${fmt(totalUnico)}</span></div>` : "";
 
 // WhatsApp CTA
@@ -311,7 +328,7 @@ root.innerHTML = `
   <div class="pr-sobre">
     <div class="pr-sobre-label">Contexto</div>
     <div class="pr-sobre-title">Preparada para ${cliente}</div>
-    <p class="pr-sobre-text">${sobreTexto}</p>
+    <p class="pr-sobre-text">${esc(sobreTexto)}</p>
   </div>` : ""}
 
   <div class="pr-plan-card">
@@ -323,11 +340,13 @@ root.innerHTML = `
   </div>
 
   ${extrasHtml}
+  ${avulsosHtml}
 
   <div class="pr-totals">
     <div class="pr-total-row"><span>${planoNome}</span><span>${fmt(precoBase)}/mês</span></div>
     ${descontoHtml}
     ${unicoHtml}
+    ${descontoValor ? `<div class="pr-total-row"><span>1º mês com desconto</span><span>${fmt(primeiroMes)}</span></div>` : ""}
     <div class="pr-total-row main"><span>Total mensal</span><span class="val">${fmt(totalMensal)}/mês</span></div>
   </div>
 
@@ -383,31 +402,37 @@ root.innerHTML = `
   <div class="pr-section-block">
     <div class="pr-section-label">Especialistas</div>
     <div class="pr-section-heading">Um time completo dedicado à sua marca — sem contratar ninguém.</div>
-    <p class="pr-section-sub">Estrategista, videomaker, gestor de tráfego e copywriter — tudo incluso no plano.</p>
+    <p class="pr-section-sub">Head de marketing, videomakers, editor, comunicadoras e gestor de mídia paga (conforme o plano e os add-ons).</p>
     <div class="pr-time-track">
       <div class="pr-time-card">
-        <div class="pr-time-avatar">D</div>
-        <div class="pr-time-name">Diego</div>
-        <div class="pr-time-role">Direção Criativa</div>
-        <div class="pr-time-bio">Estratégia visual e identidade de marca</div>
+        <div class="pr-time-avatar">L</div>
+        <div class="pr-time-name">Lucas Rodrigues</div>
+        <div class="pr-time-role">Head de Marketing</div>
+        <div class="pr-time-bio">Estratégia, roteiro e direção criativa</div>
       </div>
       <div class="pr-time-card">
         <div class="pr-time-avatar">M</div>
-        <div class="pr-time-name">Marina</div>
-        <div class="pr-time-role">Gestora de Tráfego</div>
-        <div class="pr-time-bio">Meta Ads, Google e performance digital</div>
+        <div class="pr-time-name">Matheus</div>
+        <div class="pr-time-role">Gestão de Mídia Paga</div>
+        <div class="pr-time-bio">Meta Ads e performance</div>
       </div>
       <div class="pr-time-card">
-        <div class="pr-time-avatar">R</div>
-        <div class="pr-time-name">Rafael</div>
-        <div class="pr-time-role">Videomaker</div>
-        <div class="pr-time-bio">Captação, edição e motion para social</div>
+        <div class="pr-time-avatar">T</div>
+        <div class="pr-time-name">Tomaz · Leo</div>
+        <div class="pr-time-role">Videomakers</div>
+        <div class="pr-time-bio">Captação no estúdio ou no seu local</div>
       </div>
       <div class="pr-time-card">
-        <div class="pr-time-avatar">A</div>
-        <div class="pr-time-name">Ana</div>
-        <div class="pr-time-role">Copywriter</div>
-        <div class="pr-time-bio">Roteiros, legendas e copy de conversão</div>
+        <div class="pr-time-avatar">W</div>
+        <div class="pr-time-name">Weverton</div>
+        <div class="pr-time-role">Editor de Vídeo</div>
+        <div class="pr-time-bio">Edição e finalização dos vídeos</div>
+      </div>
+      <div class="pr-time-card">
+        <div class="pr-time-avatar">I</div>
+        <div class="pr-time-name">Isabela · Jenifer · Eduarda</div>
+        <div class="pr-time-role">Comunicadoras</div>
+        <div class="pr-time-bio">O rosto da sua marca a partir do Creator</div>
       </div>
     </div>
   </div>

@@ -1,0 +1,64 @@
+/* Diagnóstico LORDS — passo a passo (pop-up, diagnostico.html e carrinho da Fábrica) */
+.dg-modal { max-width: 560px; }
+.dg-root, .dg-inline { --dg-gold: #e4c06e; --dg-ink: #fff; --dg-muted: rgba(255,255,255,.68); --dg-line: rgba(255,255,255,.16); font-family: Montserrat, system-ui, sans-serif; color: var(--dg-ink); }
+.dg-progress { height: 4px; border-radius: 4px; background: rgba(255,255,255,.1); overflow: hidden; margin: 0 28px 14px 0; }
+.dg-progress span { display: block; height: 100%; background: linear-gradient(90deg, #b8923a, var(--dg-gold)); transition: width .35s; }
+.dg-step { font-size: .72rem; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; color: var(--dg-gold); margin: 0 0 6px; }
+.dg-q { font-size: 1.35rem; font-weight: 900; line-height: 1.2; margin: 0 0 16px; color: var(--dg-ink); }
+.dg-sub { color: var(--dg-muted); margin: 0 0 18px; line-height: 1.5; }
+.dg-body { max-height: min(52vh, 460px); overflow-y: auto; padding-right: 4px; margin-bottom: 16px; }
+.dg-grupo { font-size: .7rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--dg-muted); margin: 14px 0 8px; }
+.dg-grupo:first-child { margin-top: 0; }
+.dg-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.dg-chip, .dg-opt, .dg-serv { font: 600 .9rem Montserrat, sans-serif; color: var(--dg-ink); background: rgba(255,255,255,.05); border: 1.5px solid var(--dg-line); border-radius: 999px; padding: 9px 14px; cursor: pointer; transition: border-color .15s, background .15s; text-align: left; }
+.dg-chip:hover, .dg-opt:hover, .dg-serv:hover { border-color: rgba(228,192,110,.6); }
+.dg-chip.on, .dg-opt.on, .dg-serv.on { border-color: var(--dg-gold); background: rgba(228,192,110,.14); }
+.dg-opts { display: grid; gap: 8px; }
+.dg-opt { border-radius: 12px; padding: 13px 16px; }
+.dg-servs { display: grid; gap: 8px; }
+.dg-serv { display: flex; justify-content: space-between; align-items: center; gap: 10px; border-radius: 12px; padding: 12px 14px; }
+.dg-serv i { font-style: normal; font-weight: 900; color: var(--dg-gold); }
+.dg-serv.destaque { border-color: rgba(228,192,110,.45); box-shadow: 0 0 18px rgba(228,192,110,.12); }
+.dg-input { width: 100%; box-sizing: border-box; background: rgba(255,255,255,.06); border: 1.5px solid var(--dg-line); border-radius: 12px; padding: 13px 14px; color: #fff; font: 500 .95rem Montserrat, sans-serif; }
+.dg-input:focus { outline: none; border-color: var(--dg-gold); }
+.dg-busca { margin-bottom: 12px; }
+.dg-outro { margin-top: 12px; }
+.dg-dica { font-size: .8rem; color: var(--dg-muted); margin: 10px 0 0; }
+.dg-nav { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.dg-back { background: none; border: 0; color: var(--dg-muted); font: 700 .9rem Montserrat, sans-serif; cursor: pointer; padding: 10px 4px; }
+.dg-next, .dg-cta { background: var(--dg-gold); color: #0b1220; border: 0; border-radius: 999px; padding: 14px 24px; font: 800 .95rem Montserrat, sans-serif; cursor: pointer; text-decoration: none; text-align: center; }
+.dg-next:disabled { opacity: .35; cursor: not-allowed; }
+.dg-fim { display: flex; flex-direction: column; gap: 10px; }
+.dg-cta { display: block; }
+.dg-cta--wa { background: transparent; color: #fff; border: 1.5px solid rgba(255,255,255,.4); }
+@media (max-width: 560px) {
+  .dg-q { font-size: 1.15rem; }
+  .dg-chip { font-size: .85rem; padding: 8px 12px; }
+  .dg-body { max-height: 56vh; }
+  .dg-next { padding: 13px 18px; }
+}
+
+/* Versão clara (carrinho da Fábrica, fundo branco) */
+.flow-modal .dg-inline { --dg-ink: #0b1220; --dg-muted: #5b6678; --dg-line: rgba(11,18,32,.16); --dg-gold: #b8923a; }
+.flow-modal .dg-chip, .flow-modal .dg-opt, .flow-modal .dg-serv, .flow-modal .dg-input { background: #f6f7fa; color: #0b1220; }
+.flow-modal .dg-chip.on, .flow-modal .dg-opt.on, .flow-modal .dg-serv.on { background: rgba(228,192,110,.22); }
+.flow-modal .dg-progress { background: rgba(11,18,32,.08); }
+.flow-modal .dg-next, .flow-modal .dg-cta { background: #0b1220; color: #fff; }
+.flow-modal .dg-cta--wa { background: transparent; color: #0b1220; border-color: rgba(11,18,32,.3); }
+.flow-modal .dg-body { max-height: min(48vh, 440px); }
+
+/* Checkout: selo de recomendado e upsell para plano */
+.bump-rec { display: inline-block; margin-left: 6px; padding: 2px 8px; border-radius: 999px; background: rgba(228,192,110,.22); color: #8a6a1f; font-style: normal; font-size: .68rem; font-weight: 800; letter-spacing: .04em; vertical-align: middle; }
+.upsell-plano { border: 1.5px solid #e4c06e !important; background: linear-gradient(135deg, rgba(228,192,110,.12), rgba(228,192,110,.02)) !important; margin-bottom: 14px; }
+
+/* Escolha de plano (quando a pessoa chega sem pedido) */
+.dg-planos { display: grid; gap: 10px; }
+.dg-plano { position: relative; display: grid; gap: 4px; text-align: left; font-family: Montserrat, sans-serif; color: var(--dg-ink); background: rgba(255,255,255,.05); border: 1.5px solid var(--dg-line); border-radius: 14px; padding: 16px; cursor: pointer; }
+.dg-plano strong { font-size: 1.05rem; font-weight: 900; }
+.dg-plano small { color: var(--dg-muted); font-size: .85rem; line-height: 1.4; }
+.dg-plano-preco { font-weight: 800; color: var(--dg-gold); }
+.dg-plano-preco i { font-style: normal; font-weight: 600; font-size: .8em; opacity: .8; }
+.dg-plano.sug { border-color: rgba(228,192,110,.7); box-shadow: 0 0 22px rgba(228,192,110,.18); }
+.dg-plano.on { border-color: var(--dg-gold); background: rgba(228,192,110,.16); }
+.dg-plano-tag { position: absolute; top: -10px; right: 12px; background: #e4c06e; color: #0b1220; font-size: .68rem; font-weight: 800; letter-spacing: .04em; padding: 3px 10px; border-radius: 999px; }
+.flow-modal .dg-plano { background: #f6f7fa; }

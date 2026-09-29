@@ -4,7 +4,7 @@
    Renderiza a esteira de um produto que tenha `journey` nos dados
    e anima as cenas conforme o scroll (com fallback flat no mobile).
    ============================================================ */
-import { PRODUCTS } from "./products-data.js?v=20260927a";
+import { PRODUCTS } from "./products-data.js?v=20260929d";
 
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -61,7 +61,7 @@ export function renderJourney(slug, mountId = "journey-mount") {
 
   const c = j.cta;
   mount.innerHTML = `
-  <section class="journey" id="journey-${p.slug}" aria-label="Jornada — ${p.name}">
+  <section class="journey" id="journey-${p.slug}" aria-label="Jornada, ${p.name}">
     <div class="j-pin">
       <div class="jbg" aria-hidden="true"><div class="jbg-floor"></div><div class="jbg-glow"></div></div>
       <div class="j-stage">
@@ -69,7 +69,7 @@ export function renderJourney(slug, mountId = "journey-mount") {
         <div class="jscene jscene-intro">
           <span class="jkicker">${p.name}</span>
           <h2 class="jintro">${j.intro}</h2>
-          <span class="jcue">avance — a informação vem até você</span>
+          <span class="jcue">avance, a informação vem até você</span>
         </div>
 
         <div class="jscene jscene-problems" data-weight="4" data-subreveal>

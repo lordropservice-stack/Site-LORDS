@@ -326,7 +326,8 @@ a{color:inherit}
 .hb-dlv-item{display:flex;flex-direction:column;align-items:center;gap:3px;background:var(--hb-bg);border-radius:10px;padding:10px 6px}
 .hb-dlv-n{font-size:22px;font-weight:800;color:var(--hb-ink);line-height:1}
 .hb-dlv-l{font-size:11px;color:var(--hb-ink-2);white-space:nowrap}
-@media(max-width:480px){.hb-dlv-grid{grid-template-columns:repeat(2,1fr)}}
+.hb-dlv-grid.hb-dlv-3{grid-template-columns:repeat(3,1fr)}
+@media(max-width:480px){.hb-dlv-grid{grid-template-columns:repeat(2,1fr)}.hb-dlv-grid.hb-dlv-3{grid-template-columns:repeat(3,1fr)}}
 
 /* Dashboard — Vídeo de boas-vindas */
 .hb-welcome-video{background:var(--hb-surf);border:1px solid var(--hb-line);border-radius:14px;padding:20px;margin-bottom:20px}

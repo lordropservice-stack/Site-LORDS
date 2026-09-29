@@ -247,10 +247,10 @@
     <!-- INTRO -->
     <div class="screen active" id="screen-intro">
       <p class="intro-kicker">Diagnóstico gratuito · LORDS</p>
-      <h1 class="intro-h1">4 perguntas para descobrir onde seu marketing está <em>travando.</em></h1>
-      <p class="intro-sub">Responda rápido — sem cadastro. Ao final, você ganha um presente da LORDS e a gente entra em contato com um plano personalizado.</p>
+      <h1 class="intro-h1">O diagnóstico que monta a <em>sua proposta.</em></h1>
+      <p class="intro-sub">Perguntas rápidas, sem cadastro. No final você recebe uma proposta montada para o seu negócio e ganha um giro na roleta.</p>
       <div class="intro-meta">
-        <span class="intro-badge"><i>⚡</i> 2 minutos</span>
+        <span class="intro-badge"><i>⚡</i> 3 minutos</span>
         <span class="intro-badge"><i>🎁</i> Presente ao finalizar</span>
         <span class="intro-badge"><i>🔒</i> Sem spam</span>
       </div>
@@ -294,6 +294,7 @@
       <div class="result-note">
         <strong>O que vem a seguir:</strong> Na conversa, a gente mostra o que analisou na sua marca, o que pode melhorar e qual plano faz sentido — sem apresentação forçada.
       </div>
+      <a class="btn-whatsapp" id="btn-proposta" href="#" target="_blank" rel="noopener" style="margin-bottom:12px">Ver minha proposta com 10% →</a>
       <a class="btn-whatsapp" id="btn-whatsapp" href="https://calendly.com/lordropservice/30min" target="_blank" rel="noopener">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
         Agendar conversa estratégica
@@ -306,52 +307,12 @@
   <!-- ── WA FLOAT ── -->
 
 
+  <script type="module">
+    import { montarDiagnostico } from "./enquete.js?v=20260929a";
+    window.__montarDg = montarDiagnostico;
+  </script>
   <script>
   (function() {
-
-    /* ─── PERGUNTAS ─── */
-    const QUESTIONS = [
-      {
-        text: "Qual segmento melhor descreve o seu negócio?",
-        opts: [
-          { ic: "🏪", label: "Comércio / varejo / alimentação" },
-          { ic: "💆", label: "Saúde, beleza ou bem-estar" },
-          { ic: "🏗️", label: "Serviços / construção / auto" },
-          { ic: "🌐", label: "Outro segmento" },
-        ],
-      },
-      {
-        text: "Qual é o maior obstáculo no seu marketing agora?",
-        opts: [
-          { ic: "⏰", label: "Falta de tempo para produzir conteúdo" },
-          { ic: "💡", label: "Não sei o que postar ou como me posicionar" },
-          { ic: "👁️", label: "Tenho conteúdo mas não gero clientes" },
-          { ic: "💸", label: "Invisto em anúncios mas o retorno é baixo" },
-        ],
-      },
-      {
-        text: "Qual é o faturamento mensal aproximado do seu negócio?",
-        opts: [
-          { ic: "🌱", label: "Até R$ 20 mil/mês" },
-          { ic: "📊", label: "R$ 20 mil – R$ 80 mil/mês" },
-          { ic: "🚀", label: "R$ 80 mil – R$ 300 mil/mês" },
-          { ic: "🏆", label: "Acima de R$ 300 mil/mês" },
-        ],
-      },
-      {
-        text: "Qual resultado você quer alcançar com a LORDS?",
-        opts: [
-          { ic: "📈", label: "Mais clientes / vendas" },
-          { ic: "🎨", label: "Melhorar a imagem da minha marca" },
-          { ic: "🤝", label: "Ter uma equipe cuidando do marketing" },
-          { ic: "⚙️", label: "Automatizar e escalar o que já funciona" },
-        ],
-      },
-    ];
-
-    let currentQ = 0;
-    let selected = null;
-    const answers = [];
 
     const screens = {
       intro: document.getElementById("screen-intro"),
@@ -367,57 +328,6 @@
     function showScreen(name) {
       Object.values(screens).forEach(s => s.classList.remove("active"));
       screens[name].classList.add("active");
-    }
-
-    function renderQuestion() {
-      const q = QUESTIONS[currentQ];
-      selected = null;
-      progressWrap.style.display = "block";
-      progressLabel.textContent = `Pergunta ${currentQ + 1} de ${QUESTIONS.length}`;
-      progressFill.style.width = `${(currentQ / QUESTIONS.length) * 100}%`;
-
-      screens.q.innerHTML = `
-        <p class="q-step">Pergunta ${currentQ + 1} de ${QUESTIONS.length}</p>
-        <p class="q-text">${q.text}</p>
-        <div class="q-options">
-          ${q.opts.map((o, i) => `
-            <button class="q-opt" data-i="${i}">
-              <span class="q-opt-ic">${o.ic}</span>
-              ${o.label}
-            </button>
-          `).join("")}
-        </div>
-        <div class="q-nav"><button class="btn-next" id="btn-next">Próximo →</button></div>
-        <div class="wa-fallback"><a href="https://calendly.com/lordropservice/30min" target="_blank" rel="noopener">Prefiro agendar direto →</a></div>
-      `;
-      showScreen("q");
-
-      screens.q.querySelectorAll(".q-opt").forEach(btn => {
-        btn.addEventListener("click", () => {
-          screens.q.querySelectorAll(".q-opt").forEach(b => b.classList.remove("selected"));
-          btn.classList.add("selected");
-          selected = parseInt(btn.dataset.i);
-          document.getElementById("btn-next").classList.add("ready");
-          playClick();
-        });
-      });
-      document.getElementById("btn-next").addEventListener("click", nextQ);
-    }
-
-    function nextQ() {
-      if (selected === null) return;
-      answers.push({ q: QUESTIONS[currentQ].text, a: QUESTIONS[currentQ].opts[selected].label });
-      currentQ++;
-      if (currentQ < QUESTIONS.length) {
-        renderQuestion();
-      } else {
-        progressFill.style.width = "100%";
-        setTimeout(() => {
-          progressWrap.style.display = "none";
-          showScreen("gift");
-          playSuccess();
-        }, 400);
-      }
     }
 
     /* ─── GIFT BOX ─── */
@@ -550,10 +460,12 @@
     }
 
     function setWhatsApp() {
-      const summary = answers.map((a, i) => `${i+1}. ${a.a}`).join("%0A");
-      const msg = `Olá, fiz o diagnóstico gratuito da LORDS e quero saber mais!%0A%0AMeus dados:%0A${summary}%0A%0AGanhei 10% de desconto no 1º mês. 🎉`;
-      document.getElementById("btn-whatsapp").href = "https://calendly.com/lordropservice/30min"; /* sem número oficial de WhatsApp ainda (27/09/2026) */
-      try { localStorage.setItem("lords_diag_resumo", decodeURIComponent(msg)); } catch (e) {}
+      const res = window.__dgRes;
+      if (!res) return;
+      document.getElementById("btn-proposta").href = res.link;
+      const wa = document.getElementById("btn-whatsapp");
+      wa.href = res.destino;
+      if (/wa\.me/.test(res.destino)) wa.lastChild.textContent = " Enviar diagnóstico no WhatsApp";
     }
 
     /* ─── SFX ─── */
@@ -598,11 +510,14 @@
     /* ─── INIT ─── */
     document.getElementById("btn-start").addEventListener("click", () => {
       showScreen("q");
-      renderQuestion();
+      screens.q.classList.add("dg-inline");
+      window.__montarDg(screens.q, {
+        origem: "página de diagnóstico", desconto: 10,
+        onFim: (res) => { window.__dgRes = res; showScreen("gift"); playSuccess(); },
+      });
     });
     document.getElementById("btn-restart").addEventListener("click", () => {
-      currentQ = 0; selected = null; answers.length = 0; spinning = false;
-      showScreen("intro");
+      location.reload();
     });
 
     drawWheel(-Math.PI / 2);

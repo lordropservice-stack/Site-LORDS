@@ -5,7 +5,7 @@
    é persistido. Coins/recompensas são pré-visualização — sem
    compra, sem saque, sem dinheiro. Config vem de products-data.js.
    ============================================================ */
-import { PRODUCTS, HUB_MODULES, HUB_ACCESS, COINS_RULES, REWARDS, HUB_MISSIONS, HUB_SHOP } from "./products-data.js?v=20260927a";
+import { PRODUCTS, HUB_MODULES, HUB_ACCESS, COINS_RULES, REWARDS, HUB_MISSIONS, HUB_SHOP } from "./products-data.js?v=20260929d";
 
 const $  = (s, r = document) => r.querySelector(s);
 const esc = (s) => String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
@@ -62,7 +62,7 @@ const RANKING_DATA = [
 const ADVISOR_RESPONSES = [
   { keywords: ["instagram", "algoritmo", "feed", "alcance"],
     resp: "Para crescer no Instagram em 2026, o algoritmo prioriza consistência e tempo de retenção nos Reels. Publique 4–5×/semana nos horários de pico do seu público (12h–14h e 19h–21h). Conteúdo de bastidor e depoimento tende a gerar mais engajamento real." },
-  { keywords: ["tráfego", "ads", "anúncio", "pago", "meta"],
+  { keywords: ["mídia", "tráfego", "ads", "anúncio", "pago", "meta"],
     resp: "Para campanhas pagas, o funil mais eficaz no Meta Ads combina: Topo = Reels de bastidor (audiência fria) → Meio = Carrossel com prova social (retargeting 7 dias) → Fundo = Oferta direta (retargeting de visualizadores). Budget mínimo recomendado: R$ 1.500/mês." },
   { keywords: ["conteudo", "conteúdo", "tipo", "formato", "reels", "carrossel"],
     resp: "Para a sua marca, priorize Reels (alcance orgânico), Carrossel (salvamentos = sinal positivo p/ algoritmo) e Stories (relacionamento diário). Proporção ideal: 40% bastidor/educativo, 30% prova social, 20% institucional, 10% promocional." },
@@ -95,12 +95,23 @@ const BADGES_DEF = [
   { id: "b-top-rank",  sigla: "T3", nome: "Top 3 do Ranking",    desc: "Entrou no Top 3 de coins do mês (em breve)",    condition: () => false },
 ];
 
-/* Volumes de entrega por plano — usados no card "Entregas do mês" */
+/* Volumes por plano — espelho do Comparativo de Planos (vault). `postados` é demo. */
 const DEMO_DELIVERIES = {
-  capture:  { videos: 4,  reels: 4,  fotos: 12, artes: 8,  stories: 8,  postados: 3,  total: 5  },
-  creator:  { videos: 6,  reels: 8,  fotos: 24, artes: 16, stories: 20, postados: 5,  total: 7  },
-  completo: { videos: 10, reels: 14, fotos: 40, artes: 30, stories: 32, postados: 9,  total: 11 },
+  capture:  { videos: 6,  encontros: 1, fotos: "—",      artes: "—", postados: 3,  total: 6  },
+  creator:  { videos: 10, encontros: 1, fotos: "Ensaio", artes: "—", postados: 6,  total: 10 },
+  completo: { videos: 16, encontros: 2, fotos: "Ensaio", artes: 10,  postados: 11, total: 26 },
 };
+
+/* Captação de clientes (Creator/Completo) — dados de demonstração. */
+const DEMO_CAPTACAO = {
+  creator:  { abordados: 60,  responderam: 9,  leads: 4 },
+  completo: { abordados: 120, responderam: 17, leads: 8 },
+};
+const DEMO_LEADS = [
+  { nome: "Contato via Instagram", origem: "DM", quando: "ontem",    status: "Aguardando você" },
+  { nome: "Contato via WhatsApp",  origem: "WA", quando: "há 3 dias", status: "Em conversa" },
+  { nome: "Indicação de parceiro", origem: "Indicação", quando: "há 5 dias", status: "Reunião marcada" },
+];
 
 /* ---------------- Estado (demo) ---------------- */
 const state = {
@@ -160,7 +171,7 @@ const state = {
   vaultType:  "todos",
   vaultMonth: "todos",
   advisor: [
-    { from: "lords", txt: "Oi! Sou o Advisor da LORDS. Pode me perguntar sobre estratégia de conteúdo, marketing digital, Instagram, tráfego pago, branding — qualquer coisa da sua operação." },
+    { from: "lords", txt: "Oi! Sou o Advisor da LORDS. Pode me perguntar sobre estratégia de conteúdo, marketing digital, Instagram, mídia paga, branding — qualquer coisa da sua operação." },
   ],
   project: {
     escopo: "Operação mensal de conteúdo: estratégia, roteiro, captação com câmera, edição e acompanhamento.",
@@ -325,10 +336,17 @@ const SUB = {
   advisor:      "Tire dúvidas de marketing diretamente com a IA da LORDS.",
   notificacoes: "Tudo o que aconteceu no seu Hub.",
   metas:        "Acompanhe metas e indicadores estratégicos.",
+  captacao:     "Oportunidades que a LORDS gerou para o seu negócio neste mês.",
+  relatorio:    "O resumo do mês: o que foi entregue, os números e os próximos passos.",
   perfil:       "Os dados da sua empresa no Hub.",
 };
 
 function boot() {
+  if (moduleState(state.module) !== "enabled") {
+    const first = HUB_MODULES.find(m => !m.hidden && moduleState(m.id) === "enabled");
+    if (!first) { state.module = "dashboard"; renderNav(); renderLock("dashboard"); return; }
+    state.module = first.id;
+  }
   renderNav();
   $("#hb-subtitle").textContent = SUB[state.module] || "";
   const v = $("#hb-view");
@@ -347,6 +365,8 @@ function boot() {
     advisor:      renderAdvisor,
     notificacoes: renderNotificacoes,
     metas:        renderMetas,
+    captacao:     renderCaptacao,
+    relatorio:    renderRelatorio,
     perfil:       renderPerfil,
   };
   v.innerHTML = (R[state.module] || renderDashboard)();
@@ -388,8 +408,10 @@ function renderLock(id) {
   $("#hb-view").innerHTML = `
     <div class="hb-lockview">
       <div class="hb-lock-ic">—</div>
-      <h3>${m.label} faz parte de um plano superior</h3>
-      <p>No seu plano <strong>${planShort(state.plan)}</strong> este módulo não está incluído. O acesso completo ao LORDS Hub começa no <strong>Creator</strong>.</p>
+      <h3>${state.plan === "capture" ? "Seu LORDS Hub é liberado na renovação" : `${m.label} faz parte de um plano superior`}</h3>
+      <p>${state.plan === "capture"
+      ? `No plano <strong>Capture</strong> o LORDS Hub é liberado quando você renova por mais 3 meses. No <strong>Creator</strong> ele vem completo desde o 1º mês, com a captação de clientes.`
+      : `No seu plano <strong>${planShort(state.plan)}</strong> este módulo não está incluído.`}</p>
       <a href="fabrica-criativa.html#planos">Ver os planos →</a>
     </div>`;
 }
@@ -453,7 +475,7 @@ function renderDashboard() {
   const mes    = card("Entregas do mês", `
     <div class="hb-dlv-grid">
       <div class="hb-dlv-item"><span class="hb-dlv-n">${dlv.videos}</span><span class="hb-dlv-l">Vídeos</span></div>
-      <div class="hb-dlv-item"><span class="hb-dlv-n">${dlv.reels}</span><span class="hb-dlv-l">Reels</span></div>
+      <div class="hb-dlv-item"><span class="hb-dlv-n">${dlv.encontros}</span><span class="hb-dlv-l">Encontros</span></div>
       <div class="hb-dlv-item"><span class="hb-dlv-n">${dlv.fotos}</span><span class="hb-dlv-l">Fotos</span></div>
       <div class="hb-dlv-item"><span class="hb-dlv-n">${dlv.artes}</span><span class="hb-dlv-l">Artes</span></div>
     </div>
@@ -1235,7 +1257,7 @@ function renderAdvisor() {
       <span class="hb-adv-icon">AI</span>
       <div>
         <strong style="font-size:16px">IA Advisor LORDS</strong>
-        <p class="hb-muted">Estratégia de conteúdo, marketing digital, Instagram, tráfego pago, branding — pergunte qualquer coisa.</p>
+        <p class="hb-muted">Estratégia de conteúdo, marketing digital, Instagram, mídia paga, branding — pergunte qualquer coisa.</p>
       </div>
     </div>
     ${card("Conversa", `
@@ -1273,6 +1295,33 @@ function renderMetas() {
   ];
   const g = goals.map((x) => `${card(x.nome, `<div class="hb-progress-lbl"><span>${x.meta}</span><span>${x.val}%</span></div><div class="hb-progress"><span style="width:${x.val}%"></span></div>`)}`).join("");
   return `<p class="hb-privacy">Área <strong>premium</strong> do plano Completo: indicadores avançados, relatórios e acompanhamento estratégico.</p><div class="hb-grid cols-3">${g}</div>`;
+}
+
+/* ---------------- Captação de clientes ---------------- */
+function renderCaptacao() {
+  const c = DEMO_CAPTACAO[state.plan] || DEMO_CAPTACAO.creator;
+  const n = (v, l) => `<div class="hb-dlv-item"><span class="hb-dlv-n">${v}</span><span class="hb-dlv-l">${l}</span></div>`;
+  const resumo = card("Este mês", `
+    <div class="hb-dlv-grid hb-dlv-3">${n(c.abordados, "Abordados")}${n(c.responderam, "Responderam")}${n(c.leads, "Leads para você")}</div>
+    <p class="hb-section-note">A LORDS abre a conversa e qualifica. O fechamento é com você, e cada lead chega com o contexto do que já foi conversado.</p>`);
+  const lista = card("Leads entregues", DEMO_LEADS.slice(0, c.leads).map((l) => `
+    <div class="hb-row"><span class="hb-row-ic">${l.origem === "WA" ? "💬" : l.origem === "DM" ? "📩" : "🤝"}</span><div class="hb-row-main"><strong style="font-weight:600">${esc(l.nome)}</strong><small>${l.quando}</small></div><span class="hb-tag wait">${l.status}</span></div>`).join(""));
+  return `<p class="hb-privacy">Benefício do plano <strong>${planShort(state.plan)}</strong>. O escopo mensal está no seu contrato.</p><div class="hb-grid cols-2">${resumo}${lista}</div>`;
+}
+
+/* ---------------- Relatório do mês ---------------- */
+function renderRelatorio() {
+  const d = DEMO_DELIVERIES[state.plan] || DEMO_DELIVERIES.creator;
+  const c = DEMO_CAPTACAO[state.plan];
+  const entregue = card("Entregue", `
+    <div class="hb-row"><div class="hb-row-main"><strong>${d.videos} vídeos</strong><small>${d.encontros} encontro(s) de captação</small></div></div>
+    ${d.artes !== "—" ? `<div class="hb-row"><div class="hb-row-main"><strong>${d.artes} artes</strong><small>feed + story</small></div></div>` : ""}
+    ${d.fotos !== "—" ? `<div class="hb-row"><div class="hb-row-main"><strong>Ensaio fotográfico</strong><small>no acervo de Entregas</small></div></div>` : ""}
+    ${c ? `<div class="hb-row"><div class="hb-row-main"><strong>${c.leads} leads</strong><small>vindos da captação de clientes</small></div></div>` : ""}`);
+  const proximos = card("Próximos passos", `
+    <div class="hb-row"><div class="hb-row-main"><strong>Pauta do próximo mês</strong><small>definida na reunião mensal</small></div></div>
+    <div class="hb-row"><div class="hb-row-main"><strong>Reunião de resultado</strong><small>agendada com a LORDS</small></div></div>`);
+  return `<p class="hb-privacy">Passo 5 do Método LORDS: <strong>Resultado</strong>. O relatório completo é apresentado na reunião mensal.</p><div class="hb-grid cols-2">${entregue}${proximos}</div>`;
 }
 
 /* ---------------- Perfil ---------------- */
@@ -1451,7 +1500,7 @@ $("#hb-view").addEventListener("click", (e) => {
     return;
   }
   if (act === "advisor_clear") {
-    state.advisor = [{ from: "lords", txt: "Oi! Sou o Advisor da LORDS. Pode me perguntar sobre estratégia de conteúdo, marketing digital, Instagram, tráfego pago, branding — qualquer coisa da sua operação." }];
+    state.advisor = [{ from: "lords", txt: "Oi! Sou o Advisor da LORDS. Pode me perguntar sobre estratégia de conteúdo, marketing digital, Instagram, mídia paga, branding — qualquer coisa da sua operação." }];
     boot(); return;
   }
 
@@ -1685,5 +1734,5 @@ document.addEventListener("click", (e) => {
 
 /* ---------------- PWA ---------------- */
 if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => navigator.serviceWorker.register("sw.js?v=20260816h").catch(() => {}));
+  window.addEventListener("load", () => navigator.serviceWorker.register("sw.js?v=20260928a").catch(() => {}));
 }

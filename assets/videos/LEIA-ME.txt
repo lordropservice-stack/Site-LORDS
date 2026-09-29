@@ -1,0 +1,18 @@
+VÍDEOS DO SITE: a pasta manda no site
+=====================================
+
+Uma pasta só para as duas páginas (Home e Fábrica Criativa):
+  videos/hero/              → vídeos do topo (hero) e das VSLs
+  videos/portfolio/<nicho>  → carrosséis de nicho das duas páginas
+  (as fotos ficam em assets/fotos/, também únicas)
+
+Nichos: moda, comunicacao, gastronomia, suplementos, otica, automotivo,
+cinema, desfile, hotelaria, imobiliario (pode criar outro: crie a pasta e me avise).
+
+Não gostou de um vídeo?  Apaga o arquivo.
+Quer colocar um novo?    Joga na pasta certa (nome sem espaço/acento).
+
+Depois, no Terminal:
+    cd ~/lords-site
+    node sync-midia.mjs
+(ver só o que mudaria, sem aplicar: node sync-midia.mjs --check)

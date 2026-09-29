@@ -1,0 +1,97 @@
+PASTA: assets/fotos/
+REGRA: toda foto aqui aparece no carrossel de fotos (Home + Fábrica Criativa)
+FORMATOS aceitos: .jpg  .jpeg  .png  .webp  .avif
+NÃO colocar: .HEIC  extensões maiúsculas  arquivos com espaço no nome
+Após adicionar/remover: atualizar MEDIA["fotos"] em products-data.js e bumpar a versão (v=AAAAMMDD+letra)
+
+ÚLTIMA SINCRONIZAÇÃO: 2026-09-26 · 80 arquivos · ordem intercalada por modelo (J,J,E,G)
+
+── Amanda ────────────────────────────────────────────────
+amanda-hotelaria-1.jpg
+amanda-lifestyle-1.jpg
+amanda-lifestyle-2.jpg
+amanda-modelo-1.jpg
+
+── Eduarda ───────────────────────────────────────────────
+eduarda-beachwear-01.jpg
+eduarda-beachwear-02.jpg
+eduarda-beachwear-03.jpg
+eduarda-beachwear-05.jpg
+eduarda-beachwear-07.jpg
+eduarda-beachwear-08.jpg
+eduarda-beachwear-09.jpg
+eduarda-fashion-01.jpg
+eduarda-fashion-02.jpg
+eduarda-fashion-03.jpg
+eduarda-fashion-05.jpg
+eduarda-fashion-06.jpg
+eduarda-fashion-07.jpg
+eduarda-fashion-08.jpg
+eduarda-fashion-09.jpg
+eduarda-fashion-10.jpg
+eduarda-fashion-11.jpg
+eduarda-fashion-12.jpg
+eduarda-fashion-13.jpg
+eduarda-maquiagem-01.jpg
+eduarda-maquiagem-03.jpg
+eduarda-maquiagem-04.jpg
+
+── Jenifer ───────────────────────────────────────────────
+jenifer-fashion-01.jpg
+jenifer-fashion-02.jpg
+jenifer-fashion-03.jpg
+jenifer-fashion-06.jpg
+jenifer-fashion-07.jpg
+jenifer-fashion-08.jpg
+jenifer-fashion-09.jpg
+jenifer-fashion-10.jpg
+jenifer-fashion-11.jpg
+jenifer-fashion-12.jpg
+jenifer-fashion-13.jpg
+jenifer-fashion-14.jpg
+jenifer-fashion-15.jpg
+jenifer-fashion-16.jpg
+jenifer-fashion-17.jpg
+jenifer-fashion-18.jpg
+jenifer-fashion-21.jpg
+jenifer-fashion-dsc01236.png
+jenifer-fitness-01.jpeg
+jenifer-fitness-05.jpeg
+jenifer-fitness-06.jpeg
+jenifer-fitness-07.jpeg
+jenifer-fitness-15.jpeg
+jenifer-fitness-19.jpeg
+jenifer-fitness-35.jpeg
+jenifer-look-01.jpg
+jenifer-look-02.jpg
+jenifer-look-05.jpg
+jenifer-look-06.jpg
+jenifer-look-10.jpg
+jenifer-look-12.jpg
+jenifer-maquiagem-01.jpg
+jenifer-maquiagem-02.jpg
+jenifer-maquiagem-03.jpg
+
+── Beleza / Maquiagem ────────────────────────────────────
+beleza-maquiagem.jpg
+
+── Genérico / Produto ────────────────────────────────────
+foto-marca-de-roupa-pg.jpg
+foto-moda-03.jpg
+foto-moda-05.jpg
+foto-moda-06.jpg
+foto-moda-07.jpg
+foto-moda-08.jpg
+foto-moda-11.jpg
+foto-otica-5.jpg
+foto-supl-1.jpg
+foto-supl-2.jpg
+gastronomia.jpeg
+luxo-e-carros.jpeg
+marca-de-roupa.jpg
+moda-cuidados-com-a-pele.jpg
+moda-feminina-foto-1.jpg
+moda-feminina-foto-2b.jpg
+modelo-vestido-de-casamento.jpeg
+otica-2.jpg
+otica-3.jpg

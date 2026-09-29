@@ -6,9 +6,12 @@
    4 Nichos horizontal · 5 Objeções · 6 Planos+bumps · 7 Excedente ·
    8 Prova social (bloqueada) · 9 Tecnologia · 10 FAQ · 11 Fechamento
    ============================================================ */
-import { PRODUCTS, PHOTO_REEL, COBERTURA_MEDIA, renderMockup, HUB_SCREENS, MEDIA, METODO_LORDS } from "./products-data.js?v=20260927b";
-import { mountAgents } from "./agents.js?v=20260815b";
-import { initEnquete, openEnquete } from "./enquete.js?v=20260927a";
+import { PRODUCTS, PHOTO_REEL, COBERTURA_MEDIA, renderMockup, HUB_SCREENS, MEDIA, METODO_LORDS } from "./products-data.js?v=20260929d";
+import { SERVICOS as SERVICOS_DG, WHATSAPP_NUM } from "./diagnostico-data.js?v=20260929a";
+import { renderAbertura, renderPassos, initAbertura, fixLoops } from "./abertura.js?v=20260929a";
+import { buildHubMockupHTML, initHubMockup } from "./hub-mockup.js?v=20260929a";
+import { mountAgents } from "./agents.js?v=20260929a";
+import { initEnquete, openEnquete, montarDiagnostico, telaFinal } from "./enquete.js?v=20260929a";
 
 
 function sAgents() {
@@ -18,7 +21,7 @@ function sAgents() {
       <div class="fc-vsl-intro">
         <span class="fc-label">Operação com IA</span>
         <h2 class="prod-h2">Eles trabalham sem parar. Você só recebe o resultado.</h2>
-        <p class="lede center">Estrategista, roteirista, WhatsApp e mais — rodando todo dia pela sua marca.</p>
+        <p class="lede center">Estrategista, roteirista, WhatsApp e mais, rodando todo dia pela sua marca.</p>
       </div>
       <div id="agentes-mount"><!-- injetado via agents.js --></div>
     </div>
@@ -30,7 +33,6 @@ function sAgents() {
 
 /* ⏳ PENDENTE: número do WhatsApp (o fundador providencia).
    Formato: "5547XXXXXXXXX". Enquanto vazio, os CTAs caem no Calendly. */
-const WHATSAPP_NUM = "";
 const CALENDLY_URL = "https://calendly.com/lordropservice/30min";
 
 const SLUG = "fabrica-criativa";
@@ -41,131 +43,7 @@ const fmt = (n) => new Intl.NumberFormat("pt-BR", { style: "currency", currency:
    SEÇÕES
    ============================================================ */
 
-function sHero(p) {
-  const primaryBtn = p.ctaPrimary
-    ? `<button class="btn btn-primary btn-cta" data-action="diagnostico">${p.ctaPrimary}</button>`
-    : "";
-  return `
-  <section class="prod-hero fc-hero">
-    <video class="fc-hero-main" id="fc-hero-main" muted loop playsinline></video>
-    <div class="fc-hero-overlay" aria-hidden="true"></div>
-    <div class="container fc-hero-content">
-      <h1 class="fc-h1 fc-h1--brand">${p.heroHook || p.hook}</h1>
-      ${p.heroSub ? `<p class="fc-hero-sub">${p.heroSub}</p>` : ""}
-      ${p.heroTrio ? `<p class="fc-hero-trio">${p.heroTrio.join(" · ")}</p>` : ""}
-      <div class="fc-cta-row">
-        ${primaryBtn}
-        <a class="btn btn-ghost fc-cta-solo" href="#portfolio">${p.ctaSecondary}</a>
-      </div>
-    </div>
-    <div class="fc-scroll-hint" aria-hidden="true">SCROLL<span></span></div>
-  </section>`;
-}
 
-/* items: [{ src, image }] — fatias aceitam vídeo OU foto (vertical). */
-function initHeroBg(items) {
-  if (!items.length || reduceMotion) return;
-  const hero = document.querySelector(".fc-hero");
-  const mainVid = document.getElementById("fc-hero-main");
-  if (!hero || !mainVid) return;
-
-  const videoSrcs = items.filter((it) => !it.image).map((it) => it.src);
-
-  const N = 4;           // número de fatias no estado quad
-  const QUAD_MS   = 4500; // duração do estado quad
-  const SINGLE_MS = 4500; // duração do estado single (vídeo)
-  const SLIDE_MS  = 500;
-  const STAGGER   = 80;
-  const TOTAL_ANIM = SLIDE_MS + (N - 1) * STAGGER + 120;
-
-  let qIdx = 0; // primeiro item das fatias
-  let vIdx = 0; // vídeo do estado single
-  let layer = null;
-
-  function makeSlice(i, item) {
-    const slice = document.createElement("div");
-    slice.className = "fc-slice";
-    let el;
-    if (item.image) {
-      el = document.createElement("img");
-      el.src = item.src; el.alt = ""; el.loading = "lazy";
-    } else {
-      el = document.createElement("video");
-      el.muted = true; el.loop = true; el.playsinline = true; el.src = item.src;
-      el.play().catch(() => {});
-    }
-    el.style.width = `${N * 100}%`;
-    el.style.left  = `${-i * 100}%`;
-    slice.appendChild(el);
-    return slice;
-  }
-
-  function buildLayer(fromBelow) {
-    const el = document.createElement("div");
-    el.className = "fc-slices-layer";
-    for (let i = 0; i < N; i++) {
-      const s = makeSlice(i, items[(qIdx + i) % items.length]);
-      s.style.transform = fromBelow ? "translateY(101%)" : "translateY(-105%)";
-      el.appendChild(s);
-    }
-    hero.insertBefore(el, hero.querySelector(".fc-hero-overlay"));
-    return el;
-  }
-
-  function animateIn(el) {
-    const slices = el.querySelectorAll(".fc-slice");
-    requestAnimationFrame(() => {
-      slices.forEach((s, i) => {
-        setTimeout(() => {
-          s.style.transition = `transform ${SLIDE_MS}ms cubic-bezier(0.25,0.46,0.45,0.94)`;
-          s.style.transform  = "translateY(0)";
-        }, i * STAGGER);
-      });
-    });
-  }
-
-  function animateOut(el, toTop, cb) {
-    const slices = el.querySelectorAll(".fc-slice");
-    slices.forEach((s, i) => {
-      setTimeout(() => {
-        s.style.transition = `transform ${SLIDE_MS}ms cubic-bezier(0.55,0,1,0.45)`;
-        s.style.transform  = toTop ? "translateY(-105%)" : "translateY(101%)";
-      }, i * STAGGER);
-    });
-    setTimeout(cb, TOTAL_ANIM);
-  }
-
-  // Início: estado quad
-  layer = buildLayer(true);
-  animateIn(layer);
-
-  function cycleToSingle() {
-    // quad → single: fatias saem para cima
-    animateOut(layer, true, () => {
-      layer.remove();
-      layer = null;
-      // estado single é sempre VÍDEO (pula as fotos)
-      if (videoSrcs.length) {
-        mainVid.src = videoSrcs[vIdx % videoSrcs.length];
-        mainVid.play().catch(() => {});
-        vIdx++;
-      }
-      setTimeout(cycleToQuad, SINGLE_MS);
-    });
-  }
-
-  function cycleToQuad() {
-    qIdx = (qIdx + N) % items.length;
-    layer = buildLayer(true);
-    animateIn(layer);
-    setTimeout(cycleToSingle, QUAD_MS);
-  }
-
-  setTimeout(cycleToSingle, QUAD_MS);
-
-  const hint = document.querySelector(".fc-scroll-hint");
-  if (hint) window.addEventListener("scroll", () => { hint.style.opacity = "0"; }, { once: true });
-}
 
 function sLogoCarousel(p) {
   const logos = p.logoReel || [];
@@ -184,36 +62,6 @@ function sLogoCarousel(p) {
   </section>`;
 }
 
-function sVsl(p) {
-  const v = p.vsl;
-
-  const pillarsHtml = (v.pillars || []).map((pl) => `
-    <div class="fc-vsl-pillar">
-      <span class="fc-vsl-pillar-icon">${pl.icon}</span>
-      <h3 class="fc-vsl-pillar-title">${pl.title}</h3>
-      <p class="fc-vsl-pillar-body">${pl.body}</p>
-    </div>`).join("");
-
-  return `
-  <section class="section fc-vsl" id="vsl">
-    <div class="container">
-      <div class="fc-vsl-intro">
-        <span class="fc-label">Assista ao vídeo</span>
-        <h2 class="prod-h2">Conheça a Fábrica Criativa</h2>
-      </div>
-      <div class="fc-player" id="fc-player">
-        <video id="fc-video" src="${v.src}" muted autoplay loop playsinline preload="none" poster=""></video>
-        <button class="fc-sound" id="fc-sound" aria-pressed="false">Ativar som</button>
-      </div>
-      <p class="fc-player-cap">${v.caption}</p>
-
-      ${pillarsHtml ? `
-      <div class="fc-vsl-pillars">
-        ${pillarsHtml}
-      </div>` : ""}
-    </div>
-  </section>`;
-}
 
 function sOrgChart(p) {
   const o = p.orgChart;
@@ -359,8 +207,17 @@ function sObjections(p) {
 /* Adicionais de um plano, do mais caro para o mais barato.
    Ordenar aqui (e não na mão em products-data.js) garante que mexer num preço
    reordena a lista sozinho, nos três lugares que mostram bumps. */
+/* Order bumps que mais combinam com cada plano: aparecem primeiro, com selo. */
+const RECOMENDADOS = {
+  capture: ["comunicadora", "trafego"],
+  creator: ["stories-isa", "trafego"],
+  completo: ["trafego", "gestao-redes"],
+};
+const recomendado = (planId, id) => (RECOMENDADOS[planId] || []).includes(id);
+
 function bumpsDoPlano(p, planId) {
-  return [...(p.bumps[planId] || [])].sort((a, b) => b.price - a.price);
+  return [...(p.bumps[planId] || [])].sort((a, b) =>
+    (recomendado(planId, b.id) - recomendado(planId, a.id)) || (b.price - a.price));
 }
 
 /* Um bump com `requires` só vale se o bump exigido estiver selecionado. */
@@ -368,30 +225,6 @@ function bumpLiberado(b, selecionados) {
   return !b.requires || selecionados.has(b.requires);
 }
 
-/* ---- Seção 10: planos + order bumps com total ao vivo ---- */
-function sMetodoLords() {
-  const m = METODO_LORDS;
-  if (!m) return "";
-  return `
-  <section class="section metodo-sec" id="metodo" aria-label="Método LORDS">
-    <div class="container">
-      <div class="section-head reveal">
-        <span class="kicker">${m.kicker}</span>
-        <h2>${m.title}</h2>
-        <p class="lede">${m.lede}</p>
-      </div>
-      <ol class="metodo-steps">
-        ${m.steps.map((st) => `
-        <li class="metodo-step reveal">
-          <span class="metodo-step-n">${st.n}</span>
-          <h3>${st.t}</h3>
-          <p>${st.d}</p>
-        </li>`).join("")}
-      </ol>
-      <p class="metodo-note">${m.note}</p>
-    </div>
-  </section>`;
-}
 
 function sPlans(p) {
   function planCard(pl) {
@@ -443,9 +276,9 @@ function sPlans(p) {
   <section class="section" id="planos">
     <div class="container">
       <h2 class="prod-h2 center">Nossos Planos</h2>
-      <p class="lede center plan-question">Você quer aparecer na câmera — ou prefere que a gente coloque um rosto na sua marca?</p>
+      <p class="lede center plan-question">Você quer aparecer na câmera, ou prefere que a gente coloque um rosto na sua marca?</p>
       <div class="plans">${p.plans.map(planCard).join("")}</div>
-      <p class="plans-foot">Contrato mínimo de 3 meses · uma empresa por nicho em cada cidade · comunicadora como rosto a partir do Creator · LORDS Hub no Creator e no Completo</p>
+      <p class="plans-foot">Contrato mínimo de 3 meses · comunicadora como rosto a partir do Creator · LORDS Hub no Creator e no Completo</p>
     </div>
   </section>`;
 }
@@ -489,12 +322,12 @@ function sPersonalize(p) {
     <div class="container">
       <span class="fc-label center">Monte do seu jeito</span>
       <h2 class="prod-h2 center">Personalize o seu plano</h2>
-      <p class="lede center">Nenhuma empresa é igual. Escolha o plano base e adicione só o que faz sentido pro seu momento — a gente fecha a combinação certa no diagnóstico.</p>
+      <p class="lede center">Nenhuma empresa é igual. Escolha o plano base e adicione só o que faz sentido pro seu momento, a gente fecha a combinação certa no diagnóstico.</p>
 
       <div class="bump-tabs" role="group" aria-label="Escolha o plano base">${abas}</div>
       ${paineis}
 
-      <p class="pz-nota">Não achou o que precisa? A gente monta sob medida — é só falar com a equipe.</p>
+      <p class="pz-nota">Não achou o que precisa? A gente monta sob medida, é só falar com a equipe.</p>
     </div>
   </section>`;
 }
@@ -525,7 +358,7 @@ function sNiches(p) {
       <div class="section-head reveal">
         <span class="kicker">Nichos</span>
         <h2>A LORDS já fala a língua do seu mercado.</h2>
-        <p class="lede">Ache o seu — e veja o tipo de conteúdo que a gente já entrega.</p>
+        <p class="lede">Ache o seu, e veja o tipo de conteúdo que a gente já entrega.</p>
       </div>
     </div>
     <div class="nichos-rail" id="nichos-rail-fc">
@@ -551,7 +384,7 @@ function sCoverage(p) {
     <div class="container">
       <span class="fc-label center">Onde atendemos</span>
       <h2 class="prod-h2 center">As praias e pontos turísticos onde a LORDS grava.</h2>
-      <p class="lede center">Estúdio em Itajaí ou captação no seu local — Balneário Camboriú e região e Grande Florianópolis, sem taxa de deslocamento.</p>
+      <p class="lede center">Estúdio em Itajaí ou captação no seu local: Balneário Camboriú e região e Grande Florianópolis, sem taxa de deslocamento.</p>
     </div>
     ${sCoberturaReel()}
   </section>`;
@@ -620,14 +453,14 @@ function sMethod(p) {
           <div class="method-screen-frame">
             <div class="media-soon">imagem em breve</div>
           </div>
-          <figcaption>Calendário editorial — pautas, roteiros e aprovações num único espaço do cliente.</figcaption>
+          <figcaption>Calendário editorial, pautas, roteiros e aprovações num único espaço do cliente.</figcaption>
         </figure>
         <figure class="method-screen">
           <div class="method-screen-badge">ClickUp</div>
           <div class="method-screen-frame">
             <div class="media-soon">imagem em breve</div>
           </div>
-          <figcaption>Fluxo de produção — roteiro → captação → edição → aprovação → publicação. Nada se perde.</figcaption>
+          <figcaption>Fluxo de produção, roteiro → captação → edição → aprovação → publicação. Nada se perde.</figcaption>
         </figure>
       </div>
       <div class="method-agents">
@@ -674,7 +507,7 @@ function sFaq(p) {
     if (f.type === "avulso") {
       const all = servicosAvulsos(p);
       const rows = all.map((s) =>
-        `<li><strong>${s.name}:</strong> ${fmt(s.price)}${s.recurring ? "/mês" : ""}${s.monthly ? ` + ${fmt(s.monthly)}/mês manutenção` : ""} — ${s.desc}</li>`
+        `<li><strong>${s.name}:</strong> ${fmt(s.price)}${s.recurring ? "/mês" : ""}${s.monthly ? ` + ${fmt(s.monthly)}/mês manutenção` : ""}, ${s.desc}</li>`
       ).join("");
       return `<ul class="faq-avulso">${rows}</ul>`;
     }
@@ -708,32 +541,27 @@ function sFaq(p) {
 
 /* ---- Serviços Avulsos: Cobertura · Comunicadora · Modelo ---- */
 function sServicosAvulsos() {
-  const waTxt = (svc) => encodeURIComponent(`Olá! Vi os serviços avulsos no site da LORDS e quero solicitar um orçamento para: ${svc}.`);
-  const waHref = (svc) => WHATSAPP_NUM
-    ? `https://wa.me/${WHATSAPP_NUM}?text=${waTxt(svc)}`
-    : `${CALENDLY_URL}`;
-
   const svcCards = [
     {
       id: "comunicadora",
       icon: "🎙️",
       name: "Comunicadora",
-      tagline: "O rosto e a voz da sua marca — do institucional ao UGC.",
+      tagline: "O rosto e a voz da sua marca, do institucional ao UGC.",
       formatos: ["Comunicação institucional", "Criação de conteúdo UGC", "Criativos para redes sociais", "Reels e Stories", "Vídeos comerciais", "Campanhas e lançamentos"],
       entrega: ["Presença simples: gravação conduzida pelo cliente", "Pacote completo: roteiro LORDS + gravação + edição inclusa"],
       exclusao: "Disponibilidade sujeita a agenda.",
-      direitos: "Direitos de uso do material produzido — combinar no orçamento.",
+      direitos: "Direitos de uso do material produzido, combinar no orçamento.",
     },
     {
       id: "modelo",
       icon: null,
-      imgs: ["assets/servicos-avulsos/modelo-isa.jpg", "assets/servicos-avulsos/modelo-jen.jpg"],
+      imgs: ["assets/servicos-avulsos/modelo/modelo-isa.jpg", "assets/servicos-avulsos/modelo/modelo-jen.jpg"],
       name: "Modelo",
       tagline: "Presença visual profissional para ensaios, campanhas e passarelas.",
       formatos: ["Ensaios para marcas de moda", "Academias e fitness", "Ótica e beleza", "Maquiagem e cabelo", "Desfiles e passarelas", "Conteúdo de produto"],
       entrega: ["Participação em ensaio ou gravação", "Poses e direção de arte a combinar"],
       exclusao: "Edição e pós-produção não inclusas. Disponibilidade sujeita a agenda.",
-      direitos: "Direitos de uso por campanha — especificar no orçamento.",
+      direitos: "Direitos de uso por campanha, especificar no orçamento.",
     },
     {
       id: "cobertura",
@@ -749,7 +577,7 @@ function sServicosAvulsos() {
       id: "fotografo",
       icon: "📸",
       name: "Fotógrafo",
-      tagline: "Meia diária ou diária completa — no seu local ou no nosso estúdio.",
+      tagline: "Meia diária ou diária completa, no seu local ou no nosso estúdio.",
       formatos: ["Meia diária", "Diária completa", "Estúdio LORDS", "Local do cliente", "Cobertura de eventos"],
       entrega: ["Fotos em alta resolução", "Seleção e entrega dos melhores registros", "Arquivos tratados"],
       exclusao: "Número de fotos finais a combinar no orçamento.",
@@ -759,17 +587,17 @@ function sServicosAvulsos() {
       id: "real-time",
       icon: "📡",
       name: "Videomaker Real Time",
-      tagline: "Captação e edição no mesmo dia — entrega expressa ou ao vivo.",
+      tagline: "Captação e edição no mesmo dia, entrega expressa ou ao vivo.",
       formatos: ["Cobertura de eventos ao vivo", "Transmissão em tempo real", "Entrega expressa no dia", "Qualquer demanda do cliente"],
       entrega: ["Captação profissional", "Edição no mesmo dia", "Entrega digital imediata"],
       exclusao: "Disponibilidade sujeita a agenda e estrutura de cada evento.",
-      direitos: "Direitos de uso do material — combinar no orçamento.",
+      direitos: "Direitos de uso do material, combinar no orçamento.",
     },
     {
       id: "site",
       icon: "🌐",
       name: "Criação de Site",
-      tagline: "One-page no template LORDS — pronto para converter clientes.",
+      tagline: "One-page no template LORDS, pronto para converter clientes.",
       formatos: ["Site one-page responsivo", "Template exclusivo LORDS", "Integração com WhatsApp", "Versão mobile e PWA"],
       entrega: ["1 rodada de ajuste inclusa", "Entrega em até 15 dias úteis", "Manutenção opcional R$ 400/mês"],
       exclusao: "Domínio e hospedagem não inclusos.",
@@ -794,7 +622,7 @@ function sServicosAvulsos() {
       </div>
       <div class="avulso-exclu"><span>⚠</span> ${s.exclusao}</div>
       <div class="avulso-direitos">${s.direitos}</div>
-      <a class="btn btn-ghost avulso-cta" href="${waHref(s.name)}" target="_blank" rel="noopener">Solicitar orçamento</a>
+      <button type="button" class="btn btn-ghost avulso-cta" data-action="flow" data-entry="avulso" data-servico="${s.id}">Quero contratar</button>
     </article>`).join("");
 
   const avulsoMedia = (MEDIA["servicos-avulsos"] || []);
@@ -813,12 +641,12 @@ function sServicosAvulsos() {
     <div class="container">
       <span class="fc-label center">Serviços Avulsos</span>
       <h2 class="prod-h2 center">Só o que você precisa, quando precisar.</h2>
-      <p class="lede center">Sem plano mensal. Contrate por demanda — para um evento, uma campanha ou um projeto específico.</p>
+      <p class="lede center">Sem plano mensal. Contrate por demanda, para um evento, uma campanha ou um projeto específico.</p>
     </div>
     ${reel}
     <div class="container">
       <div class="avulso-grid">${cards}</div>
-      <p class="pz-nota center">Todos os preços são por orçamento — cada projeto é tratado de forma personalizada.</p>
+      <p class="pz-nota center">Todos os preços são por orçamento, cada projeto é tratado de forma personalizada.</p>
     </div>
   </section>`;
 }
@@ -846,7 +674,7 @@ function sPainelMock() {
   const posts = [
     { tipo: "Reels", tema: "Bastidor da captação", data: "Ter · 12/08", status: "aprovar" },
     { tipo: "Carrossel", tema: "3 erros no feed da sua marca", data: "Qua · 13/08", status: "ok" },
-    { tipo: "Post", tema: "Antes e depois — projeto novo", data: "Qui · 14/08", status: "mudar" },
+    { tipo: "Post", tema: "Antes e depois, projeto novo", data: "Qui · 14/08", status: "mudar" },
   ];
   const chip = (s) =>
     s === "ok" ? `<span class="pnl-chip pnl-chip--ok">Aprovado ✓</span>`
@@ -855,7 +683,7 @@ function sPainelMock() {
 
   const metricas = [
     { canal: "Instagram", label: "Alcance na semana", val: "12,4 mil" },
-    { canal: "Tráfego pago", label: "Cliques no anúncio", val: "1.860" },
+    { canal: "Mídia paga", label: "Cliques no anúncio", val: "1.860" },
     { canal: "WhatsApp", label: "Conversas iniciadas", val: "47", tag: "com gestão" },
   ];
 
@@ -894,7 +722,7 @@ function sPainelMock() {
       </div>
     </div>
   </div>
-  <p class="pnl-legenda">Painel ilustrativo — a sua versão é montada com a sua marca. Incluído em qualquer plano. <a href="painel.html" class="pnl-link">Ver a área do cliente →</a></p>`;
+  <p class="pnl-legenda">Painel ilustrativo, a sua versão é montada com a sua marca. Incluído em qualquer plano. <a href="painel.html" class="pnl-link">Ver a área do cliente →</a></p>`;
 }
 
 function sToolsSection() {
@@ -903,14 +731,14 @@ function sToolsSection() {
     <div class="container">
       <span class="fc-label center">Painel do cliente LORDS</span>
       <h2 class="prod-h2 center">Veja como o seu marketing pode sair do caos</h2>
-      <p class="lede center">Acesso ao sistema LORDS: calendário, métricas, análise de concorrentes e o nosso processo. Você visualiza os conteúdos antes, aprova posts, legendas e estratégias — e muda o dia de um post com facilidade se surgir uma urgência.</p>
+      <p class="lede center">Acesso ao sistema LORDS: calendário, métricas, análise de concorrentes e o nosso processo. Você visualiza os conteúdos antes, aprova posts, legendas e estratégias, e muda o dia de um post com facilidade se surgir uma urgência.</p>
 
       ${sPainelMock()}
 
       <p class="entregaveis-lead center">Incluído em qualquer plano:</p>
       <div class="trust-list">
         <div class="trust-item reveal"><span class="trust-item-emoji">01</span><div><strong>Estratégia editorial</strong><span>Diagnóstico do negócio, linha editorial e roteiros de todos os vídeos entregues no início de cada mês.</span></div></div>
-        <div class="trust-item reveal"><span class="trust-item-emoji">02</span><div><strong>Calendário de postagens</strong><span>Datas, horários e legendas prontas para publicar — sem precisar pensar no que postar.</span></div></div>
+        <div class="trust-item reveal"><span class="trust-item-emoji">02</span><div><strong>Calendário de postagens</strong><span>Datas, horários e legendas prontas para publicar, sem precisar pensar no que postar.</span></div></div>
         <div class="trust-item reveal"><span class="trust-item-emoji">03</span><div><strong>Relatório mensal de resultados</strong><span>Análise de desempenho, o que funcionou e ajuste de rota para o próximo ciclo.</span></div></div>
         <div class="trust-item reveal"><span class="trust-item-emoji">04</span><div><strong>Reunião de alinhamento</strong><span>Encontro mensal com o time LORDS para revisar, planejar e garantir que a estratégia evolui com o seu negócio.</span></div></div>
       </div>
@@ -920,9 +748,9 @@ function sToolsSection() {
 
 function sClosing(p) {
   const c = p.closing;
-  const heroVids = (MEDIA["fabrica/hero"] || []).filter(f => /\.mp4$/i.test(f));
+  const heroVids = (MEDIA["hero"] || []).filter(f => /\.mp4$/i.test(f));
   const bgVid = heroVids.length
-    ? `<video class="closing-bg-vid" src="assets/videos/fabrica/hero/${heroVids[0]}" muted loop playsinline autoplay></video>`
+    ? `<video class="closing-bg-vid" src="assets/videos/hero/${heroVids[0]}" muted loop playsinline autoplay></video>`
     : "";
   return `
   <section class="section prod-cta">
@@ -933,7 +761,7 @@ function sClosing(p) {
         <div class="final-glow" aria-hidden="true"></div>
         <h2>${c.title}</h2>
         <button class="btn btn-primary btn-cta" data-action="diagnostico">${c.button || "Quero a LORDS cuidando do meu negócio →"}</button>
-        <p class="scarcity">${c.scarcity}</p>
+        ${c.scarcity ? `<p class="scarcity">${c.scarcity}</p>` : ""}
       </div>
     </div>
   </section>`;
@@ -959,13 +787,13 @@ function sAtendimento() {
           <h3>Uma pessoa real atendendo</h3>
           <p>Gente de verdade cuidando do WhatsApp e das redes, respondendo no tom da sua marca.</p>
           <p class="atend-price">R$ 7.000<span>/mês</span></p>
-          <p class="atend-note">Disponível com tráfego pago · entra combinado no plano <strong>Creator</strong> ou <strong>Completo</strong>.</p>
+          <p class="atend-note">Disponível com mídia paga · entra combinado no plano <strong>Creator</strong> ou <strong>Completo</strong>.</p>
           <button class="btn btn-primary" data-action="diagnostico">Quero atendimento humano</button>
         </article>
         <article class="atend-card">
           <span class="atend-ic">AI</span>
           <h3>Um agente de IA</h3>
-          <p>Atende, qualifica e agenda 24h no WhatsApp — em breve disponível para clientes.</p>
+          <p>Atende, qualifica e agenda 24h no WhatsApp, em breve disponível para clientes.</p>
           <p class="atend-note">Em desenvolvimento · disponibilidade em breve.</p>
           <button class="btn btn-primary" data-action="diagnostico">Quero ser avisado</button>
         </article>
@@ -992,204 +820,39 @@ function initHubReel() {
   requestAnimationFrame(tick);
 }
 
-/* ---- Carrossel 4 lâminas: LORDS Hub + 3 pilares ---- */
-function sCarrossel4() {
-  const slides = [
-    {
-      id: "hub",
-      kicker: "LORDS Hub · nos planos Creator e Completo",
-      headline: "Sua operação inteira. Aprovações, entregas, métricas e benefícios.",
-      body: "Acompanhe conteúdos, aprove roteiros, acumule Coins e desbloqueie vantagens — tudo num painel exclusivo.",
-      cta: { label: "Conheça o LORDS Hub", href: "hub.html" },
-      video: "assets/videos/fabrica/hero/sequencia-01-1.mp4",
-      ic: "🖥️",
-    },
-    {
-      id: "captacao",
-      kicker: "Pilar 1 — Captação",
-      headline: "Sua marca na frente do cliente certo, no momento certo.",
-      body: "Antes de ele precisar de você. Antes de ele conhecer o concorrente. Captação é presença estratégica — não só postagem.",
-      video: "assets/videos/fabrica/hero/automotivo-2.mp4",
-      ic: "📡",
-    },
-    {
-      id: "autoridade",
-      kicker: "Pilar 2 — Autoridade",
-      headline: "Construir confiança antes da venda.",
-      body: "O cliente que chega pronto para comprar já te conhece, já confia, já respeita. Autoridade é o que faz o fechamento ser óbvio.",
-      video: "assets/videos/fabrica/hero/reel-isa-5.mp4",
-      ic: "⭐",
-    },
-    {
-      id: "conversao",
-      kicker: "Pilar 3 — Conversão",
-      headline: "Transformar atenção em cliente real.",
-      body: "Não curtida, não seguidor — cliente que paga. Conversão é o resultado de captação e autoridade funcionando juntos.",
-      video: "assets/videos/fabrica/hero/moda-feminina-3.mp4",
-      ic: "💰",
-    },
-  ];
-
-  const cards = slides.map((s, i) => {
-    const mediaHtml = s.id === "hub"
-      ? buildHubMockupHTML("hub-mockup-fabrica")
-      : `<video class="cs4-video" muted loop playsinline preload="none" data-src="${s.video}" aria-hidden="true">
-          <source src="${s.video}" type="video/mp4">
-        </video>
-        <div class="cs4-video-fallback" aria-hidden="true">${s.ic}</div>`;
-    return `
-    <div class="cs4-slide" id="cs4-${s.id}" data-index="${i}">
-      <div class="cs4-video-wrap">${mediaHtml}</div>
-      <div class="cs4-copy">
-        <span class="kicker kicker-gold">${s.kicker}</span>
-        <h2 class="cs4-h2">${s.headline}</h2>
-        <p class="cs4-body">${s.body}</p>
-        ${s.cta ? `<a class="btn btn-primary cs4-cta" href="${s.cta.href}">${s.cta.label}</a>` : ""}
-      </div>
-    </div>`;
-  }).join("");
-
-  const dots = slides.map((_, i) => `<button class="cs4-dot${i === 0 ? " active" : ""}" data-to="${i}" aria-label="Lâmina ${i + 1}"></button>`).join("");
-
+/* LORDS Hub: mesmo bloco da home (#hub), com o mockup animado de hub-mockup.js. */
+function sHub() {
   return `
-  <section class="cs4-sec fc-dark-block" id="lords-hub" aria-label="Sistema LORDS">
-    <div class="cs4-track-wrap">
-      <div class="cs4-track" id="cs4-track">${cards}</div>
+  <section class="section hub-sec" id="lords-hub" aria-label="LORDS Hub">
+    <div class="container hub-inner">
+      <div class="hub-copy reveal">
+        <span class="kicker kicker-gold">LORDS Hub · nos planos Creator e Completo</span>
+        <h2 class="hub-h2 hub-h2--desk">Sua operação LORDS. Seus conteúdos. Seus novos clientes. Tudo em um só lugar.</h2>
+        <h2 class="hub-h2 hub-h2--mob">Tudo da sua operação LORDS na palma da sua mão.</h2>
+        <p class="hub-sub">Um ambiente exclusivo para acompanhar entregas, aprovar conteúdos, ver os leads que a LORDS trouxe para você e o resultado de cada mês.</p>
+        <ul class="hub-benes">
+          <li>Dashboard do seu mês, entregas e prazos</li>
+          <li>Aprovação de roteiros, vídeos e artes, com registro</li>
+          <li>Captação de clientes para o seu negócio</li>
+          <li>Relatório do mês com resultado e próximos passos</li>
+        </ul>
+        <div class="hub-cta-row">
+          <a class="btn btn-primary btn-cta" href="hub.html">Ver como funciona o Hub</a>
+          <span class="hub-avail">Nos planos <strong>Creator</strong> e <strong>Completo</strong> · no Capture, liberado ao renovar por mais 3 meses</span>
+        </div>
+      </div>
+      <div class="hub-showcase reveal" aria-hidden="true">${buildHubMockupHTML("hub-mockup-fabrica")}</div>
     </div>
-    <div class="cs4-dots" id="cs4-dots">${dots}</div>
   </section>`;
 }
 
-/* Mantida internamente para buildHubMockupHTML ser chamado de outros lugares se necessário */
-function sHub() { return sCarrossel4(); }
-
-function buildHubMockupHTML(instanceId) {
-  const tabs = [
-    {
-      id: "dashboard", label: "Dashboard",
-      html: `<div class="hm-section">
-          <div class="hm-greeting">Bem-vindo de volta.</div>
-          <div class="hm-stat-row">
-            <div class="hm-stat"><span class="hm-stat-n">10</span><span class="hm-stat-l">Vídeos</span></div>
-            <div class="hm-stat"><span class="hm-stat-n">2</span><span class="hm-stat-l">A aprovar</span></div>
-            <div class="hm-stat"><span class="hm-stat-n">1.240</span><span class="hm-stat-l">Coins</span></div>
-          </div>
-          <div class="hm-next-label">Próximas entregas</div>
-          <div class="hm-tasks">
-            <div class="hm-task done">Estratégia do mês</div>
-            <div class="hm-task done">Roteiros aprovados</div>
-            <div class="hm-task">Gravação — qui 14h</div>
-            <div class="hm-task">Artes da semana</div>
-          </div>
-        </div>`
-    },
-    {
-      id: "conteudos", label: "Conteúdos",
-      html: `<div class="hm-section">
-          <div class="hm-apr-title">Aguardando aprovação</div>
-          <div class="hm-apr-cards">
-            <div class="hm-apr-card">
-              <div class="hm-apr-thumb">Reel</div>
-              <div class="hm-apr-info"><b>Reel #04 · Produto</b><small>Enviado hoje</small></div>
-              <div class="hm-apr-btns"><button class="hm-btn-ok">✓ Aprovar</button><button class="hm-btn-rev">✎ Revisar</button></div>
-            </div>
-            <div class="hm-apr-card">
-              <div class="hm-apr-thumb">Arte</div>
-              <div class="hm-apr-info"><b>Stories #08</b><small>Enviado ontem</small></div>
-              <div class="hm-apr-btns"><button class="hm-btn-ok">✓ Aprovar</button><button class="hm-btn-rev">✎ Revisar</button></div>
-            </div>
-          </div>
-          <div class="hm-apr-done-label">Entregas do mês: <strong>12 peças</strong></div>
-        </div>`
-    },
-    {
-      id: "calendario", label: "Calendário",
-      html: `<div class="hm-section">
-          <div class="hm-cal-header"><span>Agosto 2026</span><span class="hm-cal-badge">10 eventos</span></div>
-          <div class="hm-cal-grid">
-            ${["Dom","Seg","Ter","Qua","Qui","Sex","Sáb"].map(d=>`<div class="hm-cal-day-name">${d}</div>`).join("")}
-            ${[...Array(6)].map(()=>`<div class="hm-cal-d" style="opacity:0"></div>`).join("")}
-            ${[...Array(31)].map((_,i)=>{const d=i+1;const cls=d===12?"hm-cal-ev ev-grav":d===14?"hm-cal-ev ev-apr":d===19?"hm-cal-ev ev-ent":d===26?"hm-cal-ev ev-rel":"";const today=d===18?" hm-cal-today":"";return `<div class="hm-cal-d${cls?` ${cls}`:""}${today}">${d}</div>`;}).join("")}
-          </div>
-          <div class="hm-cal-legend">
-            <span class="leg ev-grav">Gravação</span><span class="leg ev-apr">Aprovação</span><span class="leg ev-ent">Entrega</span>
-          </div>
-        </div>`
-    },
-    {
-      id: "missoes", label: "Missões",
-      html: `<div class="hm-section">
-          <div class="hm-coins-hero"><div class="hm-coins-total">🪙 1.240</div><div class="hm-coins-sub">coins disponíveis</div></div>
-          <div class="hm-coins-list">
-            <div class="hm-coin-item">Aprovar conteúdo no prazo <span>+50</span></div>
-            <div class="hm-coin-item">Comentar na comunidade <span>+10</span></div>
-            <div class="hm-coin-item">Enviar depoimento <span>+200</span></div>
-          </div>
-        </div>`
-    },
-  ];
-
-  const allNav = ["Dashboard","Conteúdos","Calendário","Comunidade","Missões","Recompensas","IA Advisor"];
-  const sid = instanceId || "hub-mockup";
-  const navBtns = allNav.map((label,i) => {
-    const tab = tabs.find(t => t.label === label);
-    const active = label === "Dashboard" ? " active" : "";
-    const dataTab = tab ? ` data-tab="${tab.id}" data-inst="${sid}"` : "";
-    return `<button class="hub-snav-btn${active}"${dataTab}><span>${label}</span></button>`;
-  }).join("");
-  const panels = tabs.map((t,i) => `<div class="hub-tab-panel${i===0?" active":""}" data-panel="${t.id}" data-inst="${sid}">${t.html}</div>`).join("");
-
-  return `<div class="hub-mockup-wrap" data-inst="${sid}">
-    <div class="hub-mac">
-      <div class="hub-mac-frame">
-        <div class="hub-mac-bar">
-          <span class="hub-mac-dot"></span><span class="hub-mac-dot"></span><span class="hub-mac-dot"></span>
-          <span class="hub-mac-title">LORDS Hub</span>
-        </div>
-        <div class="hub-mac-body">
-          <div class="hub-mac-sidebar">
-            <div class="hub-mac-brand">L <span>LORDS Hub</span></div>
-            <div class="hub-mac-user-top">Sua Empresa<small>Editar perfil →</small></div>
-            <nav class="hub-mac-nav">${navBtns}</nav>
-            <div class="hub-mac-foot"><span class="hub-mac-plan">Plano Creator</span></div>
-          </div>
-          <div class="hub-mac-content">${panels}</div>
-        </div>
-      </div>
-      <div class="hub-mac-stand"></div>
-      <div class="hub-mac-base"></div>
-    </div>
-  </div>`;
-}
-
-function initHubMockup(wrap) {
-  if (!wrap) return;
-  const btns = wrap.querySelectorAll(".hub-snav-btn");
-  const panels = wrap.querySelectorAll(".hub-tab-panel");
-  btns.forEach(btn => {
-    btn.addEventListener("click", () => {
-      const tab = btn.dataset.tab;
-      btns.forEach(b => b.classList.remove("active"));
-      panels.forEach(p => p.classList.remove("active"));
-      btn.classList.add("active");
-      wrap.querySelector(`[data-panel="${tab}"]`).classList.add("active");
-    });
-  });
-  const tabIds = [...btns].map(b => b.dataset.tab);
-  let idx = 0;
-  setInterval(() => {
-    idx = (idx + 1) % tabIds.length;
-    btns.forEach(b => b.classList.toggle("active", b.dataset.tab === tabIds[idx]));
-    panels.forEach(p => p.classList.toggle("active", p.dataset.panel === tabIds[idx]));
-  }, 4000);
-}
 
 /* ---- Esteira problema → solução (texto esq. + mídia dir.), auto-scroll ---- */
 const ESTEIRA = [
   { tag: "Atendimento", prob: "O cliente manda mensagem e esfria esperando resposta.", sol: "Agentes de IA + gestão humanizada respondem na hora, no tom da sua marca.", media: { type: "phone" } },
-  { tag: "LORDS Hub", prob: "Você não enxerga o que está sendo feito.", sol: "Acompanha, aprova e desbloqueia benefícios num painel só — o LORDS Hub.", media: { type: "painel" }, href: "hub.html", cta: "Ver o LORDS Hub" },
+  { tag: "LORDS Hub", prob: "Você não enxerga o que está sendo feito.", sol: "Acompanha, aprova e desbloqueia benefícios num painel só, o LORDS Hub.", media: { type: "painel" }, href: "hub.html", cta: "Ver o LORDS Hub" },
   { tag: "Produção", prob: "Vídeo feito no celular não passa autoridade.", sol: "Videomaker especializado, com equipamentos premium.", media: { type: "icon", ic: "" } },
-  { tag: "Rosto & comunicadora", prob: "Travou na câmera ou não quer aparecer?", sol: "Apareça todo dia com cara de marca grande — modelo e comunicadora dão rosto e voz.", media: { type: "icon", ic: "" } },
+  { tag: "Rosto & comunicadora", prob: "Travou na câmera ou não quer aparecer?", sol: "Apareça todo dia com cara de marca grande, modelo e comunicadora dão rosto e voz.", media: { type: "icon", ic: "" } },
   { tag: "Estratégia", prob: "Posta no achismo e nada acontece.", sol: "Estratégia e linha editorial antes de qualquer gravação.", media: { type: "icon", ic: "" } },
   { tag: "Criativos que vendem", prob: "Conteúdo bonito que não vende.", sol: "Criativos em motion + arte estática, prontos toda semana (~15 criativos).", media: { type: "icon", ic: "" } },
 ];
@@ -1200,7 +863,7 @@ function esteiraMedia(m) {
       <div class="est-wa">
         <div class="est-wa-b in">Oi! Vocês têm horário essa semana?</div>
         <div class="est-wa-b out">Oi! Temos sim. Quinta 15h ou sexta 10h?</div>
-        <div class="est-wa-b in">Quinta 15h — perfeito.</div>
+        <div class="est-wa-b in">Quinta 15h, perfeito.</div>
         <div class="est-wa-b out">Fechado! Já reservei.</div>
       </div>
       <span class="est-phone-foot">IA + pessoa real · resposta em segundos</span></div>`;
@@ -1256,7 +919,7 @@ function sEstudio() {
       <div class="estudio2-copy reveal">
         <span class="kicker">Produção profissional</span>
         <h2>Gravamos no estúdio<br>ou no seu local.</h2>
-        <p class="lede">Câmera, luz e direção profissional — no nosso estúdio em Itajaí ou onde o seu negócio vive, em BC e região e na Grande Florianópolis.</p>
+        <p class="lede">Câmera, luz e direção profissional, no nosso estúdio em Itajaí ou onde o seu negócio vive, em BC e região e na Grande Florianópolis.</p>
         <div class="estudio2-chips">
           <span class="estudio2-chip">Captação no local sem taxa de deslocamento</span>
           <span class="estudio2-chip">Câmera, direção e edição incluídas</span>
@@ -1285,7 +948,7 @@ function sDorBadges() {
         <div class="dor-badges-row">
           ${badges.map((b, i) => `<div class="dor-badge${i === badges.length - 1 ? " dor-badge--destaque" : ""}">${b}</div>`).join("")}
         </div>
-        <p class="dor-badges-linha">Enquanto isso, o seu concorrente cresce — e você não sabe por quê.</p>
+        <p class="dor-badges-linha">Enquanto isso, o seu concorrente cresce, e você não sabe por quê.</p>
       </div>
     </div>
   </section>`;
@@ -1327,9 +990,9 @@ function sCansadoDe() {
 
 function sLoopViciante() {
   const pilares = [
-    { ic: "", nome: "CAPTAÇÃO", desc: "Sua marca aparecendo pro cliente certo, no momento certo — antes de ele precisar de você." },
+    { ic: "", nome: "CAPTAÇÃO", desc: "Sua marca aparecendo pro cliente certo, no momento certo, antes de ele precisar de você." },
     { ic: "", nome: "AUTORIDADE", desc: "Construir presença e confiança antes da venda, para que o cliente chegue pronto para comprar." },
-    { ic: "", nome: "CONVERSÃO", desc: "Transformar atenção em cliente real. Não curtida, não seguidor — cliente que paga." },
+    { ic: "", nome: "CONVERSÃO", desc: "Transformar atenção em cliente real. Não curtida, não seguidor, cliente que paga." },
   ];
   return `
   <section class="section loop-sec fc-dark-block" aria-label="Sistema LORDS">
@@ -1347,15 +1010,15 @@ function sLoopViciante() {
           <p class="loop-desc">${p.desc}</p>
         </div>`).join("")}
       </div>
-      <p class="loop-rodape reveal">Quando os três estão alinhados, marketing deixa de ser custo — e vira investimento com retorno previsível.</p>
+      <p class="loop-rodape reveal">Quando os três estão alinhados, marketing deixa de ser custo, e vira investimento com retorno previsível.</p>
     </div>
   </section>`;
 }
 
 function sEducacional() {
   const pilares = [
-    { num: "01", ic: "", nome: "ESTRATÉGIA", desc: "Como montar um plano de conteúdo que gera resultado — não só ocupação. Posicionamento, calendário e mensagem certa pra pessoa certa." },
-    { num: "02", ic: "", nome: "GRAVAÇÃO", desc: "Como aparecer na câmera com autoridade — ou como dirigir quem aparece por você. Posicionamento, luz, enquadramento e performance." },
+    { num: "01", ic: "", nome: "ESTRATÉGIA", desc: "Como montar um plano de conteúdo que gera resultado, não só ocupação. Posicionamento, calendário e mensagem certa pra pessoa certa." },
+    { num: "02", ic: "", nome: "GRAVAÇÃO", desc: "Como aparecer na câmera com autoridade, ou como dirigir quem aparece por você. Posicionamento, luz, enquadramento e performance." },
     { num: "03", ic: "", nome: "PRODUÇÃO", desc: "O que separa um vídeo que prende a atenção de um que ninguém assiste. Ritmo, corte, hook e CTA que converte sem parecer propaganda." },
     { num: "04", ic: "", nome: "VENDA", desc: "Como transformar conteúdo em cliente sem parecer vendedor. CTAs invisíveis, funil pelo feed e o exato momento de apresentar a oferta." },
   ];
@@ -1383,7 +1046,7 @@ function sEducacional() {
           <div class="edu-pdf-icon" aria-hidden="true">PDF</div>
           <div>
             <h3 class="edu-pdf-title">Guia LORDS de Conteúdo</h3>
-            <p class="edu-pdf-sub">PDF exclusivo entregue a cada cliente — estratégia, roteiros e o passo a passo completo pra criar conteúdo que vende.</p>
+            <p class="edu-pdf-sub">PDF exclusivo entregue a cada cliente, estratégia, roteiros e o passo a passo completo pra criar conteúdo que vende.</p>
           </div>
           <a class="btn btn-primary" href="#planos">Ver planos →</a>
         </div>
@@ -1398,22 +1061,20 @@ function renderPage() {
   const p = PRODUCTS[SLUG];
   const root = document.getElementById("fabrica-root");
   if (!root || !p) return;
-  document.title = `${p.name} — LORDS Creative`;
+  document.title = `${p.name}: LORDS Creative`;
 
   root.innerHTML = `
-  <nav class="crumbs container"><a href="home.html#produtos">Soluções</a> <span>›</span> <em>${p.name}</em></nav>
-  ${sHero(p)}
-  ${sVsl(p)}
+  ${renderAbertura({ vslSrc: p.vsl.src, primaryHref: "#planos" })}
   ${sNiches(p)}
   ${sEstudio()}
   ${sCoverage(p)}
+  ${renderPassos()}
   ${sAgents()}
   ${sPortfolio(p)}
-  ${sMetodoLords()}
   ${sPlans(p)}
   ${sCansadoDe()}
   ${sPersonalize(p)}
-  ${sCarrossel4()}
+  ${sHub()}
   ${sServicosAvulsos()}
   ${sFaq(p)}
   ${sClosing(p)}
@@ -1458,7 +1119,7 @@ function servicosAvulsos(p) {
 }
 
 /* Tira do carrinho todo bump cuja dependência deixou de estar marcada.
-   Sem isto, desmarcar "tráfego pago" deixaria a gestão de redes no pedido —
+   Sem isto, desmarcar "mídia paga" deixaria a gestão de redes no pedido —
    um pedido que a operação não consegue entregar. */
 function limparBumpsOrfaos(p) {
   let mudou = false;
@@ -1495,7 +1156,7 @@ function renderFlowStep(p) {
     body.innerHTML = `
       <span class="flow-step">Passo 1 de 2 · seu pedido</span>
       <h3>${plan.name}</h3>
-      <p class="flow-sub">${plan.hook} Adicione o que fizer sentido — nada é cobrado agora.</p>
+      <p class="flow-sub">${plan.hook} Adicione o que fizer sentido, nada é cobrado agora.</p>
       <div class="cart-base">
         <span>${plan.short}</span><strong>${fmt(plan.price)}${plan.unit}</strong>
       </div>
@@ -1507,7 +1168,7 @@ function renderFlowStep(p) {
           return `
         <div class="bump-card${dentro ? " on" : ""}${liberado ? "" : " is-locked"}" data-id="${b.id}">
           <div class="bump-info">
-            <strong>${b.name}</strong>
+            <strong>${b.name}${recomendado(flow.planId, b.id) ? ` <em class="bump-rec">Recomendado para você</em>` : ""}</strong>
             <small>${liberado ? b.desc : `Disponível junto com a ${exigido.name.toLowerCase()}.`}</small>
           </div>
           <div class="bump-side">
@@ -1540,7 +1201,14 @@ function renderFlowStep(p) {
     body.innerHTML = `
       <span class="flow-step">Passo 1 de 2 · o que você precisa</span>
       <h3>Quais serviços te interessam?</h3>
-      <p class="flow-sub">Marque um ou mais. A gente te passa o valor na conversa.</p>
+      <p class="flow-sub">Marque um ou mais. Nada é cobrado agora.</p>
+      ${(flow.extras || []).length ? `<div class="cart-base"><span>No seu pedido</span><strong>${flow.extras.map((x) => (SERVICOS_DG.find((s) => s.id === x) || { nome: x }).nome).join(", ")}</strong></div>` : ""}
+      <div class="bump-card upsell-plano">
+        <div class="bump-info"><strong>Quer conteúdo todo mês, sem contratar avulso? <em class="bump-rec">Melhor custo</em></strong>
+          <small>O Plano Capture tem 6 vídeos por mês com roteiro, captação e edição. Os avulsos que você marcar entram junto.</small></div>
+        <div class="bump-side"><span class="bump-price">${fmt(p.plans[0].price)}<i>/mês</i></span>
+          <button type="button" class="bump-add" id="upsell-plano">Trocar pelo plano</button></div>
+      </div>
       <div class="bumps-grid">
         ${servicosAvulsos(p).map((s) => `
         <div class="bump-card${flow.services.has(s.id) ? " on" : ""}" data-id="${s.id}">
@@ -1552,7 +1220,14 @@ function renderFlowStep(p) {
         </div>`).join("")}
       </div>`;
     foot.innerHTML = `<button class="btn btn-primary" id="flow-next">Continuar</button>`;
-    body.querySelectorAll(".bump-card").forEach((el) => {
+    document.getElementById("upsell-plano").addEventListener("click", () => {
+      const levar = [...flow.services].filter((id) => (p.bumps[p.plans[0].id] || []).some((b) => b.id === id));
+      flow.entry = "plano"; flow.planId = p.plans[0].id; flow.qIndex = 0;
+      levar.forEach((id) => flow.bumps.add(id));
+      window.dataLayer.push({ event: "upsell_plano", from: "avulso" });
+      renderFlowStep(p);
+    });
+    body.querySelectorAll(".bump-card:not(.upsell-plano)").forEach((el) => {
       el.querySelector(".bump-add").addEventListener("click", () => {
         const id = el.dataset.id;
         flow.services.has(id) ? flow.services.delete(id) : flow.services.add(id);
@@ -1563,109 +1238,40 @@ function renderFlowStep(p) {
     return;
   }
 
-  /* --- Passo 2: as 8 perguntas, uma por tela --- */
-  const qs = p.diagnostic.questions;
-  const i = Math.max(0, flow.qIndex - 1);
-  if (i < qs.length) {
-    const q = qs[i];
-    const val = flow.answers[q.id] || "";
-    const pct = Math.round((i / qs.length) * 100);
-    body.innerHTML = `
-      <div class="flow-progress"><span style="width:${pct}%"></span></div>
-      <span class="flow-step">Pergunta ${i + 1} de ${qs.length}</span>
-      <h3>${q.q}</h3>
-      ${q.type === "choice"
-        ? `<div class="flow-choices">${q.options.map((o) => `<button type="button" class="flow-choice${val === o ? " on" : ""}" data-v="${o}">${o}</button>`).join("")}</div>`
-        : `<input class="flow-input" id="flow-input" type="text" value="${val}" placeholder="Escreva aqui" autocomplete="off" />`}`;
-    foot.innerHTML = `
-      ${i > 0 ? `<button class="btn btn-ghost" id="flow-back">Voltar</button>` : `<span></span>`}
-      <button class="btn btn-primary" id="flow-next">${i === qs.length - 1 ? "Finalizar" : "Continuar"}</button>`;
-
-    const go = () => {
-      const input = document.getElementById("flow-input");
-      if (input) flow.answers[q.id] = input.value.trim();
-      flow.qIndex += 1;
-      renderFlowStep(p);
-    };
-    body.querySelectorAll(".flow-choice").forEach((b) => b.addEventListener("click", () => {
-      flow.answers[q.id] = b.dataset.v;
-      go();
-    }));
-    document.getElementById("flow-next").addEventListener("click", go);
-    const back = document.getElementById("flow-back");
-    back && back.addEventListener("click", () => { flow.qIndex -= 1; renderFlowStep(p); });
-    const input = document.getElementById("flow-input");
-    if (input) { input.focus(); input.addEventListener("keydown", (e) => { if (e.key === "Enter") go(); }); }
-    return;
-  }
-
-  /* --- Final: resumo + abrir WhatsApp --- */
-  const msg = buildMessage(p);
-  const link = waLink(msg);
-  const MODELOS_TIME = [
-    { nome: "Jenifer",      cidade: "BC e Grande Floripa",   foto: "assets/team/jenifer.jpg" },
-    { nome: "Isabela",      cidade: "BC e Grande Floripa",   foto: "assets/team/isabela.jpg" },
-    { nome: "Eduarda",      cidade: "Florianópolis e BC", foto: "assets/team/eduarda.jpg" },
-    { nome: "Amanda",       cidade: "São Paulo",     foto: "assets/team/amanda.jpg" },
-    { nome: "Maria Luiza",  cidade: "São Paulo",     foto: "assets/team/maria-luiza.jpg" },
-  ];
-  const modeloCards = MODELOS_TIME.map(m => `
-    <div class="flow-modelo-card">
-      <img src="${m.foto}" alt="${m.nome}" class="flow-modelo-foto" loading="lazy">
-      <div class="flow-modelo-nome">${m.nome}</div>
-      <div class="flow-modelo-cidade">${m.cidade}</div>
-    </div>`).join("");
-
-  body.innerHTML = `
-    <div class="flow-progress"><span style="width:100%"></span></div>
-    <span class="flow-step">Tudo pronto</span>
-    <h3>Vamos conversar já sabendo do seu negócio.</h3>
-    <p class="flow-sub">A gente entra em contato com o seu contexto em mãos — sem apresentação genérica de vendas.</p>
-    <pre class="flow-preview">${msg.replace(/</g, "&lt;")}</pre>
-    <div class="flow-modelos-bloco">
-      <p class="flow-modelos-titulo">Conheça quem pode ser o rosto do seu negócio</p>
-      <div class="flow-modelos-grid">${modeloCards}</div>
-    </div>`;
-  foot.innerHTML = `
-    <button class="btn btn-ghost" id="flow-back">Voltar</button>
-    <button class="btn btn-primary" id="flow-send">${link ? "Abrir no WhatsApp" : "Agendar conversa"}</button>`;
-  document.getElementById("flow-back").addEventListener("click", () => { flow.qIndex -= 1; renderFlowStep(p); });
-  document.getElementById("flow-send").addEventListener("click", () => {
-    window.dataLayer.push({ event: "flow_submit", entry: flow.entry, plan: flow.planId, bumps: [...flow.bumps] });
-    if (link) window.open(link, "_blank", "noopener");
-    else { closeFlow(); openEnquete(); }
+  /* --- Passo 2: diagnóstico completo (enquete.js), termina na proposta --- */
+  foot.innerHTML = "";
+  const pedido = flow.entry === "plano"
+    ? (p.bumps[flow.planId] || []).filter((b) => flow.bumps.has(b.id) && bumpLiberado(b, flow.bumps)).map((b) => b.id)
+    : [];
+  const servicosIniciais = flow.entry === "avulso"
+    ? SERVICOS_DG.filter((s) => flow.services.has(s.id) || flow.services.has(s.bump) || (flow.extras || []).includes(s.id)).map((s) => s.id)
+    : SERVICOS_DG.filter((s) => pedido.includes(s.bump) || (flow.extras || []).includes(s.id)).map((s) => s.id);
+  body.classList.add("dg-inline");
+  montarDiagnostico(body, {
+    origem: "Fábrica Criativa",
+    planoFixo: flow.entry === "plano" ? flow.planId : null,
+    bumps: pedido,
+    servicosIniciais,
+    onFim: (res) => {
+      window.dataLayer.push({ event: "flow_submit", entry: flow.entry, plan: res.rec.plano, bumps: pedido });
+      telaFinal(body, res);
+    },
   });
 }
 
-/* Monta a mensagem que chega no WhatsApp com todo o contexto */
-function buildMessage(p) {
-  const L = ["Olá! Vim pela página da Fábrica Criativa."];
-  if (flow.entry === "plano") {
-    const { monthly, oneoff, plan } = flowTotals(p);
-    L.push(`\nPlano de interesse: ${plan.name} (${fmt(plan.price)}${plan.unit})`);
-    const chosen = (p.bumps[flow.planId] || []).filter((b) => flow.bumps.has(b.id));
-    if (chosen.length) L.push(`Adicionais: ${chosen.map((b) => b.name).join(", ")}`);
-    L.push(`Total estimado: ${fmt(monthly)}/mês${oneoff ? ` + ${fmt(oneoff)} único` : ""}`);
-  } else if (flow.entry === "avulso") {
-    const chosen = servicosAvulsos(p).filter((s) => flow.services.has(s.id));
-    L.push(`\nQuero valor de serviço avulso: ${chosen.length ? chosen.map((s) => s.name).join(", ") : "(a definir)"}`);
-  } else {
-    L.push("\nNenhum dos planos encaixou no meu caso.");
-  }
-  L.push("\nMeu diagnóstico:");
-  p.diagnostic.questions.forEach((q) => {
-    const a = flow.answers[q.id];
-    if (a) L.push(`• ${q.q} ${a}`);
-  });
-  return L.join("\n");
-}
-
-function openFlow(entry, planId, preBump) {
+function openFlow(entry, planId, preBump, preServico) {
   const p = PRODUCTS[SLUG];
   flow.entry = entry;
   flow.planId = planId || (entry === "plano" ? p.plans[0].id : null);
   flow.qIndex = entry === "plano" || entry === "avulso" ? 0 : 1;
-  flow.bumps.clear(); flow.services.clear(); flow.answers = {};
+  document.getElementById("flow-body")?.classList.remove("dg-inline");
+  flow.bumps.clear(); flow.services.clear(); flow.answers = {}; flow.extras = [];
+  if (preServico) {
+    const alias = { fotografo: "fotos" };
+    const id = alias[preServico] || preServico;
+    if (servicosAvulsos(p).some((x) => x.id === id)) flow.services.add(id);
+    else flow.extras.push(preServico);
+  }
   // Veio da seção "Personalize o seu plano": já abre com o adicional marcado.
   // Aceita vários separados por vírgula — um bump com dependência vem junto
   // com o que ele exige (ex.: "trafego,gestao-redes").
@@ -1689,13 +1295,19 @@ function closeFlow() {
 
 function initFlow() {
   document.querySelectorAll('[data-action="flow"]').forEach((b) => {
-    b.addEventListener("click", () => openFlow(b.dataset.entry || "nenhum", b.dataset.plan, b.dataset.bump));
+    b.addEventListener("click", () => openFlow(b.dataset.entry || "nenhum", b.dataset.plan, b.dataset.bump, b.dataset.servico));
   });
   const ov = document.getElementById("flow-overlay");
   const x = document.getElementById("flow-close");
   x && x.addEventListener("click", closeFlow);
   ov && ov.addEventListener("click", (e) => { if (e.target === ov) closeFlow(); });
   document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeFlow(); });
+  const pedido = new URLSearchParams(location.search).get("checkout");
+  if (pedido) {
+    const [tipo, item] = pedido.split(":");
+    if (tipo === "plano") openFlow("plano", item);
+    else if (tipo === "avulso") openFlow("avulso", null, null, item);
+  }
 }
 
 /* ---- Contagem animada dos números (GSAP quando disponível) ---- */
@@ -1738,26 +1350,7 @@ function initCounters() {
   check();
 }
 
-/* ---- VSL: botão de som ---- */
-function initVsl() {
-  const v = document.getElementById("fc-video");
-  const btn = document.getElementById("fc-sound");
-  if (!v || !btn) return;
-  v.play().catch(() => {});
-  btn.addEventListener("click", () => {
-    v.muted = !v.muted;
-    btn.setAttribute("aria-pressed", String(!v.muted));
-    btn.textContent = v.muted ? "Ativar som" : "Som ligado";
-    if (!v.muted) v.play().catch(() => {});
-  });
-}
 
-/* ---- CTAs: diagnóstico (WhatsApp) com fallback pro Calendly ---- */
-function waLink(text) {
-  return WHATSAPP_NUM
-    ? `https://wa.me/${WHATSAPP_NUM}?text=${encodeURIComponent(text)}`
-    : null;
-}
 
 
 
@@ -1925,82 +1518,26 @@ function initReveal() {
 }
 
 /* ---- Boot ---- */
-/* ---- Inicializa carrossel 4 lâminas ---- */
-function initCarrossel4() {
-  const wrap = document.querySelector(".cs4-track-wrap");
-  const track = document.getElementById("cs4-track");
-  const dots = document.querySelectorAll(".cs4-dot");
-  if (!wrap || !track || !dots.length) return;
-
-  const slideW = () => wrap.clientWidth;
-
-  /* Lazy-load vídeos ao entrar no slide */
-  function loadSlideVideo(idx) {
-    const slide = track.children[idx];
-    if (!slide) return;
-    const vid = slide.querySelector(".cs4-video[data-src]");
-    if (vid) { vid.src = vid.dataset.src; vid.removeAttribute("data-src"); vid.play().catch(() => {}); }
-  }
-
-  function syncDots(idx) {
-    dots.forEach((d, i) => d.classList.toggle("active", i === idx));
-    loadSlideVideo(idx);
-  }
-
-  /* Scroll → atualiza dots */
-  wrap.addEventListener("scroll", () => {
-    const idx = Math.round(wrap.scrollLeft / slideW());
-    syncDots(idx);
-  }, { passive: true });
-
-  /* Dots → scroll para lâmina */
-  dots.forEach((d) => d.addEventListener("click", () => {
-    wrap.scrollTo({ left: +d.dataset.to * slideW(), behavior: "smooth" });
-  }));
-
-  /* Drag no desktop */
-  let startX = 0, startScroll = 0, dragging = false;
-  wrap.addEventListener("pointerdown", (e) => { dragging = true; startX = e.clientX; startScroll = wrap.scrollLeft; wrap.setPointerCapture(e.pointerId); });
-  wrap.addEventListener("pointermove", (e) => { if (!dragging) return; wrap.scrollLeft = startScroll - (e.clientX - startX); });
-  wrap.addEventListener("pointerup",   () => { dragging = false; });
-
-  loadSlideVideo(0);
-}
 
 function boot() {
   renderPage();
+  fixLoops(document);
   initNav();
-  initVsl();
+  initAbertura(document);
   initFlow();
   initCtas();
   initEnquete();
   initPersonalize();
   initCoverageMap();
-  initHeroBg(buildHeroItems());
   initReel();
   initVideoReel();
   initHubMockup(document.querySelector(".hub-mockup-wrap"));
-  initCarrossel4();
   mountAgents(document.getElementById("agentes-mount"));
   initReveal();
   initCursor();
   window.scrollTo(0, 0);
 }
 
-/* Hero: intercala vídeos (fabrica/hero) com fotos de nicho (vertical). */
-function buildHeroItems() {
-  const vids = (PRODUCTS[SLUG].reel || []).map((r) => ({ src: r.src, image: false })).filter((i) => i.src);
-  const fotos = (PHOTO_REEL || []).map((p) => ({ src: p.src, image: true }));
-  const out = [];
-  let vi = 0, fi = 0;
-  // padrão: 2 vídeos : 1 foto, pra dar respiro visual sem perder o movimento
-  while (vi < vids.length || fi < fotos.length) {
-    if (vi < vids.length) out.push(vids[vi++]);
-    if (vi < vids.length) out.push(vids[vi++]);
-    if (fi < fotos.length) out.push(fotos[fi++]);
-  }
-  return out;
-}
 
 /* ---- Cursor customizado animado (desktop; off em touch/reduced-motion) ---- */
 function initCursor() {

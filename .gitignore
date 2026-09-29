@@ -10,13 +10,11 @@ admin.js
 prospeccao.html
 painel.html
 
-# Binários grandes — vídeos e fotos ficam fora do git
-assets/videos/
-assets/fotos/
+# Originais pesados ficam em ~/Documents/LORDS-midia-original (fora do site).
+# No site só entram as versões leves geradas por ./otimizar-midia.sh (MP4 H.264, JPG 1400px).
 assets/jenifer/
 assets/Eduarda */
 assets/_NAO-USADOS-conferir/
-*.mp4
 *.mov
 *.MOV
 *.HEIC
