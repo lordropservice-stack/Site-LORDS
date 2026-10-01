@@ -5,7 +5,7 @@
    é persistido. Coins/recompensas são pré-visualização — sem
    compra, sem saque, sem dinheiro. Config vem de products-data.js.
    ============================================================ */
-import { PRODUCTS, HUB_MODULES, HUB_ACCESS, COINS_RULES, REWARDS, HUB_MISSIONS, HUB_SHOP } from "./products-data.js?v=20260929d";
+import { PRODUCTS, HUB_MODULES, HUB_ACCESS, COINS_RULES, REWARDS, HUB_MISSIONS, HUB_SHOP } from "./products-data.js?v=20260929e";
 
 const $  = (s, r = document) => r.querySelector(s);
 const esc = (s) => String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');

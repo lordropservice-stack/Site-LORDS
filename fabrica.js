@@ -6,7 +6,7 @@
    4 Nichos horizontal · 5 Objeções · 6 Planos+bumps · 7 Excedente ·
    8 Prova social (bloqueada) · 9 Tecnologia · 10 FAQ · 11 Fechamento
    ============================================================ */
-import { PRODUCTS, PHOTO_REEL, COBERTURA_MEDIA, renderMockup, HUB_SCREENS, MEDIA, METODO_LORDS } from "./products-data.js?v=20260929d";
+import { PRODUCTS, PHOTO_REEL, COBERTURA_MEDIA, renderMockup, HUB_SCREENS, MEDIA, METODO_LORDS, SERVICOS_AVULSOS } from "./products-data.js?v=20260929e";
 import { SERVICOS as SERVICOS_DG, WHATSAPP_NUM } from "./diagnostico-data.js?v=20260929a";
 import { renderAbertura, renderPassos, initAbertura, fixLoops } from "./abertura.js?v=20260929a";
 import { buildHubMockupHTML, initHubMockup } from "./hub-mockup.js?v=20260929a";
@@ -541,71 +541,7 @@ function sFaq(p) {
 
 /* ---- Serviços Avulsos: Cobertura · Comunicadora · Modelo ---- */
 function sServicosAvulsos() {
-  const svcCards = [
-    {
-      id: "comunicadora",
-      icon: "🎙️",
-      name: "Comunicadora",
-      tagline: "O rosto e a voz da sua marca, do institucional ao UGC.",
-      formatos: ["Comunicação institucional", "Criação de conteúdo UGC", "Criativos para redes sociais", "Reels e Stories", "Vídeos comerciais", "Campanhas e lançamentos"],
-      entrega: ["Presença simples: gravação conduzida pelo cliente", "Pacote completo: roteiro LORDS + gravação + edição inclusa"],
-      exclusao: "Disponibilidade sujeita a agenda.",
-      direitos: "Direitos de uso do material produzido, combinar no orçamento.",
-    },
-    {
-      id: "modelo",
-      icon: null,
-      imgs: ["assets/servicos-avulsos/modelo/modelo-isa.jpg", "assets/servicos-avulsos/modelo/modelo-jen.jpg"],
-      name: "Modelo",
-      tagline: "Presença visual profissional para ensaios, campanhas e passarelas.",
-      formatos: ["Ensaios para marcas de moda", "Academias e fitness", "Ótica e beleza", "Maquiagem e cabelo", "Desfiles e passarelas", "Conteúdo de produto"],
-      entrega: ["Participação em ensaio ou gravação", "Poses e direção de arte a combinar"],
-      exclusao: "Edição e pós-produção não inclusas. Disponibilidade sujeita a agenda.",
-      direitos: "Direitos de uso por campanha, especificar no orçamento.",
-    },
-    {
-      id: "cobertura",
-      icon: "🎥",
-      name: "Cobertura de Eventos",
-      tagline: "Foto e vídeo profissionais para registrar cada momento do seu evento.",
-      formatos: ["Eventos eletrônicos", "Casamentos", "Aniversários", "Eventos corporativos", "Confraternizações", "Formaturas"],
-      entrega: ["Captação profissional em foto e vídeo", "Organização e entrega dos arquivos", "Edição básica inclusa"],
-      exclusao: "Edição avançada e motion disponíveis como adicional.",
-      direitos: "Arquivos de uso exclusivo do cliente.",
-    },
-    {
-      id: "fotografo",
-      icon: "📸",
-      name: "Fotógrafo",
-      tagline: "Meia diária ou diária completa, no seu local ou no nosso estúdio.",
-      formatos: ["Meia diária", "Diária completa", "Estúdio LORDS", "Local do cliente", "Cobertura de eventos"],
-      entrega: ["Fotos em alta resolução", "Seleção e entrega dos melhores registros", "Arquivos tratados"],
-      exclusao: "Número de fotos finais a combinar no orçamento.",
-      direitos: "Arquivos de uso exclusivo do cliente.",
-    },
-    {
-      id: "real-time",
-      icon: "📡",
-      name: "Videomaker Real Time",
-      tagline: "Captação e edição no mesmo dia, entrega expressa ou ao vivo.",
-      formatos: ["Cobertura de eventos ao vivo", "Transmissão em tempo real", "Entrega expressa no dia", "Qualquer demanda do cliente"],
-      entrega: ["Captação profissional", "Edição no mesmo dia", "Entrega digital imediata"],
-      exclusao: "Disponibilidade sujeita a agenda e estrutura de cada evento.",
-      direitos: "Direitos de uso do material, combinar no orçamento.",
-    },
-    {
-      id: "site",
-      icon: "🌐",
-      name: "Criação de Site",
-      tagline: "One-page no template LORDS, pronto para converter clientes.",
-      formatos: ["Site one-page responsivo", "Template exclusivo LORDS", "Integração com WhatsApp", "Versão mobile e PWA"],
-      entrega: ["1 rodada de ajuste inclusa", "Entrega em até 15 dias úteis", "Manutenção opcional R$ 400/mês"],
-      exclusao: "Domínio e hospedagem não inclusos.",
-      direitos: "Site de propriedade do cliente após entrega.",
-    },
-  ];
-
-  const cards = svcCards.map((s) => `
+  const cards = SERVICOS_AVULSOS.map((s) => `
     <article class="avulso-card" id="svc-${s.id}">
       <div class="avulso-icon${s.imgs ? " avulso-icon--fotos" : ""}">
         ${s.imgs ? s.imgs.map(src => `<img src="${src}" alt="${s.name}" class="avulso-foto">`).join("") : s.icon}
@@ -622,6 +558,7 @@ function sServicosAvulsos() {
       </div>
       <div class="avulso-exclu"><span>⚠</span> ${s.exclusao}</div>
       <div class="avulso-direitos">${s.direitos}</div>
+      ${s.preco ? `<p class="avulso-preco">${s.preco}</p>` : ""}
       <button type="button" class="btn btn-ghost avulso-cta" data-action="flow" data-entry="avulso" data-servico="${s.id}">Quero contratar</button>
     </article>`).join("");
 
@@ -646,7 +583,7 @@ function sServicosAvulsos() {
     ${reel}
     <div class="container">
       <div class="avulso-grid">${cards}</div>
-      <p class="pz-nota center">Todos os preços são por orçamento, cada projeto é tratado de forma personalizada.</p>
+      <p class="pz-nota center">Valores por orçamento, cada projeto é tratado de forma personalizada. Mídia paga a partir de R$ 4.500/mês.</p>
     </div>
   </section>`;
 }
@@ -1267,7 +1204,7 @@ function openFlow(entry, planId, preBump, preServico) {
   document.getElementById("flow-body")?.classList.remove("dg-inline");
   flow.bumps.clear(); flow.services.clear(); flow.answers = {}; flow.extras = [];
   if (preServico) {
-    const alias = { fotografo: "fotos" };
+    const alias = { fotografo: "fotos", "fotografo-videomaker": "fotos", "midia-paga": "trafego" };
     const id = alias[preServico] || preServico;
     if (servicosAvulsos(p).some((x) => x.id === id)) flow.services.add(id);
     else flow.extras.push(preServico);

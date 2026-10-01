@@ -843,6 +843,60 @@ export const HUB_SCREENS = [
   ["🔔", "Notificações", "2 novas"],
 ];
 
+/* Serviços avulsos: lista única usada pela home e pela Fábrica (6 cards).
+   `preco` aparece no card; sem `preco` = valor por orçamento. */
+export const SERVICOS_AVULSOS = [
+  {
+    id: "comunicadora", icon: "🎙️", name: "Comunicadora",
+    tagline: "O rosto e a voz da sua marca, do institucional ao UGC.",
+    formatos: ["Comunicação institucional", "Criação de conteúdo UGC", "Criativos para redes sociais", "Reels e Stories", "Vídeos comerciais", "Campanhas e lançamentos"],
+    entrega: ["Presença simples: gravação conduzida pelo cliente", "Pacote completo: roteiro LORDS + gravação + edição inclusa"],
+    exclusao: "Disponibilidade sujeita a agenda.",
+    direitos: "Direitos de uso do material produzido, combinar no orçamento.",
+  },
+  {
+    id: "modelo", imgs: ["assets/servicos-avulsos/modelo/modelo-isa.jpg", "assets/servicos-avulsos/modelo/modelo-jen.jpg"], name: "Modelo",
+    tagline: "Presença visual profissional para ensaios, campanhas e passarelas.",
+    formatos: ["Ensaios para marcas de moda", "Academias e fitness", "Ótica e beleza", "Maquiagem e cabelo", "Desfiles e passarelas", "Conteúdo de produto"],
+    entrega: ["Participação em ensaio ou gravação", "Poses e direção de arte a combinar"],
+    exclusao: "Edição e pós-produção não inclusas. Disponibilidade sujeita a agenda.",
+    direitos: "Direitos de uso por campanha, especificar no orçamento.",
+  },
+  {
+    id: "cobertura", icon: "🎥", name: "Cobertura de Eventos",
+    tagline: "Foto e vídeo profissionais para registrar cada momento do seu evento.",
+    formatos: ["Eventos eletrônicos", "Casamentos", "Aniversários", "Eventos corporativos", "Confraternizações", "Formaturas"],
+    entrega: ["Captação profissional em foto e vídeo", "Organização e entrega dos arquivos", "Edição básica inclusa"],
+    exclusao: "Edição avançada e motion disponíveis como adicional.",
+    direitos: "Arquivos de uso exclusivo do cliente.",
+  },
+  {
+    id: "fotografo-videomaker", icon: "📸", name: "Fotógrafo / Videomaker",
+    tagline: "Fotos e vídeos profissionais, no seu local ou no nosso estúdio, com entrega no mesmo dia quando você precisar.",
+    formatos: ["Fotografia: meia diária ou diária completa", "Vídeo: captação para reels, institucional e produto", "Real time: edição e entrega no mesmo dia", "Estúdio LORDS em Itajaí ou no seu local", "Eventos e ações ao vivo"],
+    entrega: ["Fotos em alta resolução, selecionadas e tratadas", "Vídeos captados e editados no formato das redes", "Entrega expressa no mesmo dia (real time)"],
+    exclusao: "Quantidade de fotos e vídeos finais a combinar. Real time sujeito a agenda e estrutura do evento.",
+    direitos: "Arquivos de uso exclusivo do cliente.",
+  },
+  {
+    id: "site", icon: "🌐", name: "Criação de Site",
+    tagline: "One-page no template LORDS, pronto para converter clientes.",
+    formatos: ["Site one-page responsivo", "Template exclusivo LORDS", "Integração com WhatsApp", "Versão mobile e PWA"],
+    entrega: ["1 rodada de ajuste inclusa", "Entrega em até 15 dias úteis", "Manutenção opcional R$ 400/mês"],
+    exclusao: "Domínio e hospedagem não inclusos.",
+    direitos: "Site de propriedade do cliente após entrega.",
+  },
+  {
+    id: "midia-paga", icon: "📈", name: "Criativos / Gestão de Mídia Paga",
+    preco: "A partir de R$ 4.500/mês",
+    tagline: "Criativos que vendem e campanhas no TikTok, Meta e Google.",
+    formatos: ["Criativos em vídeo e estáticos para anúncio", "TikTok Ads", "Meta Ads (Instagram e Facebook)", "Google Ads", "Testes de criativos e públicos"],
+    entrega: ["Gestor + agente de IA cuidando das campanhas", "Análise de concorrentes e dos criativos que performam", "Relatório mensal de resultados"],
+    exclusao: "A verba dos anúncios é paga por você, direto nas plataformas.",
+    direitos: "Contas de anúncio e criativos ficam com o cliente.",
+  },
+];
+
 export const HUB_MODULES = [
   { id: "dashboard",    label: "Dashboard",    icon: "" },
   { id: "conteudos",    label: "Conteúdos",    icon: "" },

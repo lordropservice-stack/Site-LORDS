@@ -2555,3 +2555,6 @@ a, button { -webkit-tap-highlight-color: transparent; }
 .hm-hero-cta2 { color: #fff; border: 1px solid rgba(255,255,255,.55); background: rgba(255,255,255,.08); backdrop-filter: blur(6px); }
 .hm-hero-cta2:hover { background: rgba(255,255,255,.18); color: #fff; }
 a.wa-float { background: #1f5fe0 !important; box-shadow: 0 4px 20px rgba(31,95,224,.45) !important; color: #fff; }
+
+/* Preço no card de serviço avulso (ex.: mídia paga "a partir de") */
+.avulso-preco { margin: 10px 0 0; font-weight: 800; font-size: 1rem; color: var(--gold, #b8923a); }

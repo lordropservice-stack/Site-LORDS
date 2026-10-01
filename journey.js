@@ -4,7 +4,7 @@
    Renderiza a esteira de um produto que tenha `journey` nos dados
    e anima as cenas conforme o scroll (com fallback flat no mobile).
    ============================================================ */
-import { PRODUCTS } from "./products-data.js?v=20260929d";
+import { PRODUCTS } from "./products-data.js?v=20260929e";
 
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
