@@ -6,7 +6,7 @@
    4 Nichos horizontal · 5 Objeções · 6 Planos+bumps · 7 Excedente ·
    8 Prova social (bloqueada) · 9 Tecnologia · 10 FAQ · 11 Fechamento
    ============================================================ */
-import { PRODUCTS, PHOTO_REEL, COBERTURA_MEDIA, renderMockup, HUB_SCREENS, MEDIA, METODO_LORDS, SERVICOS_AVULSOS } from "./products-data.js?v=20261001a";
+import { PRODUCTS, PHOTO_REEL, COBERTURA_MEDIA, renderMockup, HUB_SCREENS, MEDIA, METODO_LORDS, SERVICOS_AVULSOS } from "./products-data.js?v=20261001b";
 import { SERVICOS as SERVICOS_DG, WHATSAPP_NUM } from "./diagnostico-data.js?v=20261001a";
 import { renderAbertura, renderPassos, initAbertura, fixLoops } from "./abertura.js?v=20260929a";
 import { buildHubMockupHTML, initHubMockup } from "./hub-mockup.js?v=20260929a";

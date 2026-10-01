@@ -2,7 +2,7 @@
    LORDS — Home · home.js (trilhas + seções + modal Calendly)
    ============================================================ */
 
-import { PRODUCTS, TRILHAS, renderMockup, NICHES_HOME, PHOTO_REEL, COBERTURA_MEDIA, HUB_SCREENS, MEDIA, METODO_LORDS, SERVICOS_AVULSOS } from "./products-data.js?v=20261001a";
+import { PRODUCTS, TRILHAS, renderMockup, NICHES_HOME, PHOTO_REEL, COBERTURA_MEDIA, HUB_SCREENS, MEDIA, METODO_LORDS, SERVICOS_AVULSOS } from "./products-data.js?v=20261001b";
 import { WHATSAPP_NUM } from "./diagnostico-data.js?v=20261001a";
 import { renderAbertura, renderPassos, initAbertura, fixLoops } from "./abertura.js?v=20260929a";
 import { buildHubMockupHTML, initHubMockup } from "./hub-mockup.js?v=20260929a";

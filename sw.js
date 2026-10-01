@@ -8,7 +8,7 @@ const CORE = [
   "prospeccao.html",
   "hub.css?v=20260917a",
   "hub.js?v=20260917a",
-  "products-data.js?v=20261001a",
+  "products-data.js?v=20261001b",
   "manifest.webmanifest?v=20260927a",
   "assets/favicon.svg",
   "icon-192.png",

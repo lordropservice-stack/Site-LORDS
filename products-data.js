@@ -457,7 +457,7 @@ export const PRODUCTS = {
         { id: "stories-isa", name: "Stories da comunicadora", price: 3500, recurring: true, desc: "Cerca de 14 sequências de stories por mês com a comunicadora no perfil da sua marca, gravadas em lote, presença constante sem você precisar aparecer." },
         { id: "mascote3d", name: "Mascote 3D da marca", price: 3000, recurring: false, desc: "Um personagem 3D exclusivo, criado pra sua marca e usado em todo o conteúdo." },
         { id: "gestao-redes", name: "Gestão de WhatsApp e redes sociais", price: 7000, recurring: true, requires: "trafego",
-          desc: "A gente responde o WhatsApp e as redes e publica por você, todo dia." },
+          desc: "A gente responde o WhatsApp e as redes, organiza o calendário de conteúdo e as postagens e publica por você, todo dia." },
       ],
       creator: [
         { id: "drone", name: "Drone na captação", price: 1500, recurring: false, desc: "Imagens aéreas no seu encontro de captação." },
@@ -466,7 +466,7 @@ export const PRODUCTS = {
         { id: "stories-isa", name: "Stories da comunicadora", price: 3500, recurring: true, desc: "Cerca de 14 sequências de stories por mês com a comunicadora no perfil da sua marca, gravadas em lote, presença constante além dos vídeos do plano." },
         { id: "mascote3d", name: "Mascote 3D da marca", price: 3000, recurring: false, desc: "Um personagem 3D exclusivo, criado pra sua marca e usado em todo o conteúdo." },
         { id: "gestao-redes", name: "Gestão de WhatsApp e redes sociais", price: 7000, recurring: true, requires: "trafego",
-          desc: "A gente responde o WhatsApp e as redes e publica por você, todo dia." },
+          desc: "A gente responde o WhatsApp e as redes, organiza o calendário de conteúdo e as postagens e publica por você, todo dia." },
       ],
       completo: [
         { id: "trafego", name: "Gestão de mídia paga", price: 4500, recurring: true, desc: "Gestor + agente de IA: campanhas em TikTok, Meta e Google, análise de concorrentes, leitura dos criativos que performam e relatórios. A verba dos anúncios é paga por você." },
@@ -476,7 +476,7 @@ export const PRODUCTS = {
         { id: "mascote3d", name: "Mascote 3D da marca", price: 3000, recurring: false, desc: "Um personagem 3D exclusivo, criado pra sua marca e usado em todo o conteúdo." },
         { id: "vfx", name: "Edição VFX", price: 2500, recurring: false, desc: "Vídeo com efeitos visuais de cinema, o criativo que ninguém no seu nicho consegue fazer." },
         { id: "gestao-redes", name: "Gestão de WhatsApp e redes sociais", price: 7000, recurring: true, requires: "trafego",
-          desc: "A gente responde o WhatsApp e as redes e publica por você, todo dia." },
+          desc: "A gente responde o WhatsApp e as redes, organiza o calendário de conteúdo e as postagens e publica por você, todo dia." },
       ],
     },
 

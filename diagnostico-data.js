@@ -1,7 +1,7 @@
 /* Diagnóstico LORDS — dados e regras compartilhados pela enquete (home/Fábrica),
    pela página diagnostico.html e pelo carrinho da Fábrica. */
 
-import { PRODUCTS } from "./products-data.js?v=20261001a";
+import { PRODUCTS } from "./products-data.js?v=20261001b";
 
 /* Número oficial (55 + DDD + número). Vazio = cai no Calendly. */
 export const WHATSAPP_NUM = "";
