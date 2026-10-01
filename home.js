@@ -2,12 +2,12 @@
    LORDS — Home · home.js (trilhas + seções + modal Calendly)
    ============================================================ */
 
-import { PRODUCTS, TRILHAS, renderMockup, NICHES_HOME, PHOTO_REEL, COBERTURA_MEDIA, HUB_SCREENS, MEDIA, METODO_LORDS, SERVICOS_AVULSOS } from "./products-data.js?v=20260929e";
-import { WHATSAPP_NUM } from "./diagnostico-data.js?v=20260929a";
+import { PRODUCTS, TRILHAS, renderMockup, NICHES_HOME, PHOTO_REEL, COBERTURA_MEDIA, HUB_SCREENS, MEDIA, METODO_LORDS, SERVICOS_AVULSOS } from "./products-data.js?v=20261001a";
+import { WHATSAPP_NUM } from "./diagnostico-data.js?v=20261001a";
 import { renderAbertura, renderPassos, initAbertura, fixLoops } from "./abertura.js?v=20260929a";
 import { buildHubMockupHTML, initHubMockup } from "./hub-mockup.js?v=20260929a";
 import { renderJourney, initJourneyVideos } from "./journey.js?v=20260928f";
-import { initEnquete } from "./enquete.js?v=20260929a";
+import { initEnquete } from "./enquete.js?v=20261001a";
 import { mountAgents } from "./agents.js?v=20260929a";
 const CALENDLY_URL = "https://calendly.com/lordropservice/30min";
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;

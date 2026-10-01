@@ -1,6 +1,6 @@
 /* Abertura compartilhada — as 3 primeiras telas são idênticas na home e na
    Fábrica Criativa (decisão do Lucas, 28/09/2026). Só o vídeo da VSL muda. */
-import { METODO_LORDS } from "./products-data.js?v=20260929e";
+import { METODO_LORDS } from "./products-data.js?v=20261001a";
 
 const HERO_VIDEOS = [
   "reel-isa-5.mp4", "automotivo-1.mp4", "moda-feminina-3.mp4", "reel-jennifer-3.mp4",

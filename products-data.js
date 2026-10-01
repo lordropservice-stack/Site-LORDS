@@ -449,7 +449,6 @@ export const PRODUCTS = {
     bumps: {
       capture: [
         { id: "drone", name: "Drone na captação", price: 1500, recurring: false, desc: "Imagens aéreas no seu encontro de captação." },
-        { id: "comunicadora", name: "Comunicadora, 1 visita", price: 2500, recurring: false, desc: "A comunicadora grava com você em uma visita, como rosto da marca." },
         { id: "trafego", name: "Gestão de mídia paga", price: 4500, recurring: true, desc: "Gestor + agente de IA: campanhas em TikTok, Meta e Google, análise de concorrentes, leitura dos criativos que performam e relatórios. A verba dos anúncios é paga por você." },
         { id: "posts", name: "5 posts (feed ou carrossel)", price: 1000, recurring: false, desc: "Cinco peças extras de feed ou carrossel." },
         /* `id` continua "stories-isa" de propósito: trocar quebraria o link
@@ -471,7 +470,6 @@ export const PRODUCTS = {
       ],
       completo: [
         { id: "trafego", name: "Gestão de mídia paga", price: 4500, recurring: true, desc: "Gestor + agente de IA: campanhas em TikTok, Meta e Google, análise de concorrentes, leitura dos criativos que performam e relatórios. A verba dos anúncios é paga por você." },
-        { id: "fotos", name: "Ensaio de fotos institucionais", price: 1200, recurring: false, desc: "Fotos realizadas pelo Videomaker no mesmo dia da visita." },
         { id: "posts", name: "5 posts extras", price: 1000, recurring: false, desc: "Cinco peças extras de feed ou carrossel." },
         { id: "site", name: "Criação e manutenção de site", price: 3500, recurring: false, monthly: 400, desc: "One-page no template LORDS com 1 rodada de ajuste. Manutenção com até 2 alterações mensais (R$ 400/mês)." },
         { id: "stories-isa", name: "Stories da comunicadora", price: 3500, recurring: true, desc: "Cerca de 14 sequências de stories por mês com a comunicadora no perfil da sua marca, gravadas em lote, presença constante além dos vídeos do plano." },
@@ -576,7 +574,7 @@ export const PRODUCTS = {
       questions: [
         { id: "segmento", q: "Qual o seu segmento?", type: "text", optional: true },
         { id: "local", q: "Onde fica o seu negócio?", type: "text", optional: true },
-        { id: "rosto", q: "Quem aparece nos vídeos?", type: "choice", options: ["Eu", "Minha equipe", "Prefiro não aparecer"], bump: "comunicadora" },
+        { id: "rosto", q: "Quem aparece nos vídeos?", type: "choice", options: ["Eu", "Minha equipe", "Prefiro não aparecer"] },
         { id: "anuncios", q: "Você já investe em anúncios?", type: "choice", options: ["Sim", "Não", "Já tentei e não deu"], bump: "trafego" },
         { id: "clientes", q: "Quantos clientes novos por mês você quer?", type: "text" },
         { id: "marketing", q: "Quem cuida do seu marketing hoje?", type: "choice", options: ["Ninguém", "Eu mesmo", "Freelancer", "Agência"] },

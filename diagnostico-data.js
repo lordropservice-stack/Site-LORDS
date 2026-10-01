@@ -1,7 +1,7 @@
 /* Diagnóstico LORDS — dados e regras compartilhados pela enquete (home/Fábrica),
    pela página diagnostico.html e pelo carrinho da Fábrica. */
 
-import { PRODUCTS } from "./products-data.js?v=20260929e";
+import { PRODUCTS } from "./products-data.js?v=20261001a";
 
 /* Número oficial (55 + DDD + número). Vazio = cai no Calendly. */
 export const WHATSAPP_NUM = "";
@@ -34,8 +34,8 @@ export const SERVICOS = [
   { id: "stories-isa",  nome: "Stories com a comunicadora no seu perfil", destaque: true, bump: "stories-isa" },
   { id: "site",         nome: "Criação de site", destaque: true, bump: "site" },
   { id: "gestao-redes", nome: "Gestão de redes e WhatsApp", destaque: true, bump: "gestao-redes" },
-  { id: "comunicadora", nome: "Comunicadora para gravação avulsa" },
-  { id: "fotografo",    nome: "Ensaio fotográfico", bump: "fotos" },
+  { id: "comunicadora", nome: "Comunicadora avulsa (gravação com o rosto da marca)" },
+  { id: "fotografo-videomaker", nome: "Fotógrafo / Videomaker avulso" },
   { id: "drone",        nome: "Imagens de drone", bump: "drone" },
   { id: "real-time",    nome: "Videomaker real time (entrega no mesmo dia)" },
   { id: "modelo",       nome: "Modelo para ensaio ou campanha" },

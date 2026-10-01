@@ -6,12 +6,12 @@
    4 Nichos horizontal · 5 Objeções · 6 Planos+bumps · 7 Excedente ·
    8 Prova social (bloqueada) · 9 Tecnologia · 10 FAQ · 11 Fechamento
    ============================================================ */
-import { PRODUCTS, PHOTO_REEL, COBERTURA_MEDIA, renderMockup, HUB_SCREENS, MEDIA, METODO_LORDS, SERVICOS_AVULSOS } from "./products-data.js?v=20260929e";
-import { SERVICOS as SERVICOS_DG, WHATSAPP_NUM } from "./diagnostico-data.js?v=20260929a";
+import { PRODUCTS, PHOTO_REEL, COBERTURA_MEDIA, renderMockup, HUB_SCREENS, MEDIA, METODO_LORDS, SERVICOS_AVULSOS } from "./products-data.js?v=20261001a";
+import { SERVICOS as SERVICOS_DG, WHATSAPP_NUM } from "./diagnostico-data.js?v=20261001a";
 import { renderAbertura, renderPassos, initAbertura, fixLoops } from "./abertura.js?v=20260929a";
 import { buildHubMockupHTML, initHubMockup } from "./hub-mockup.js?v=20260929a";
 import { mountAgents } from "./agents.js?v=20260929a";
-import { initEnquete, openEnquete, montarDiagnostico, telaFinal } from "./enquete.js?v=20260929a";
+import { initEnquete, openEnquete, montarDiagnostico, telaFinal } from "./enquete.js?v=20261001a";
 
 
 function sAgents() {
@@ -209,7 +209,7 @@ function sObjections(p) {
    reordena a lista sozinho, nos três lugares que mostram bumps. */
 /* Order bumps que mais combinam com cada plano: aparecem primeiro, com selo. */
 const RECOMENDADOS = {
-  capture: ["comunicadora", "trafego"],
+  capture: ["trafego", "stories-isa"],
   creator: ["stories-isa", "trafego"],
   completo: ["trafego", "gestao-redes"],
 };
@@ -1204,7 +1204,7 @@ function openFlow(entry, planId, preBump, preServico) {
   document.getElementById("flow-body")?.classList.remove("dg-inline");
   flow.bumps.clear(); flow.services.clear(); flow.answers = {}; flow.extras = [];
   if (preServico) {
-    const alias = { fotografo: "fotos", "fotografo-videomaker": "fotos", "midia-paga": "trafego" };
+    const alias = { "midia-paga": "trafego" };
     const id = alias[preServico] || preServico;
     if (servicosAvulsos(p).some((x) => x.id === id)) flow.services.add(id);
     else flow.extras.push(preServico);

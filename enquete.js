@@ -6,7 +6,7 @@
 import {
   NICHOS, CIDADES, SERVICOS, PERGUNTAS, recomendar, linkProposta, mensagemWA,
   destinoFinal, salvarLocal, WHATSAPP_NUM, planosParaEscolha,
-} from "./diagnostico-data.js?v=20260929a";
+} from "./diagnostico-data.js?v=20261001a";
 
 const CSS_HREF = "diagnostico.css?v=20260928p";
 if (!document.querySelector(`link[href^="diagnostico.css"]`)) {

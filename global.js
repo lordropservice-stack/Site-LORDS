@@ -318,7 +318,6 @@ const GLOBAL_BUMPS = {
   en: {
     capture: [
       { id: "drone", name: "Drone filming", price: 390, recurring: false, desc: "Aerial shots at your filming session." },
-      { id: "communicator", name: "Communicator — 1 visit", price: 650, recurring: false, desc: "Our trilingual communicator films with you as brand face." },
       { id: "traffic", name: "Paid traffic management", price: 1200, recurring: true, desc: "Manager + AI: Meta & Google campaigns, competitor analysis, creative performance reports. Ad spend paid by you." },
       { id: "posts", name: "5 extra posts", price: 260, recurring: false, desc: "Five extra feed or carousel posts." },
       { id: "stories", name: "Daily stories (communicator)", price: 1300, recurring: true, desc: "The communicator films daily stories for your brand — every other day, in EN/ES/PT." },
@@ -338,7 +337,6 @@ const GLOBAL_BUMPS = {
       { id: "traffic", name: "Paid traffic management", price: 1200, recurring: true, desc: "Manager + AI: Meta & Google campaigns, competitor analysis and reports. Ad spend paid by you." },
       { id: "social", name: "Social & WhatsApp management", price: 1800, recurring: true, requires: "traffic", desc: "We reply on WhatsApp and socials and publish daily for you." },
       { id: "mascot", name: "3D brand mascot", price: 790, recurring: false, desc: "An exclusive 3D character created for your brand." },
-      { id: "photos", name: "Institutional photo session", price: 320, recurring: false, desc: "Photos by the videographer on the same filming day." },
       { id: "vfx", name: "VFX editing", price: 650, recurring: false, desc: "Cinematic visual effects — creative no one in your niche can match." },
       { id: "site", name: "Website creation", price: 920, recurring: false, monthly: 105, desc: "One-page site in LORDS template. Maintenance: +$105/mo." },
       { id: "trip", name: "Content trip (event coverage)", price: 3500, recurring: false, desc: "1–3 days of filming on-location anywhere in Brazil." },
@@ -347,7 +345,6 @@ const GLOBAL_BUMPS = {
   es: {
     capture: [
       { id: "drone", name: "Filmación con drone", price: 390, recurring: false, desc: "Tomas aéreas en tu sesión de filmación." },
-      { id: "communicator", name: "Comunicadora — 1 visita", price: 650, recurring: false, desc: "Nuestra comunicadora trilingüe filma contigo como imagen de marca." },
       { id: "traffic", name: "Gestión de tráfico pago", price: 1200, recurring: true, desc: "Gestor + IA: campañas en Meta y Google, análisis de competidores, reportes. Presupuesto de anuncios lo pagas tú." },
       { id: "posts", name: "5 posts extra", price: 260, recurring: false, desc: "Cinco piezas extras de feed o carrusel." },
       { id: "stories", name: "Stories diarios (comunicadora)", price: 1300, recurring: true, desc: "La comunicadora filma stories para tu marca día por medio, en EN/ES/PT." },
@@ -367,7 +364,6 @@ const GLOBAL_BUMPS = {
       { id: "traffic", name: "Gestión de tráfico pago", price: 1200, recurring: true, desc: "Gestor + IA: campañas en Meta y Google, análisis y reportes." },
       { id: "social", name: "Gestión de redes y WhatsApp", price: 1800, recurring: true, requires: "traffic", desc: "Respondemos WhatsApp y redes y publicamos todos los días." },
       { id: "mascot", name: "Mascota 3D de marca", price: 790, recurring: false, desc: "Un personaje 3D exclusivo para tu marca." },
-      { id: "photos", name: "Sesión de fotos institucional", price: 320, recurring: false, desc: "Fotos realizadas por el videógrafo el mismo día de filmación." },
       { id: "vfx", name: "Edición VFX", price: 650, recurring: false, desc: "Efectos visuales de cine — el creativo que nadie en tu nicho puede hacer." },
       { id: "site", name: "Creación de sitio web", price: 920, recurring: false, monthly: 105, desc: "One-page en el template LORDS con 1 ronda de ajustes. Mantenimiento: +$105/mes." },
       { id: "trip", name: "Content trip (cobertura de eventos)", price: 3500, recurring: false, desc: "1–3 días de filmación en cualquier lugar de Brasil." },

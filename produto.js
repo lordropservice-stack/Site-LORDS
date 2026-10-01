@@ -1,7 +1,7 @@
 /* ============================================================
    LORDS — produto.js · página dedicada por produto (?p=slug)
    ============================================================ */
-import { PRODUCTS, TRILHAS, renderMockup } from "./products-data.js?v=20260929e";
+import { PRODUCTS, TRILHAS, renderMockup } from "./products-data.js?v=20261001a";
 import { renderConfigurator, initConfigurator } from "./configurator.js";
 
 const CALENDLY_URL = "https://calendly.com/lordropservice/30min";
